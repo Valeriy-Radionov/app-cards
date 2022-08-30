@@ -1,0 +1,9 @@
+.superInput {
+    color: black;
+    border: 1px solid goldenrod;
+}
+
+.errorInput {
+    border: 1px solid red;
+    border-radius: 5px;
+}

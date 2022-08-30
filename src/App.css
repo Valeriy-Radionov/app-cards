@@ -1,4 +1,7 @@
 .App {
   box-sizing: border-box;
+  background-color: #282c34;
+  height: 100vh;
+  color: white;
 }
 

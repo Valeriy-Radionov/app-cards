@@ -1,8 +1,8 @@
 import React from 'react';
 import style from "./Header.module.css"
-import {NavLink} from "react-router-dom";
 import SuperButton from "../../../common/c2-SuperButton/SuperButton";
-import {PATH} from "../routes/Routes";
+import {PATH} from "../routs/Routs";
+import {NavLink} from "react-router-dom";
 
 export const Header = () => {
 
@@ -15,7 +15,7 @@ export const Header = () => {
             <NavLink to={PATH.PROFILE} className={style.linkNavBar}>PROFILE</NavLink>
             <NavLink to={PATH.TEST} className={style.linkNavBar}>ALL COMPONENTS</NavLink>
             <NavLink to={PATH.ERROR} className={style.linkNavBar}>ERROR 404 NOT FOUND</NavLink>
-            <SuperButton className={style.buttonMenu}></SuperButton>
+            <SuperButton className={style.buttonMenu}>Menu⭐︎</SuperButton>
         </div>
     );
 };
