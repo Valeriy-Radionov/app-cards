@@ -5,7 +5,7 @@ import {SetPassword} from "../../components/auth/setPassword/SetPassword";
 import {Recovery} from "../../components/auth/recovery/Recovery";
 import {Registration} from "../../components/auth/registration/Registration";
 import {Profile} from "../../components/profile/Profile";
-import {SuperComponents} from "../../components/testSuperComponent/SuperComponents";
+import {SuperComponents} from "../../components/superComponent/SuperComponents";
 import {Error} from "../../components/error/Error";
 
 export const PATH = {

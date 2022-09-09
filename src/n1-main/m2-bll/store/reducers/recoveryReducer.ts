@@ -1,11 +1,11 @@
-const RECOVERY = "RECOVERY"
+const RECOVERY = "RECOVERY/RECOVERY"
 
 const initState = {
 
 }
 export const recoveryReducer = (state = initState, action: RecoveryActionsType): typeof initState => {
     switch (action.type) {
-        case "RECOVERY": {
+        case "RECOVERY/RECOVERY": {
             return state
         }
         default: return state
@@ -15,8 +15,8 @@ export const recoveryReducer = (state = initState, action: RecoveryActionsType):
 type RecoveryActionsType = RecoveryACType
 
 type RecoveryACType = ReturnType<typeof recoveryAC>
-export const recoveryAC = () => {
-    return {
+export const recoveryAC = () => (
+    {
         type: RECOVERY,
     } as const
-}
+)

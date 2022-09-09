@@ -1,11 +1,11 @@
-const PROFILE = "PROFILE"
+const PROFILE = "PROFILE/PROFILE"
 
 const initState = {
 
 }
 export const profileReducer = (state = initState, action: ProfileActionsType): typeof initState => {
     switch (action.type) {
-        case "PROFILE": {
+        case "PROFILE/PROFILE": {
             return state
         }
         default: return state
@@ -15,8 +15,8 @@ export const profileReducer = (state = initState, action: ProfileActionsType): t
 type ProfileActionsType = ProfileACType
 
 type ProfileACType = ReturnType<typeof profileAC>
-export const profileAC = () => {
-    return {
+export const profileAC = () => (
+    {
         type: PROFILE,
     } as const
-}
+)

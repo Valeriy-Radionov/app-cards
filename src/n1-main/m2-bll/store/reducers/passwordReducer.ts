@@ -1,11 +1,11 @@
-const SET_PASSWORD = "SET-PASSWORD"
+const SET_PASSWORD = "PASSWORD/SET-PASSWORD"
 
 const initState = {
 
 }
 export const passwordReducer = (state = initState, action: PasswordActionsType): typeof initState => {
     switch (action.type) {
-        case "SET-PASSWORD": {
+        case "PASSWORD/SET-PASSWORD": {
             return state
         }
         default: return state
@@ -15,8 +15,8 @@ export const passwordReducer = (state = initState, action: PasswordActionsType):
 type PasswordActionsType = PasswordACType
 
 type PasswordACType = ReturnType<typeof passwordAC>
-export const passwordAC = () => {
-    return {
+export const passwordAC = () => (
+    {
         type: SET_PASSWORD,
     } as const
-}
+)

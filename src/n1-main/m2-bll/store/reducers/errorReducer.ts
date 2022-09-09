@@ -1,22 +1,22 @@
-const ERROR = "ERROR"
+const ERROR = "ERROR/ERROR-MESSAGE"
 
 const initState = {
 
 }
-export const errorReducer = (state = initState, action: RegistrActionsType): typeof initState => {
+export const errorReducer = (state = initState, action: RegistrationActionsType): typeof initState => {
     switch (action.type) {
-        case "ERROR": {
+        case "ERROR/ERROR-MESSAGE": {
             return state
         }
         default: return state
     }
 }
 
-type RegistrActionsType = ErrorACType
+type RegistrationActionsType = ErrorACType
 
 type ErrorACType = ReturnType<typeof errorAC>
-export const errorAC = () => {
-    return {
+export const errorAC = () => (
+    {
         type: ERROR,
     } as const
-}
+)

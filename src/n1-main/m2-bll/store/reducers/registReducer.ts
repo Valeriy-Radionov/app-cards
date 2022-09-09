@@ -1,22 +1,22 @@
-const REGISTR = "REGISTR"
+const REGISTRATION = "REGISTRATION/REGISTRATION"
 
 const initState = {
 
 }
-export const registrReducer = (state = initState, action: RegistrActionsType): typeof initState => {
+export const registrationReducer = (state = initState, action: RegistrationActionsType): typeof initState => {
     switch (action.type) {
-        case "REGISTR": {
+        case "REGISTRATION/REGISTRATION": {
             return state
         }
         default: return state
     }
 }
 
-type RegistrActionsType = RegistrACType
+type RegistrationActionsType = RegistrationACType
 
-type RegistrACType = ReturnType<typeof registrAC>
-export const registrAC = () => {
-    return {
-        type: REGISTR,
+type RegistrationACType = ReturnType<typeof registrationAC>
+export const registrationAC = () => (
+    {
+        type: REGISTRATION,
     } as const
-}
+)
