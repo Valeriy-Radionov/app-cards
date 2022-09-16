@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import {Header} from "./n1-main/m1-ui/main/pageNavigation/header/Header";
-import {Routs} from "./n1-main/m1-ui/main/pageNavigation/routs/Routs";
+import {Header} from "../components/header/Header";
+import {Routs} from "../common/routings/Routs";
 
 const App = () => {
   return (

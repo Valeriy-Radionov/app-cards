@@ -1,0 +1,48 @@
+.btn {
+  box-sizing: border-box;
+  z-index: 1;
+  font-weight: 500;
+  min-width: 120px;
+  appearance: none;
+  background-color: transparent;
+  border: 2px solid red;
+  border-radius: 0.6em;
+  color: red;
+  cursor: pointer;
+  font-size: 16px;
+  justify-content: center;
+  line-height: 1;
+  margin: 20px;
+  height: 40px;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+
+  &:hover, &:focus {
+    color: white;
+    outline: 0;
+  }
+}
+
+.buttonDef {
+  border-color: #003ca1;
+  color: white;
+  box-shadow: 0 0 40px 40px #003ca1 inset, 0 0 0 0 #003ca1;
+  -webkit-transition: all 150ms ease-in-out;
+  transition: all 150ms ease-in-out;
+
+  &:hover {
+    box-shadow: 0 0 10px 0 #003ca1 inset, 0 0 10px 4px #003ca1;
+  }
+}
+.red {
+  border-color: red;
+  color: white;
+  box-shadow: 0 0 40px 40px red inset, 0 0 0 0 red;
+  -webkit-transition: all 150ms ease-in-out;
+  transition: all 150ms ease-in-out;
+
+  &:hover {
+    box-shadow: 0 0 10px 0 red inset, 0 0 10px 4px red;
+  }}
+
