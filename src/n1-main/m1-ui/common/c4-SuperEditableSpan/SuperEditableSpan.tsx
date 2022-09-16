@@ -1,6 +1,6 @@
 import React, {DetailedHTMLProps, HTMLAttributes, InputHTMLAttributes, useState} from 'react'
-import SuperInputText from "../c1-SuperInputText/SuperInputText"
 import s from './SpanStyle.module.css'
+import SuperInputText from "../c1-SuperInputText 2/SuperInputText";
 // тип пропсов обычного инпута
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 // тип пропсов обычного спана

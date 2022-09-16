@@ -1,10 +1,12 @@
-import {combineReducers, legacy_createStore} from "redux";
-import {loginReducer} from "./reducers/loginReducer";
-import {registrationReducer} from "./reducers/registReducer";
-import {passwordReducer} from "./reducers/passwordReducer";
-import {recoveryReducer} from "./reducers/recoveryReducer";
-import {errorReducer} from "./reducers/errorReducer";
-import {profileReducer} from "./reducers/profileReducer";
+import {combineReducers, legacy_createStore, applyMiddleware} from "redux";
+import {LoginActionsType, loginReducer} from "./reducers/loginReducer";
+import {RegistrationActionsType, registrationReducer} from "./reducers/registReducer";
+import {PasswordActionsType, passwordReducer} from "./reducers/passwordReducer";
+import {RecoveryActionsType, recoveryReducer} from "./reducers/recoveryReducer";
+import {ErrorActionsType, errorReducer} from "./reducers/errorReducer";
+import {ProfileActionsType, profileReducer} from "./reducers/profileReducer";
+import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk'
+import {TypedUseSelectorHook, useSelector} from "react-redux";
 const reducers = combineReducers({
     login: loginReducer,
     registration: registrationReducer,
@@ -15,11 +17,16 @@ const reducers = combineReducers({
 
 })
 
-const store = legacy_createStore(reducers)
+export const store = legacy_createStore(reducers,applyMiddleware(thunkMiddleware))
 
-export default store
+export type AppRootStateType = ReturnType<typeof store.getState>
+export type AppActionsType = ErrorActionsType | LoginActionsType | PasswordActionsType | ProfileActionsType | RecoveryActionsType | RegistrationActionsType
 
-export type AppRootStateType = ReturnType<typeof reducers>
+export const useAppDispatch = store.dispatch as ThunkDispatch<AppRootStateType, unknown, AppActionsType>
+export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
+
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AppActionsType>
+
 
 // @ts-ignore
 window.store = store // for dev

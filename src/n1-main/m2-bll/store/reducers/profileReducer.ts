@@ -12,7 +12,7 @@ export const profileReducer = (state = initState, action: ProfileActionsType): t
     }
 }
 
-type ProfileActionsType = ProfileACType
+export type ProfileActionsType = ProfileACType
 
 type ProfileACType = ReturnType<typeof profileAC>
 export const profileAC = () => (

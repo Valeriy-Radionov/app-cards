@@ -1,8 +1,8 @@
 import React from 'react';
 import style from "./Header.module.css"
-import SuperButton from "../../../common/c2-SuperButton/SuperButton";
 import {PATH} from "../routs/Routs";
 import {NavLink} from "react-router-dom";
+import SuperButton from "../../../common/c2-SuperButton 2/SuperButton";
 
 export const Header = () => {
 

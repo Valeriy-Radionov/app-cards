@@ -12,7 +12,7 @@ export const recoveryReducer = (state = initState, action: RecoveryActionsType):
     }
 }
 
-type RecoveryActionsType = RecoveryACType
+export type RecoveryActionsType = RecoveryACType
 
 type RecoveryACType = ReturnType<typeof recoveryAC>
 export const recoveryAC = () => (

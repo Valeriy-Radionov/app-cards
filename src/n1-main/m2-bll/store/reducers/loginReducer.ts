@@ -11,7 +11,7 @@ export const loginReducer = (state = initState, action: LoginActionsType): typeo
     }
 }
 
-type LoginActionsType = LoginACType
+export type LoginActionsType = LoginACType
 
 type LoginACType = ReturnType<typeof loginAC>
 export const loginAC = () => (

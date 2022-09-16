@@ -12,7 +12,7 @@ export const registrationReducer = (state = initState, action: RegistrationActio
     }
 }
 
-type RegistrationActionsType = RegistrationACType
+export type RegistrationActionsType = RegistrationACType
 
 type RegistrationACType = ReturnType<typeof registrationAC>
 export const registrationAC = () => (

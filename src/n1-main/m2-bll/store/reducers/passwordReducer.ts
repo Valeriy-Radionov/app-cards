@@ -12,7 +12,7 @@ export const passwordReducer = (state = initState, action: PasswordActionsType):
     }
 }
 
-type PasswordActionsType = PasswordACType
+export type PasswordActionsType = PasswordACType
 
 type PasswordACType = ReturnType<typeof passwordAC>
 export const passwordAC = () => (
