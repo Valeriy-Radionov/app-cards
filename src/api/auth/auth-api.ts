@@ -9,8 +9,6 @@ export type LoginDataType = {
     email: string,
     password: string,
     rememberMe: boolean,
-    error?:string,
-    in?:string
 }
 export type LoginResponseType = {
     _id: string,
@@ -23,7 +21,6 @@ export type LoginResponseType = {
     isAdmin: boolean,
     verified: boolean,
     rememberMe: boolean,
-    error?: string
 }
 export type RegisterDatatype = {
     email: string,
@@ -46,7 +43,6 @@ export type UserDataType = {
 }
 export type RegisterResponseDataType = {
     addedUser: UserDataType
-    error?: string;
 }
 export type UpdateUserType = {
     name: string,
@@ -59,8 +55,6 @@ export type UpdateUserResponseType = {
 }
 export type LogOutForgotResponseType = {
     info?:string,
-    error?: string,
-    in?: string,
     email?:string
 }
 export type ForgotPasswordDataType = {
@@ -77,10 +71,8 @@ export type BlockDataType = {
     blockReason: string
 }
 export type BlockResponseType = {
-    error?:string,
-    in?:string,
-    user?: string,
-    blockedCardPacksCount?: number
+    user: string,
+    blockedCardPacksCount: number
 }
 
 
