@@ -1,22 +1,39 @@
+
+
 const PROFILE = "PROFILE/PROFILE"
 
-const initState = {
-
+export type ProfileStateType = {
+    id: string,
+    email: string,
+    name: string,
+    publicCardPacksCount: number,
+    avatar?: string
 }
-export const profileReducer = (state = initState, action: ProfileActionsType): typeof initState => {
+
+const initialProfileState = {
+    id: '',
+    email: '',
+    name: '',
+    publicCardPacksCount: 0,
+    avatar:'https://icons.iconarchive.com/icons/hopstarter/soft-scraps/256/User-Administrator-Blue-icon.png'
+}
+export const profileReducer = (state:ProfileStateType = initialProfileState, action: ProfileActionsType): ProfileStateType => {
     switch (action.type) {
         case "PROFILE/PROFILE": {
-            return state
+            return {...state,}
         }
         default: return state
     }
 }
 
-export type ProfileActionsType = ProfileACType
+export type ProfileActionsType = SetProfileACType
 
-type ProfileACType = ReturnType<typeof profileAC>
-export const profileAC = () => (
+type SetProfileACType = ReturnType<typeof setProfileAC>
+export const setProfileAC = (profile:ProfileStateType) => (
     {
         type: PROFILE,
+        payload: {
+            profile
+        }
     } as const
 )
