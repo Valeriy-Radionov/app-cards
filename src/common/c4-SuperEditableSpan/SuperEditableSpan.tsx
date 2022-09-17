@@ -1,6 +1,6 @@
 import React, {DetailedHTMLProps, HTMLAttributes, InputHTMLAttributes, useState} from 'react'
 import s from './SpanStyle.module.css'
-import SuperInputText from "../c1-SuperInputText 2/SuperInputText";
+//import SuperInputText from "../c1-SuperInputText 2/SuperInputText";
 // тип пропсов обычного инпута
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 // тип пропсов обычного спана
@@ -50,29 +50,29 @@ const SuperEditableSpan: React.FC<SuperEditableSpanType> = (
 
     return (
         <>
-            {editMode
-                ? (
-                    <SuperInputText
-                        autoFocus // пропсу с булевым значением не обязательно указывать true
-                        onBlur={onBlurCallback}
-                        onEnter={onEnterCallback}
+            {/*{editMode*/}
+            {/*    ? (*/}
+            {/*        <SuperInputText*/}
+            {/*            autoFocus // пропсу с булевым значением не обязательно указывать true*/}
+            {/*            onBlur={onBlurCallback}*/}
+            {/*            onEnter={onEnterCallback}*/}
 
-                        {...restProps} // отдаём инпуту остальные пропсы если они есть (value например там внутри)
-                    />
-                ) : (
-                    <span
-                        onDoubleClick={onDoubleClickCallBack}
-                        className={spanClassName}
-                        {...restSpanProps}
-                    >
-                        {/*если нет захардкодженного текста для спана, то значение инпута*/}
-                        <img className={s.spanImage}
-                             src="src/p2-homeworks/h6/common/c4-SuperEditableSpan/refactorIcon.png"
-                             alt="def"/>{children || restProps.value}
-                        Edit
-                    </span>
-                )
-            }
+            {/*            {...restProps} // отдаём инпуту остальные пропсы если они есть (value например там внутри)*/}
+            {/*        />*/}
+            {/*    ) : (*/}
+            {/*        <span*/}
+            {/*            onDoubleClick={onDoubleClickCallBack}*/}
+            {/*            className={spanClassName}*/}
+            {/*            {...restSpanProps}*/}
+            {/*        >*/}
+            {/*            /!*если нет захардкодженного текста для спана, то значение инпута*!/*/}
+            {/*            <img className={s.spanImage}*/}
+            {/*                 src="src/p2-homeworks/h6/common/c4-SuperEditableSpan/refactorIcon.png"*/}
+            {/*                 alt="def"/>{children || restProps.value}*/}
+            {/*            Edit*/}
+            {/*        </span>*/}
+            {/*    )*/}
+            {/*}*/}
         </>
     )
 }
