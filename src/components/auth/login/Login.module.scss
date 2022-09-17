@@ -1,0 +1,65 @@
+.container {
+  display: flex;
+  border: 1px solid red;
+  flex-direction: column;
+  max-width: 413px;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  color: black;
+  background-color: #FFFFFF;
+  .blockAuth {
+    border: 1px solid blue;
+    & h1 {
+      font-style: normal;
+      font-weight: 600;
+      font-size: 26px;
+      line-height: 32px;
+      text-align: center;
+    }
+    .form {
+      display: flex;
+      flex-direction: column;
+      .forgotLink {
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 17px;
+        text-align: right;
+        color: #000000;
+      }
+      & label {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 20px;
+        opacity: 0.5;
+      }
+      .signUpLink {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        text-align: center;
+        text-decoration-line: underline;
+        color: #366EFF;
+      }
+      .descriptionInfo {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 24px;
+        text-align: center;
+        opacity: 0.5;
+      }
+      .checkbox {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 17px;
+        text-align: center;
+        color: black;
+      }
+    }
+  }
+}
