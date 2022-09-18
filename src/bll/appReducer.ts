@@ -1,8 +1,6 @@
 import { AppThunk} from "./store";
 import {Dispatch} from "redux";
 
-
-
 const initialState = {
     isInitialized: false
 }

@@ -5,6 +5,34 @@ export const instance = axios.create({
     withCredentials: true,
 })
 
+export const authAPI = {
+    login(loginData: LoginDataType) {
+        return instance.post<LoginDataType, AxiosResponse<LoginResponseType>>('auth/login', loginData)
+    },
+    register(registerData: RegisterDatatype) {
+        return instance.post<RegisterDatatype, AxiosResponse<RegisterResponseDataType>>('auth/register', registerData)
+    },
+    isAuth() {
+        return instance.post<UserDataType>('auth/me')
+    },
+    userUpdate(updateData: UpdateUserType) {
+        return instance.put('auth/me', updateData)
+        // <UpdateUserType,AxiosResponse<UpdateUserResponseType>>
+    },
+    logOut () {
+        return instance.delete<LogOutForgotResponseType>('auth/me')
+    },
+    forgotPassword (forgotPasswordData:ForgotPasswordDataType) {
+        return instance.post<ForgotPasswordDataType,AxiosResponse<LogOutForgotResponseType>>('/auth/forgot',forgotPasswordData)
+    },
+    setNewPassword (setNewPasswordData:SetNewPasswordDataType) {
+        /////////////
+    },
+    blockUser (blockData:BlockDataType) {
+        return instance.post<BlockDataType,AxiosResponse<BlockResponseType>> ('auth/block',blockData)
+    }
+}
+
 export type LoginDataType = {
     email: string,
     password: string,
@@ -34,8 +62,8 @@ export type UserDataType = {
     name: string,
     verified: boolean,
     publicCardPacksCount: number,
-    created: Date,
-    updated: Date,
+    created: any,
+    updated: any,
     __v: number,
     token?: string,
     tokenDeathTime?: number,
@@ -45,8 +73,8 @@ export type RegisterResponseDataType = {
     addedUser: UserDataType
 }
 export type UpdateUserType = {
-    name: string,
-    avatar: string
+    name?: string,
+    avatar?: string
 }
 export type UpdateUserResponseType = {
     updatedUser: UserDataType,
@@ -73,35 +101,4 @@ export type BlockDataType = {
 export type BlockResponseType = {
     user: string,
     blockedCardPacksCount: number
-}
-
-
-
-export const authAPI = {
-    login(loginData: LoginDataType) {
-        return instance.post<LoginDataType, AxiosResponse<LoginResponseType>>('auth/login', loginData)
-    },
-    register(registerData: RegisterDatatype) {
-        return instance.post<RegisterDatatype, AxiosResponse<RegisterResponseDataType>>('auth/register', registerData)
-    },
-    isAuth() {
-        return instance.post<UserDataType>('auth/me')
-    },
-    userUpdate(updateData: UpdateUserType) {
-        return instance.put<UpdateUserType,AxiosResponse<UpdateUserResponseType>>('auth/me', updateData)
-    },
-    logOut () {
-        return instance.post<LogOutForgotResponseType>('auth/me')
-    },
-    forgotPassword (forgotPasswordData:ForgotPasswordDataType) {
-        return instance.post<ForgotPasswordDataType,AxiosResponse<LogOutForgotResponseType>>('/auth/forgot',forgotPasswordData)
-    },
-    setNewPassword (setNewPasswordData:SetNewPasswordDataType) {
-        /////////////
-    },
-    blockUser (blockData:BlockDataType) {
-        return instance.post<BlockDataType,AxiosResponse<BlockResponseType>> ('auth/block',blockData)
-    }
-
-
 }
