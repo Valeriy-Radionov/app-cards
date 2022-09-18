@@ -7,7 +7,7 @@ import {ErrorActionsType, errorReducer} from "./errorReducer";
 import {ProfileActionsType, profileReducer} from "./profileReducer";
 import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk'
 import {TypedUseSelectorHook, useSelector} from "react-redux";
-import axios from "axios";
+import {appReducer} from "./appReducer";
 
 const reducers = combineReducers({
     login: loginReducer,
@@ -15,14 +15,20 @@ const reducers = combineReducers({
     password: passwordReducer,
     recovery: recoveryReducer,
     profile: profileReducer,
-    error: errorReducer
-
+    error: errorReducer,
+    app: appReducer
 })
 
-export const store = legacy_createStore(reducers,applyMiddleware(thunkMiddleware))
+export const store = legacy_createStore(reducers, applyMiddleware(thunkMiddleware))
 
 export type AppRootStateType = ReturnType<typeof store.getState>
-export type AppRootActionsType = ErrorActionsType | LoginActionsType | PasswordActionsType | ProfileActionsType | RecoveryActionsType | RegistrationActionsType
+export type AppRootActionsType =
+    ErrorActionsType
+    | LoginActionsType
+    | PasswordActionsType
+    | ProfileActionsType
+    | RecoveryActionsType
+    | RegistrationActionsType
 
 export const useAppDispatch = store.dispatch as ThunkDispatch<AppRootStateType, unknown, AppRootActionsType>
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
