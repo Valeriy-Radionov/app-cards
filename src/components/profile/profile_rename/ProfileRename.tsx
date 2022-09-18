@@ -1,5 +1,6 @@
 import React, {ChangeEvent, useState} from 'react';
 import {UpdateUserType} from "../../../api/auth/auth-api";
+import stroke from '../../../common/image/Edit.svg'
 
 type EditableSpanPropsType = {
     name: string
@@ -36,7 +37,7 @@ const ProfileRename: React.FC<EditableSpanPropsType> = ({name, changeTask, disab
                     />
                     <button onClick={activateViewMode}>SAVE</button>
                 </>
-                : <span onDoubleClick={activateEditMode}>{name}</span>}
+                : <span onDoubleClick={activateEditMode}>{name} <img src={stroke}/></span>}
         </div>
     );
 };
