@@ -30,7 +30,10 @@ export const Profile = () => {
     return (
         <div className={s.container}>
             <div className={s.link}>
-                <NavLink to={'/login'}><img src={arrow} alt=""/>Back to Packs List</NavLink>
+                <NavLink to={'/login'}>
+                    <img src={arrow} alt=""/>
+                    Back to Packs List
+                </NavLink>
             </div>
             <div className={s.block}>
                 <h1>Personal information</h1>
