@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../../bll/store";
 import {EmailSentPage} from "./EmailSentPage";
-import {sendEmail} from "../../../bll/recoveryReducer";
+import {recoveryAC, sendEmail} from "../../../bll/recoveryReducer";
 import {useFormik} from "formik";
 import SuperInputText from "../../../common/c1-SuperInputText 2/SuperInputText";
 import SuperButton from "../../../common/c2-SuperButton 2/SuperButton";
@@ -14,7 +14,6 @@ type FormikErrorType = {
 export const Recovery = () => {
     const dispatch = useAppDispatch
     const isSentEmail = useAppSelector(state => state.recovery.isEmailSent)
-
 
     const formik = useFormik({
         initialValues: {
@@ -37,6 +36,10 @@ export const Recovery = () => {
         }
 
     })
+
+    useEffect(() => {
+        dispatch(recoveryAC(false))
+    }, [])
 
 
     return (

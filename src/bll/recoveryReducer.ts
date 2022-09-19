@@ -4,7 +4,7 @@ import {Dispatch} from "redux";
 const RECOVERY = "RECOVERY/RECOVERY"
 
 const initState = {
-    isEmailSent: true
+    isEmailSent: false
 }
 export const recoveryReducer = (state = initState, action: RecoveryActionsType): typeof initState => {
     switch (action.type) {

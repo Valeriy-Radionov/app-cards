@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useState} from 'react';
 import {UpdateUserType} from "../../../api/auth/auth-api";
-// import stroke from '../../../common/image/Edit.svg'
+import stroke from '../../../common/image/Edit.svg'
 import s from './ProfileReName.module.scss'
 
 type EditableSpanPropsType = {
@@ -20,7 +20,7 @@ const ProfileRename: React.FC<EditableSpanPropsType> = ({name, changeTask, disab
     }
     const activateViewMode = () => {
         setEditMode(false)
-        changeTask({name: title})
+        changeTask({avatar: `https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRRyYPpSOn_kpXBtE4wJ50MCIJ9J7bBAq8_swh03mb1kml7lGqF`})
     }
     const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
@@ -39,7 +39,7 @@ const ProfileRename: React.FC<EditableSpanPropsType> = ({name, changeTask, disab
                     />
                     <button onClick={activateViewMode}>SAVE</button>
                 </div>
-                : <span onDoubleClick={activateEditMode}>{name} <img src={`stroke`}/></span>}
+                : <span onDoubleClick={activateEditMode}>{name} <img src={stroke}/></span>}
         </div>
     );
 };

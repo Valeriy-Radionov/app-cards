@@ -5,8 +5,8 @@ import {initializeProfileTC, logoutTC, updateUserTC} from "../../bll/profileRedu
 import {useAppDispatch, useAppSelector} from "../../bll/store";
 import {Navigate, NavLink} from "react-router-dom";
 import {UpdateUserType} from "../../api/auth/auth-api";
-// import arrow from '../../common/image/Vector 1.svg'
-// import updateAva from '../../common/image/Union.svg'
+import arrow from '../../common/image/Vector 1.svg'
+import updateAva from '../../common/image/Union.svg'
 
 export const Profile = () => {
     const dispatch = useAppDispatch
@@ -31,7 +31,7 @@ export const Profile = () => {
         <div className={s.container}>
             <div className={s.link}>
                 <NavLink to={'/login'}>
-                    <img src={`arrow`} alt=""/>
+                    <img src={arrow} alt=""/>
                     Back to Packs List
                 </NavLink>
             </div>
@@ -40,7 +40,7 @@ export const Profile = () => {
                 <div className={s.imgBlock}>
                     <img src={user.avatar} alt="" className={s.avatar}/>
                     <div>
-                        <img src={`updateAva`} alt='' className={s.updateAva}/>
+                        <img src={updateAva} alt='' className={s.updateAva}/>
                     </div>
                 </div>
                 <ProfileRename name={user.name} changeTask={updateUsers}/>
