@@ -14,7 +14,7 @@ export const PATH = {
     PROFILE: "/profile",
     ERROR: "/error-404",
     RECOVERY: "/recovery-password",
-    SET_PASSWORD: "/set-password",
+    SET_PASSWORD: "/set-password/*",
     TEST: "all-super-components"
 }
 export const Routs = () => {
