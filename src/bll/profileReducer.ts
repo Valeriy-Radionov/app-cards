@@ -66,9 +66,6 @@ export const isLoggedInAC = (log: boolean) => {
     } as const
 }
 
-export const registartion = () => {
-    authAPI.register({email: 'ursegovnikolaj@gmail.com', password: '12345678'})
-}
 export const initializeProfileTC = () => async (dispatch: Dispatch) => {
     try {
         const response = await authAPI.isAuth()
@@ -78,7 +75,6 @@ export const initializeProfileTC = () => async (dispatch: Dispatch) => {
         dispatch(isLoggedInAC(false))
     }
 }
-
 
 export const logoutTC = () => async (dispatch: Dispatch) => {
     try {
