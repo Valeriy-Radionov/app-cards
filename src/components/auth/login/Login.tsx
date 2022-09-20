@@ -38,7 +38,7 @@ export const Login = () => {
         },
     });
     const ping = () => {
-        authAPI.login({email: 'alexkas2511@gmail.com', password:'123456789', rememberMe: false})
+        authAPI.login({email: 'ursegovnikolaj@gmail.com', password:'12345678', rememberMe: true})
     }
     return (
         <div className={style.container}>

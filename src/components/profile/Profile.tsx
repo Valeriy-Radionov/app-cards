@@ -7,6 +7,7 @@ import {Navigate, NavLink} from "react-router-dom";
 import {UpdateUserType} from "../../api/auth/auth-api";
 import arrow from '../../common/image/Vector 1.svg'
 import updateAva from '../../common/image/Union.svg'
+import {backgroundImg} from "../../common/style/utilitsBg";
 
 export const Profile = () => {
     const dispatch = useAppDispatch
@@ -38,8 +39,8 @@ export const Profile = () => {
             <div className={s.block}>
                 <h1>Personal information</h1>
                 <div className={s.imgBlock}>
-                    <img src={user.avatar} alt="" className={s.avatar}/>
-                    <div>
+                    <div className={s.avatar} style={backgroundImg(user.avatar || updateAva)}></div>
+                    <div className={s.updatePhoto}>
                         <img src={updateAva} alt='' className={s.updateAva}/>
                     </div>
                 </div>
