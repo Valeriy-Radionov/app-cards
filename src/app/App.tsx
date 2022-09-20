@@ -14,27 +14,26 @@ const App = () => {
         dispatch(initializeAPPThunkCreator())
     }, [dispatch])
 
+    if (!isInitialized) {
+        return <Preloader/>
+    }
 
-    return (
-        isInitialized ?
-            <div className="App">
-                {/*
+  return (
+
+    <div className="App">
+      {/*
       рекомендуют тут hash router + Provider
       */}
-                <>
-                    <Header/>
-                    <Routs/>
-                    {/*<Main/> ---> в main будут Header и Router(в роуте пути в виде строковыч констант)
+      <>
+          <Header/>
+          <Routs/>
+              {/*<Main/> ---> в main будут Header и Router(в роуте пути в виде строковыч констант)
       в папке common компонента с кнопкой инпутом  и Navlink
       */}
 
-                </>
-            </div>
-            :
-            <>
-                <Preloader/>
-            </>
-    );
+      </>
+    </div>
+  );
 }
 
 export default App;

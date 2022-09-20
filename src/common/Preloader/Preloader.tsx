@@ -1,9 +1,8 @@
 import React from 'react'
-
+import style from "./Preloader.module.scss"
 export const Preloader = () => {
     return (
-        <>
-        <h1 >PRELOADER</h1>
-        </>
+        <div className={style.bar}>
+        </div>
     )
 }
