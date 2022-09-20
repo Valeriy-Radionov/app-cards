@@ -51,34 +51,42 @@ export const Recovery = () => {
     return (
         <div className={style.container}>
             <div className={style.block}>
-                <div style={{display: 'flex', flexDirection: 'column', alignItems: "center"}}>
+                {!isSentEmail
+                    ? <>
+                        <h1 style={{fontWeight: 'bold', margin: '0 0 54.19px', fontSize: '26px'}}>Forgot your
+                            password?</h1>
+                        <form onSubmit={formik.handleSubmit}>
+                            <SuperInputText
+                                style={{
+                                    width: '100%',
+                                    height: '30px',
+                                    boxSizing: 'border-box',
+                                    outline: 'none',
+                                    border: "none",
+                                    fontSize: '16px',
+                                    opacity: 0.7
+                                }}  {...formik.getFieldProps('email')}
+                                placeholder={'Email'}/>
+                            <hr style={{margin: 0, backgroundColor: "black", borderRadius: '1px', opacity: 0.5}}/>
+                            <div style={{
+                                color: 'red',
+                                fontSize: '14px'
+                            }}>{formik.errors.email ? formik.errors.email : null}</div>
 
-                    {!isSentEmail
-                        ? <>
-                            <h1 style={{fontWeight: 'bold', margin: '0 0 54.19px', fontSize: '26px'}}>Forgot your password?</h1>
-                            <form onSubmit={formik.handleSubmit}>
-                                <SuperInputText
-                                    style={{width: '100%',height: '30px', boxSizing: 'border-box', outline: 'none', border: "none", fontSize: '16px', opacity: 0.7}}  {...formik.getFieldProps('email')}
-                                    placeholder={'Email'}/>
-                                <hr style={{margin: 0, backgroundColor: "black", borderRadius: '1px', opacity: 0.5 }}/>
-                                <div style={{color: 'red', fontSize: '14px'}}>{formik.errors.email ? formik.errors.email : null}</div>
-
-                                <p style={{margin: '25.93px 0 0', opacity: '0.5'}}>Enter your email address and we will send you further
-                                    instructions</p>
-                                <div style={{margin: '65px 0 31px'}}>
-                                    <SuperButton style={{width: '100%'}}
-                                                 type={'submit'}>Send instructions</SuperButton>
-                                </div>
-                            </form>
-                            <div style={{display: 'flex', flexDirection: 'column', alignItems: "center"}}>
-                                <span style={{margin: '0 0 11px', fontWeight: 'bold', opacity: '0.5'}}>Did you remember yor password</span>
-                                <Link style={{fontWeight: 'bold', color: "deepskyblue", fontSize: '16px'}} to={PATH.LOGIN}>Try logging in</Link>
+                            <p style={{margin: '25.93px 0 0', opacity: '0.5'}}>Enter your email address and we will send
+                                you further
+                                instructions</p>
+                            <div style={{margin: '65px 0 31px'}}>
+                                <SuperButton style={{width: '100%'}}
+                                             type={'submit'}>Send instructions</SuperButton>
                             </div>
-                        </>
-
-                        : <EmailSentPage/>
-                    }
-                </div>
+                        </form>
+                        <span style={{margin: '0 0 11px', fontWeight: 'bold', opacity: '0.5'}}>Did you remember yor password</span>
+                        <Link style={{fontWeight: 'bold', color: '#366EFF', fontSize: '16px'}} to={PATH.LOGIN}>Try
+                            logging in</Link>
+                    </>
+                    : <EmailSentPage/>
+                }
 
             </div>
 
