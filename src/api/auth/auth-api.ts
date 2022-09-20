@@ -9,8 +9,8 @@ export const authAPI = {
     login(loginData: LoginDataType) {
         return instance.post<LoginDataType, AxiosResponse<LoginResponseType>>('auth/login', loginData)
     },
-    register(registerData: RegisterDatatype) {
-        return instance.post<RegisterDatatype, AxiosResponse<RegisterResponseDataType>>('auth/register', registerData)
+    registration(registerData: RegistrationDatatype) {
+        return instance.post<RegistrationDatatype, AxiosResponse<RegistrationResponseDataType>>('auth/register', registerData)
     },
     isAuth() {
         return instance.post<UserDataType>('auth/me')
@@ -50,7 +50,7 @@ export type LoginResponseType = {
     verified: boolean,
     rememberMe: boolean,
 }
-export type RegisterDatatype = {
+export type RegistrationDatatype = {
     email: string,
     password: string
 }
@@ -69,7 +69,7 @@ export type UserDataType = {
     tokenDeathTime?: number,
     avatar?: string
 }
-export type RegisterResponseDataType = {
+export type RegistrationResponseDataType = {
     addedUser: UserDataType
 }
 export type UpdateUserType = {
