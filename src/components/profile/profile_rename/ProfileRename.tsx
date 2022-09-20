@@ -20,7 +20,7 @@ const ProfileRename: React.FC<EditableSpanPropsType> = ({name, changeTask, disab
     }
     const activateViewMode = () => {
         setEditMode(false)
-        changeTask({name: title})
+        changeTask({avatar: `https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRRyYPpSOn_kpXBtE4wJ50MCIJ9J7bBAq8_swh03mb1kml7lGqF`})
     }
     const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)

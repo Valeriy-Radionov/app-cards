@@ -1,4 +1,4 @@
-import React from 'react';
+    import React from 'react';
 import style from "./Login.module.scss"
 import SuperInputText from "../../../common/c1-SuperInputText 2/SuperInputText";
 import {useFormik} from "formik";
@@ -47,7 +47,7 @@ export const Login = () => {
         },
     });
     const ping = () => {
-        authAPI.login({email: 'ursegovnikolaj@gmail.com', password:'12345678', rememberMe: true})
+        authAPI.login({email: 'alexkas2511@gmail.com', password:'123456789', rememberMe: false})
     }
     if (isLoggedIn) {
         return <Navigate to={PATH.PROFILE}/>

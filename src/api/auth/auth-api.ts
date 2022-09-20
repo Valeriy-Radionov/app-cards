@@ -23,7 +23,7 @@ export const authAPI = {
         return instance.delete<LogOutForgotResponseType>('auth/me')
     },
     forgotPassword (forgotPasswordData:ForgotPasswordDataType) {
-        return instance.post<ForgotPasswordDataType,AxiosResponse<LogOutForgotResponseType>>('/auth/forgot',forgotPasswordData)
+        return axios.post<ForgotPasswordDataType,AxiosResponse<LogOutForgotResponseType>>('https://neko-back.herokuapp.com/2.0/auth/forgot',forgotPasswordData, {withCredentials: true})
     },
     setNewPassword (setNewPasswordData:SetNewPasswordDataType) {
         /////////////
@@ -84,6 +84,7 @@ export type UpdateUserResponseType = {
 export type LogOutForgotResponseType = {
     info?:string,
     email?:string
+    error?:string
 }
 export type ForgotPasswordDataType = {
     email: string,

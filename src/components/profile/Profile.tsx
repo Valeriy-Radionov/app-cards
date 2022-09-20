@@ -50,7 +50,6 @@ export const Profile = () => {
                 <button onClick={logout} className={s.logoutBtn}>Log Out</button>
             </div>
         </div>
-
     )
 }
 
