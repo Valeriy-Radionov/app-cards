@@ -7,7 +7,7 @@ import {ErrorActionsType, errorReducer} from "./errorReducer";
 import {ProfileActionsType, profileReducer} from "./profileReducer";
 import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk'
 import {TypedUseSelectorHook, useSelector} from "react-redux";
-import {appReducer} from "./appReducer";
+import {AppActionType, appReducer} from "./appReducer";
 
 const reducers = combineReducers({
     login: loginReducer,
@@ -29,6 +29,7 @@ export type AppRootActionsType =
     | ProfileActionsType
     | RecoveryActionsType
     | RegistrationActionsType
+    | AppActionType
 
 export const useAppDispatch = store.dispatch as ThunkDispatch<AppRootStateType, unknown, AppRootActionsType>
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector

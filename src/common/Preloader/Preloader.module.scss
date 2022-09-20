@@ -1,0 +1,19 @@
+@keyframes anim {
+  0% { background-position: 0 0; }
+  100% { background-position: 50px 50px; }
+}
+
+.bar {
+  margin: auto;
+  top: 0; bottom: 0; left: 0; right: 0;
+  width: 100%;
+  height: 10px;
+  overflow: hidden;
+  background-size:100px 100px;
+  background-image: linear-gradient(-45deg,
+          #33c9ff 25%, #00b2f2 25%,
+          #00b2f2 50%, #33c9ff 50%,
+          #33c9ff 75%, #00b2f2 75%);
+  animation: anim 1s linear infinite;
+}
+

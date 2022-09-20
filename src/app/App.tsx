@@ -14,10 +14,12 @@ const App = () => {
         dispatch(initializeAPPThunkCreator())
     }, [dispatch])
 
-
+    if (!isInitialized) {
+        return <Preloader/>
+    }
 
   return (
-      isInitialized ?
+
     <div className="App">
       {/*
       рекомендуют тут hash router + Provider
@@ -31,10 +33,6 @@ const App = () => {
 
       </>
     </div>
-          :
-          <>
-          <Preloader/>
-          </>
   );
 }
 
