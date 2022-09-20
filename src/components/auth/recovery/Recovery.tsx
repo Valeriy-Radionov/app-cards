@@ -72,7 +72,7 @@ export const Recovery = () => {
                             </form>
                             <div style={{display: 'flex', flexDirection: 'column', alignItems: "center"}}>
                                 <span style={{margin: '0 0 11px', fontWeight: 'bold', opacity: '0.5'}}>Did you remember yor password</span>
-                                <Link to={PATH.LOGIN}>Try logging in</Link>
+                                <Link style={{fontWeight: 'bold', color: "deepskyblue", fontSize: '16px'}} to={PATH.LOGIN}>Try logging in</Link>
                             </div>
                         </>
 
