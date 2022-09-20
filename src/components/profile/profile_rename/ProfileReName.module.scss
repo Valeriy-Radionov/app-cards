@@ -1,8 +1,16 @@
+@import "../../../common/style/mixins";
+
 .block {
   margin: 17px 0 0 0;
-  .inputBlock{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  .inputBlock {
     position: relative;
-    &:after{
+    width: 80%;
+
+    &:after {
       position: absolute;
       top: 47px;
       left: 0;
@@ -12,36 +20,38 @@
       background: #000000;
       opacity: 0.2;
     }
-    .nickname{
-      font-style: normal;
-      font-weight: 400;
-      font-size: 13px;
-      line-height: 20px;
+
+    .nickname {
+      @include font(normal, 400, 13px, 20px);
       color: #000000;
       opacity: 0.5;
     }
-    input{
-      border: none;
-      outline: none;
-    }
-    button {
-      width: 52px;
-      height: 24px;
-      margin: 0;
-      background: #366EFF;
-      border-radius: 2px;
-      color: #FFFFFF;
-      border: none;
-      font-style: normal;
-      font-weight: 400;
-      font-size: 12px;
-      line-height: 24px;
+
+    div {
+      display: flex;
+      justify-content: space-between;
+      input {
+        border: none;
+        outline: none;
+      }
+
+      button {
+        @include width-height(52px, 24px);
+        @include font(normal, 400, 12px, 24px);
+        margin: 0;
+        background: #366EFF;
+        border-radius: 2px;
+        color: #FFFFFF;
+        border: none;
+      }
     }
   }
-  span{
+
+  span {
     display: flex;
     align-items: center;
-    img{
+
+    img {
       color: black;
       margin-left: 5px;
     }

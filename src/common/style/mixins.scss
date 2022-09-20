@@ -1,0 +1,22 @@
+@mixin media($maxWidth) {
+  @media screen and (max-width: $maxWidth) {
+    @content
+  }
+}
+
+@mixin font($style, $weight, $size, $height) {
+  font-style: $style;
+  font-weight: $weight;
+  font-size: $size;
+  line-height: $height;
+}
+
+@mixin width-height($width, $height) {
+  width: $width;
+  height: $height;
+}
+@mixin backgroundImg($size, $repeat, $position) {
+  background-size: $size;
+  background-repeat: $repeat;
+  background-position: $position;
+}

@@ -5,7 +5,6 @@
 }
 
 .block {
-    box-sizing: border-box;
     padding: 35px 33px 42px;
     width: 413px;
     min-height: 360px;

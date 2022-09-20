@@ -6,7 +6,7 @@ import s from './ProfileReName.module.scss'
 type EditableSpanPropsType = {
     name: string
     class?: string
-    changeTask: (model:UpdateUserType) => void
+    changeTask: (model: UpdateUserType) => void
     disabled?: boolean
 }
 
@@ -20,7 +20,7 @@ const ProfileRename: React.FC<EditableSpanPropsType> = ({name, changeTask, disab
     }
     const activateViewMode = () => {
         setEditMode(false)
-        changeTask({avatar: `https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRRyYPpSOn_kpXBtE4wJ50MCIJ9J7bBAq8_swh03mb1kml7lGqF`})
+        changeTask({name: title})
     }
     const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
@@ -31,15 +31,17 @@ const ProfileRename: React.FC<EditableSpanPropsType> = ({name, changeTask, disab
                 ?
                 <div className={s.inputBlock}>
                     <span className={s.nickname}>Nickname</span>
-                    <input
-                        value={title}
-                        onChange={changeTitle}
-                        disabled={disabled}
-                        autoFocus
-                    />
-                    <button onClick={activateViewMode}>SAVE</button>
+                    <div>
+                        <input
+                            value={title}
+                            onChange={changeTitle}
+                            disabled={disabled}
+                            autoFocus
+                        />
+                        <button onClick={activateViewMode}>SAVE</button>
+                    </div>
                 </div>
-                : <span onDoubleClick={activateEditMode}>{name} <img src={stroke}/></span>}
+                : <span onDoubleClick={activateEditMode}>{name} <img src={stroke} alt={''}/></span>}
         </div>
     );
 };
