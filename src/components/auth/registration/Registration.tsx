@@ -1,12 +1,13 @@
 import React from 'react';
 import {useFormik} from "formik";
-import {authAPI} from "../../../api/auth/auth-api";
 import style from "../login/Login.module.scss";
 import SuperInputText from "../../../common/c1-SuperInputText 2/SuperInputText";
-import SuperCheckbox from "../../../common/c3-SuperCheckbox/SuperCheckbox";
 import {NavLink} from "react-router-dom";
 import {PATH} from "../../../common/routings/Routs";
 import SuperButton from "../../../common/c2-SuperButton 2/SuperButton";
+import {registrationTC} from "../../../bll/registReducer";
+import {useAppDispatch, useAppSelector} from "../../../bll/store";
+import {Login} from "../login/Login";
 
 
 type FormikErrorType = {
@@ -16,7 +17,9 @@ type FormikErrorType = {
 }
 export const Registration = () => {
 
-    let errorMessage = ''
+    let errorMessage = useAppSelector( state =>state.registration.errorMessage )
+    let isRegistrationSuccessful = useAppSelector( state =>state.registration.isRegistrationSuccessful )
+    let dispatch = useAppDispatch
 
     const formik = useFormik({
         initialValues: {
@@ -52,17 +55,13 @@ export const Registration = () => {
                 email:values.email,
                 password:values.password
             }
-
-            authAPI.registration(newRegistration).then ( (res) => {
-
-            }).catch( (err) => {
-                errorMessage = err.error
-            })
+            dispatch(registrationTC(newRegistration))
             formik.resetForm()
         },
     });
 
     return (
+        !isRegistrationSuccessful ?
         <div className={style.container}>
             <div className={style.blockAuth}>
                 <h1>Registration</h1>
@@ -89,10 +88,12 @@ export const Registration = () => {
                     <SuperButton type={'submit'}>Sign Up</SuperButton>
                     <label className={style.descriptionInfo}>Already have an account?</label>
                     <NavLink to={PATH.LOGIN} className={style.signUpLink}>Sign in</NavLink>
-                    {errorMessage}
+                    <div style={{color: 'red'}}>{errorMessage}</div>
                 </form>
             </div>
         </div>
+            :
+            <Login/>
     );
 };
 
