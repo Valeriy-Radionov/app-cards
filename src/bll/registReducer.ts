@@ -58,6 +58,7 @@ export const setErrorMessageAC = (message:string) => (
 
 export const registrationTC = (data:RegistrationDatatype):AppThunk => {
     return (dispatch:Dispatch) => {
+        dispatch(appInitializedAC(false))
         authAPI.registration(data).then( () => {
           dispatch(registrationAC(true))
         }).catch( err => {
