@@ -73,7 +73,7 @@ export const Login = () => {
                     <div className={style.inputForm}>
                         <label>password</label>
                         <div className={style.wrapperBtn}>
-                            <SuperInputText
+                            <input
                                 type={togglePassword ? "text" : "password"} {...formik.getFieldProps("password")}/>
                             <button type={"button"} className={style.password} onClick={onClickShowPassword}></button>
                         </div>
