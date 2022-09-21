@@ -38,13 +38,13 @@ export const Registration = () => {
             if (!values.password) {
                 errors.password = "required"
             } else if (values.password.length < 7) {
-                errors.password = "Password must be more 6 symbols"
+                errors.password = "Password must be more 7 symbols"
             }
 
             if (!values.confirmedPassword) {
                 errors.confirmedPassword = "required"
             } else if (values.confirmedPassword.length < 7) {
-                errors.confirmedPassword = "Password must be more 6 symbols"
+                errors.confirmedPassword = "Password must be more 7 symbols"
             } else if (values.password !== values.confirmedPassword) {
                 errors.confirmedPassword = "password does not match"
             }
