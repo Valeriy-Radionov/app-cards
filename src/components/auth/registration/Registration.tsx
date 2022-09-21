@@ -3,7 +3,6 @@ import {useFormik} from "formik";
 import {authAPI} from "../../../api/auth/auth-api";
 import style from "../login/Login.module.scss";
 import SuperInputText from "../../../common/c1-SuperInputText 2/SuperInputText";
-import SuperCheckbox from "../../../common/c3-SuperCheckbox/SuperCheckbox";
 import {NavLink} from "react-router-dom";
 import {PATH} from "../../../common/routings/Routs";
 import SuperButton from "../../../common/c2-SuperButton 2/SuperButton";
@@ -49,13 +48,13 @@ export const Registration = () => {
         },
         onSubmit: values => {
             let newRegistration = {
-                email:values.email,
-                password:values.password
+                email: values.email,
+                password: values.password
             }
 
-            authAPI.registration(newRegistration).then ( (res) => {
+            authAPI.registration(newRegistration).then((res) => {
 
-            }).catch( (err) => {
+            }).catch((err) => {
                 errorMessage = err.error
             })
             formik.resetForm()
@@ -65,27 +64,37 @@ export const Registration = () => {
     return (
         <div className={style.container}>
             <div className={style.blockAuth}>
-                <h1>Registration</h1>
+                <h1>Sign Up</h1>
                 <form className={style.form} onSubmit={formik.handleSubmit}>
-                    <label>email</label>
-                    <SuperInputText
-                        {...formik.getFieldProps('email')}/>
-                    {formik.touched.email && formik.errors.email && <div style={{color: 'red'}}>
-                        {formik.errors.email}</div>}
-                    <label>password</label>
-                    <SuperInputText
-                    type = {"password"}
-                    {...formik.getFieldProps('password')}
-                    />
-                    {formik.touched.password && formik.errors.password && <div style={{color: 'red'}}>
-                        {formik.errors.password}</div>}
-                    <label>confirm password</label>
-                    <SuperInputText
-                        type = {"password"}
-                        {...formik.getFieldProps('confirmedPassword')}
-                    />
-                    {formik.touched.confirmedPassword && formik.errors.confirmedPassword && <div style={{color: 'red'}}>
-                        {formik.errors.confirmedPassword}</div>}
+                    {/*email*/}
+                    <div className={style.inputForm}>
+                        <label>email</label>
+                        <SuperInputText
+                            {...formik.getFieldProps('email')}/>
+                        {formik.touched.email && formik.errors.email && <div style={{color: 'red'}}>
+                            {formik.errors.email}</div>}
+                    </div>
+                    {/*password*/}
+                    <div className={style.inputForm}>
+                        <label>password</label>
+                        <SuperInputText
+                            type={"password"}
+                            {...formik.getFieldProps('password')}
+                        />
+                        {formik.touched.password && formik.errors.password && <div style={{color: 'red'}}>
+                            {formik.errors.password}</div>}
+                    </div>
+                    {/*confirm password*/}
+                    <div className={style.inputForm}>
+                        <label>confirm password</label>
+                        <SuperInputText
+                            type={"password"}
+                            {...formik.getFieldProps('confirmedPassword')}
+                        />
+                        {formik.touched.confirmedPassword && formik.errors.confirmedPassword &&
+                            <div style={{color: 'red'}}>
+                                {formik.errors.confirmedPassword}</div>}
+                    </div>
                     <SuperButton type={'submit'}>Sign Up</SuperButton>
                     <label className={style.descriptionInfo}>Already have an account?</label>
                     <NavLink to={PATH.LOGIN} className={style.signUpLink}>Sign in</NavLink>

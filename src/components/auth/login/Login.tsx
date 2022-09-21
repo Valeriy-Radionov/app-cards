@@ -1,4 +1,4 @@
-    import React from 'react';
+import React, {useState} from 'react';
 import style from "./Login.module.scss"
 import SuperInputText from "../../../common/c1-SuperInputText 2/SuperInputText";
 import {useFormik} from "formik";
@@ -19,7 +19,12 @@ export const Login = () => {
     const dispatch = useAppDispatch
     const isLoggedIn = useAppSelector(state => state.profile.isLoggedIn)
 
-    // const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
+    const [togglePassword, setTogglePassword] = useState<boolean>(false)
+
+    const onClickShowPassword = () => {
+        setTogglePassword(!togglePassword)
+        console.log(togglePassword)
+    }
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -47,7 +52,7 @@ export const Login = () => {
         },
     });
     const ping = () => {
-        authAPI.login({email: 'ursegovnikolaj@gmail.com', password:'12345678', rememberMe: true})
+        authAPI.login({email: 'ursegovnikolaj@gmail.com', password: '12345678', rememberMe: true})
     }
     if (isLoggedIn) {
         return <Navigate to={PATH.PROFILE}/>
@@ -57,14 +62,29 @@ export const Login = () => {
             <div className={style.blockAuth}>
                 <h1>Sign in</h1>
                 <form onSubmit={formik.handleSubmit} className={style.form}>
-                    <label>email</label>
-                    <SuperInputText {...formik.getFieldProps("email")}/>
-                    {formik.touched.email && formik.errors.email && <div style={{color: "red"}}>{formik.errors.email}</div>}
-                    <label>password</label>
-                    <SuperInputText {...formik.getFieldProps("password")}/>
-                    {formik.touched.password && formik.errors.password &&
-                        <div style={{color: "red"}}>{formik.errors.password}</div>}
-                    <SuperCheckbox className={style.checkbox} {...formik.getFieldProps("rememberMe")} checked={formik.values.rememberMe}>Remember me</SuperCheckbox>
+                    {/*email*/}
+                    <div className={style.inputForm}>
+                        <label>email</label>
+                        <SuperInputText {...formik.getFieldProps("email")}/>
+                        {formik.touched.email && formik.errors.email &&
+                            <div style={{color: "red"}}>{formik.errors.email}</div>}
+                    </div>
+                    {/*password*/}
+                    <div className={style.inputForm}>
+                        <label>password</label>
+                        <div className={style.wrapperBtn}>
+                            <SuperInputText
+                                type={togglePassword ? "text" : "password"} {...formik.getFieldProps("password")}/>
+                            <button type={"button"} className={style.password} onClick={onClickShowPassword}></button>
+                        </div>
+                        {formik.touched.password && formik.errors.password &&
+                            <div style={{color: "red"}}>{formik.errors.password}</div>}
+                    </div>
+                    {/*remember me*/}
+                    <div className={style.containerCheckBox}>
+                        <SuperCheckbox className={style.checkbox} {...formik.getFieldProps("rememberMe")}
+                                       checked={formik.values.rememberMe}>Remember me</SuperCheckbox>
+                    </div>
                     <NavLink to={PATH.RECOVERY} className={style.forgotLink}>Forgot Password</NavLink>
                     <SuperButton type={'submit'}>Sign In</SuperButton>
                     <label className={style.descriptionInfo}>Already have an account?</label>
