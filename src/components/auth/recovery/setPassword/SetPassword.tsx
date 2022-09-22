@@ -36,7 +36,7 @@ export const SetPassword = () => {
                 }
             } else if (values.password.length < 8) {
                 return {
-                    password: 'Password should be '
+                    password: 'Password must be more 8 symbols'
                 }
             }
         }
