@@ -1,0 +1,11 @@
+.emailImg {
+    display: block;
+    width: 108px;
+    box-sizing: border-box;
+    margin: 0 0 31px;
+}
+.mainDescription {
+    margin: 0 0 41px;
+    text-align: center;
+    opacity: 0.5;
+}

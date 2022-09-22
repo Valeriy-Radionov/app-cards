@@ -1,17 +1,15 @@
 import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../../bll/store";
-import {EmailSentPage} from "./EmailSentPage";
+import {EmailSentPage} from "./EmailSentPage/EmailSentPage";
 import {recoveryAC, sendEmail} from "../../../bll/recoveryReducer";
 import {useFormik} from "formik";
 import SuperInputText from "../../../common/c1-SuperInputText 2/SuperInputText";
 import SuperButton from "../../../common/c2-SuperButton 2/SuperButton";
 import style from './Recovery.module.css'
+import authStyle from '../AuthPageContainer.module.css'
 import {PATH} from "../../../common/routings/Routs";
 import {Link} from 'react-router-dom';
 
-type FormikErrorType = {
-    email?: string
-}
 
 export const Recovery = () => {
     const dispatch = useAppDispatch
@@ -29,7 +27,6 @@ export const Recovery = () => {
             }))
         },
         validate: values => {
-            const errors: FormikErrorType = {}
             if (!values.email) {
                 return {
                     email: 'Email is required'
@@ -49,30 +46,19 @@ export const Recovery = () => {
 
 
     return (
-        <div className={style.container}>
-            <div className={style.block}>
+        <div className={authStyle.container}>
+            <div className={authStyle.block}>
                 {!isSentEmail
                     ? <>
-                        <h1 style={{fontWeight: 'bold', margin: '0 0 54.19px', fontSize: '26px'}}>Forgot your
-                            password?</h1>
+                        <h1 style={{margin: '0 0 54.19px'}}>Forgot your password?</h1>
                         <form onSubmit={formik.handleSubmit}>
                             <SuperInputText
-                                style={{
-                                    width: '100%',
-                                    height: '30px',
-                                    boxSizing: 'border-box',
-                                    outline: 'none',
-                                    border: "none",
-                                    fontSize: '16px',
-                                    opacity: 0.7
-                                }}  {...formik.getFieldProps('email')}
-                                placeholder={'Email'}/>
-                            <hr style={{margin: 0, backgroundColor: "black", borderRadius: '1px', opacity: 0.5}}/>
-                            <div style={{
-                                color: 'red',
-                                fontSize: '14px'
-                            }}>{formik.errors.email ? formik.errors.email : null}</div>
-
+                                className={style.superInput}
+                                {...formik.getFieldProps('email')}
+                                placeholder={'Email'}
+                            />
+                            <hr />
+                            <div className={style.error}>{formik.errors.email ? formik.errors.email : null}</div>
                             <p style={{margin: '25.93px 0 0', opacity: '0.5'}}>Enter your email address and we will send
                                 you further
                                 instructions</p>
@@ -81,15 +67,13 @@ export const Recovery = () => {
                                              type={'submit'}>Send instructions</SuperButton>
                             </div>
                         </form>
-                        <span style={{margin: '0 0 11px', fontWeight: 'bold', opacity: '0.5'}}>Did you remember yor password</span>
-                        <Link style={{fontWeight: 'bold', color: '#366EFF', fontSize: '16px'}} to={PATH.LOGIN}>Try
+                        <span style={{margin: '0 0 11px', fontWeight: '600', opacity: '0.5'}}>Did you remember yor password</span>
+                        <Link style={{fontWeight: '600', color: '#366EFF', fontSize: '16px'}} to={PATH.LOGIN}>Try
                             logging in</Link>
                     </>
                     : <EmailSentPage/>
                 }
-
             </div>
-
         </div>
     );
 };
