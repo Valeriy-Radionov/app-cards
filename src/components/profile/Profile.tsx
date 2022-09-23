@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import s from './Profile.module.scss'
 import ProfileRename from "./profile_rename/ProfileRename";
-import {initializeProfileTC, logoutTC, updateUserTC} from "../../bll/profileReducer";
+import { logoutTC, updateUserTC} from "../../bll/profileReducer";
 import {useAppDispatch, useAppSelector} from "../../bll/store";
 import {Navigate, NavLink} from "react-router-dom";
 import {UpdateUserType} from "../../api/auth/auth-api";
@@ -13,9 +13,6 @@ export const Profile = () => {
     const dispatch = useAppDispatch
     const isLoggedIn = useAppSelector(state => state.profile.isLoggedIn)
     const user = useAppSelector(state => state.profile.user)
-    useEffect(() => {
-        dispatch(initializeProfileTC())
-    }, [])
 
     const logout = () => {
         dispatch(logoutTC())

@@ -21,6 +21,7 @@ export const Routs = () => {
     return (
         <nav>
             <Routes>
+                <Route path={'/'} element={<Login/>} />
                 <Route path={PATH.LOGIN} element={<Login/>} />
                 <Route path={PATH.SET_PASSWORD} element={<SetPassword/>} />
                 <Route path={PATH.RECOVERY} element={<Recovery/>} />

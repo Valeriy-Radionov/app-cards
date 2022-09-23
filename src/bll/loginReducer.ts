@@ -1,7 +1,7 @@
 import {authAPI, LoginDataType} from "../api/auth/auth-api";
 import {AppThunk} from "./store";
 import {handleServerNetworkError} from "../utils/errors-utils";
-import {isLoggedInAC, ProfileActionsType} from "./profileReducer";
+import {isLoggedInAC, ProfileActionsType, setProfileAC} from "./profileReducer";
 import {appInitializedAC} from "./appReducer";
 
 const initState = {}
@@ -19,6 +19,8 @@ export const loginTC = (data: LoginDataType): AppThunk => async (dispatch) => {
     try {
         const res = await authAPI.login(data)
         dispatch(isLoggedInAC(true))
+        dispatch(setProfileAC(res.data))
+
     } catch (e) {
         handleServerNetworkError(e, dispatch)
     } finally {

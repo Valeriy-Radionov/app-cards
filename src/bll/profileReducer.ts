@@ -66,16 +66,6 @@ export const isLoggedInAC = (log: boolean) => {
     } as const
 }
 
-export const initializeProfileTC = () => async (dispatch: Dispatch) => {
-    try {
-        const response = await authAPI.isAuth()
-        dispatch(isLoggedInAC(true))
-        dispatch(setProfileAC(response.data))
-    } catch (e) {
-        dispatch(isLoggedInAC(false))
-    }
-}
-
 export const logoutTC = () => async (dispatch: Dispatch) => {
     try {
         await authAPI.logOut()

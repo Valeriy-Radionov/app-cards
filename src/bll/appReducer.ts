@@ -1,6 +1,6 @@
 import {AppThunk} from "./store";
 import {authAPI} from "../api/auth/auth-api";
-import {isLoggedInAC} from "./profileReducer";
+import {isLoggedInAC, setProfileAC} from "./profileReducer";
 import {handleServerNetworkError} from "../utils/errors-utils";
 
 const SET_ERROR = "APP/SET-ERROR"
@@ -54,6 +54,7 @@ export const initializeAPPThunkCreator = (): AppThunk => {
         try {
             const res = await authAPI.isAuth()
             dispatch(isLoggedInAC(true))
+            dispatch(setProfileAC(res.data))
         } catch (e) {
             handleServerNetworkError(e, dispatch)
         } finally {
