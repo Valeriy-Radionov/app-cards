@@ -2,8 +2,8 @@ import {authAPI, ForgotPasswordDataType, SetNewPasswordDataType} from "../api/au
 import {Dispatch} from "redux";
 import {AppThunk} from "./store";
 
-const RECOVERY = 'RECOVERY/RECOVERY'
-const SET_NEW_PASSWORD = 'RECOVERY/SET_NEW_PASSWORD'
+const TOGGLE_IS_EMAIL_SENT = 'RECOVERY/TOGGLE_IS_EMAIL_SENT'
+const TOGGLE_IS_PASSWORD_CHANGED = 'RECOVERY/TOGGLE_IS_PASSWORD_CHANGED'
 
 
 const initState = {
@@ -12,26 +12,28 @@ const initState = {
 }
 export const recoveryReducer = (state = initState, action: RecoveryActionsType): typeof initState => {
     switch (action.type) {
-        case RECOVERY: {
+        case TOGGLE_IS_EMAIL_SENT: {
             return {...state, isEmailSent: action.isEmailSent}
         }
-        case SET_NEW_PASSWORD:
+        case TOGGLE_IS_PASSWORD_CHANGED:
             return {...state, isPasswordChanged: action.isPasswordChanged}
         default:
             return state
     }
 }
 
+//actions
+export const toggleIsEmailSentAC = (isEmailSent: boolean) => ({type: TOGGLE_IS_EMAIL_SENT, isEmailSent,} as const)
+export const toggleIsPasswordChangedAC = (isPasswordChanged: boolean) => ({
+    type: TOGGLE_IS_PASSWORD_CHANGED,
+    isPasswordChanged,
+} as const)
 
-export type RecoveryActionsType =
-    | ReturnType<typeof recoveryAC>
-    | ReturnType<typeof setNewPasswordAC>
-export const recoveryAC = (isEmailSent: boolean) => ({type: RECOVERY, isEmailSent,} as const)
-export const setNewPasswordAC = (isPasswordChanged: boolean) => ({type: SET_NEW_PASSWORD, isPasswordChanged,} as const)
+//thunks
 export const sendEmail = (forgotPasswordData: ForgotPasswordDataType) => (dispatch: Dispatch) => {
     authAPI.forgotPassword(forgotPasswordData)
         .then(() => {
-            dispatch(recoveryAC(true))
+            dispatch(toggleIsEmailSentAC(true))
         })
         .catch(res => {
             console.log(res)
@@ -42,10 +44,15 @@ export const setNewPassword = (setNewPasswordData: SetNewPasswordDataType): AppT
     (dispatch) => {
         authAPI.setNewPassword(setNewPasswordData)
             .then(res => {
-                dispatch(setNewPasswordAC(true))
+                dispatch(toggleIsPasswordChangedAC(true))
                 console.log(res.data)
             })
             .catch(res => {
                 console.log(res.data.error)
             })
     }
+
+//types
+export type RecoveryActionsType =
+    | ReturnType<typeof toggleIsEmailSentAC>
+    | ReturnType<typeof toggleIsPasswordChangedAC>

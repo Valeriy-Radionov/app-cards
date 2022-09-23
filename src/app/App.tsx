@@ -10,6 +10,7 @@ const App = () => {
     const isInitialized = useAppSelector((state: AppRootStateType) => state.app.isInitialized)
     const dispatch = useAppDispatch
 
+
     useEffect(() => {
         dispatch(initializeAPPThunkCreator())
     }, [dispatch])
