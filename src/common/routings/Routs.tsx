@@ -1,7 +1,7 @@
 import React from 'react';
 import {Login} from "../../components/auth/login/Login";
 import {Route, Routes} from "react-router-dom";
-import {SetPassword} from "../../components/auth/setPassword/SetPassword";
+import {SetPassword} from "../../components/auth/recovery/setPassword/SetPassword";
 import {Recovery} from "../../components/auth/recovery/Recovery";
 import {Registration} from "../../components/auth/registration/Registration";
 import {Profile} from "../../components/profile/Profile";
@@ -14,7 +14,7 @@ export const PATH = {
     PROFILE: "/profile",
     ERROR: "/error-404",
     RECOVERY: "/recovery-password",
-    SET_PASSWORD: "/set-password/*",
+    SET_PASSWORD: "/set-password/:token",
     TEST: "all-super-components"
 }
 export const Routs = () => {

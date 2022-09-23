@@ -26,7 +26,7 @@ export const authAPI = {
         return axios.post<ForgotPasswordDataType,AxiosResponse<LogOutForgotResponseType>>('https://neko-back.herokuapp.com/2.0/auth/forgot',forgotPasswordData, {withCredentials: true})
     },
     setNewPassword (setNewPasswordData:SetNewPasswordDataType) {
-        /////////////
+        return axios.post<SetNewPasswordDataType>('https://neko-back.herokuapp.com/2.0/auth/set-new-password', setNewPasswordData, {withCredentials: true})
     },
     blockUser (blockData:BlockDataType) {
         return instance.post<BlockDataType,AxiosResponse<BlockResponseType>> ('auth/block',blockData)
