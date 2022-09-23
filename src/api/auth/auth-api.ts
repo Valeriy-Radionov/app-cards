@@ -23,10 +23,10 @@ export const authAPI = {
         return instance.delete<LogOutForgotResponseType>('auth/me')
     },
     forgotPassword (forgotPasswordData:ForgotPasswordDataType) {
-        return axios.post<ForgotPasswordDataType,AxiosResponse<LogOutForgotResponseType>>('https://neko-back.herokuapp.com/2.0/auth/forgot',forgotPasswordData, {withCredentials: true})
+        return axios.post<ForgotPasswordDataType,AxiosResponse<{info?: string, response?:{data: {error: string}}}>>('https://neko-back.herokuapp.com/2.0/auth/forgot',forgotPasswordData, {withCredentials: true})
     },
     setNewPassword (setNewPasswordData:SetNewPasswordDataType) {
-        return axios.post<SetNewPasswordDataType>('https://neko-back.herokuapp.com/2.0/auth/set-new-password', setNewPasswordData, {withCredentials: true})
+        return axios.post<SetNewPasswordDataType, AxiosResponse<{info?: string, response?:{data: {error: string}}}>>('https://neko-back.herokuapp.com/2.0/auth/set-new-password', setNewPasswordData, {withCredentials: true})
     },
     blockUser (blockData:BlockDataType) {
         return instance.post<BlockDataType,AxiosResponse<BlockResponseType>> ('auth/block',blockData)
@@ -84,7 +84,6 @@ export type UpdateUserResponseType = {
 export type LogOutForgotResponseType = {
     info?:string,
     email?:string
-    error?:string
 }
 export type ForgotPasswordDataType = {
     email: string,

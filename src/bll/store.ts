@@ -1,7 +1,6 @@
-import {combineReducers, legacy_createStore, applyMiddleware} from "redux";
+import {applyMiddleware, combineReducers, legacy_createStore} from "redux";
 import {LoginActionsType, loginReducer} from "./loginReducer";
 import {RegistrationActionsType, registrationReducer} from "./registReducer";
-import {PasswordActionsType, passwordReducer} from "./passwordReducer";
 import {RecoveryActionsType, recoveryReducer} from "./recoveryReducer";
 import {ErrorActionsType, errorReducer} from "./errorReducer";
 import {ProfileActionsType, profileReducer} from "./profileReducer";
@@ -12,7 +11,6 @@ import {AppActionType, appReducer} from "./appReducer";
 const reducers = combineReducers({
     login: loginReducer,
     registration: registrationReducer,
-    password: passwordReducer,
     recovery: recoveryReducer,
     profile: profileReducer,
     error: errorReducer,
@@ -25,7 +23,6 @@ export type AppRootStateType = ReturnType<typeof store.getState>
 export type AppRootActionsType =
     ErrorActionsType
     | LoginActionsType
-    | PasswordActionsType
     | ProfileActionsType
     | RecoveryActionsType
     | RegistrationActionsType

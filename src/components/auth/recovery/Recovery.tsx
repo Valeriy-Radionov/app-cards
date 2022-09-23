@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../../bll/store";
 import {EmailSentPage} from "./EmailSentPage/EmailSentPage";
-import {recoveryAC, sendEmail} from "../../../bll/recoveryReducer";
+import {toggleIsEmailSentAC, sendEmail} from "../../../bll/recoveryReducer";
 import {useFormik} from "formik";
 import SuperInputText from "../../../common/c1-SuperInputText 2/SuperInputText";
 import SuperButton from "../../../common/c2-SuperButton 2/SuperButton";
@@ -41,7 +41,7 @@ export const Recovery = () => {
     })
 
     useEffect(() => {
-        dispatch(recoveryAC(false))
+        dispatch(toggleIsEmailSentAC(false))
     }, [])
 
 
