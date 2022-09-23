@@ -1,64 +1,104 @@
+@import "src/common/style/mixins";
+
 .container {
   display: flex;
-  border: 1px solid red;
   flex-direction: column;
-  max-width: 413px;
+  width: 100%;
   align-items: center;
-  justify-content: center;
-  margin: 0 auto;
+  margin: 60px auto;
   color: black;
-  background-color: #FFFFFF;
+
   .blockAuth {
-    border: 1px solid blue;
+    box-sizing: border-box;
+    width: 413px;
+    padding-right: 33px;
+    padding-left: 33px;
+    min-height: 552px;
+    background-color: #fff;
+    border-radius: 2px;
+    @media screen and (max-width: 415px) {
+      width: 100%;
+    }
+
     & h1 {
-      font-style: normal;
-      font-weight: 600;
-      font-size: 26px;
-      line-height: 32px;
+      @include font(normal, 600, 26px, 32px);
+      margin-bottom: 50px;
       text-align: center;
     }
+
     .form {
       display: flex;
       flex-direction: column;
+
+      .inputForm {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+
+        & input {
+          border: none;
+          border-bottom: 1.58px solid black;
+        }
+
+        & label {
+          @include font(normal, 400, 13px, 20px);
+          opacity: 0.5;
+        }
+      }
+
+      .wrapperBtn {
+        box-sizing: border-box;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1.58px solid black;
+
+        & input {
+          z-index: 1;
+          width: 100%;
+          border: none;
+        }
+
+        .password {
+          background-image: url("../../../common/image/iconHiddenPassword.png");
+          @include backgroundImg(contain, no-repeat, right);
+          opacity: 1;
+          border: none;
+          border-radius: 50%;
+          cursor: pointer;
+          width: 18px;
+          height: 18px;
+        }
+      }
+
+      .containerCheckBox {
+        margin-bottom: 20px;
+
+        & checkbox {
+          @include font(normal, 500, 14px, 17px);
+          color: black;
+        }
+      }
+
       .forgotLink {
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 17px;
+        @include font(normal, 500, 14px, 17px);
         text-align: right;
         color: #000000;
+        margin-bottom: 50px;
       }
-      & label {
-        font-style: normal;
-        font-weight: 400;
-        font-size: 13px;
-        line-height: 20px;
+
+      .descriptionInfo {
+        @include font(normal, 600, 14px, 24px);
+        text-align: center;
+        margin-top: 20px;
         opacity: 0.5;
       }
+
       .signUpLink {
-        font-style: normal;
-        font-weight: 600;
-        font-size: 16px;
-        line-height: 24px;
+        @include font(normal, 600, 16px, 24px);
         text-align: center;
+        margin: 20px 0px 20px 0px;
         text-decoration-line: underline;
         color: #366EFF;
-      }
-      .descriptionInfo {
-        font-style: normal;
-        font-weight: 600;
-        font-size: 14px;
-        line-height: 24px;
-        text-align: center;
-        opacity: 0.5;
-      }
-      .checkbox {
-        font-style: normal;
-        font-weight: 500;
-        font-size: 14px;
-        line-height: 17px;
-        text-align: center;
-        color: black;
       }
     }
   }
