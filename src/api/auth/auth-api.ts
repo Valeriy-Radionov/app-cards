@@ -17,8 +17,7 @@ export const authAPI = {
         return instance.post<UserDataType>('auth/me')
     },
     userUpdate(updateData: UpdateUserType) {
-        return instance.put('auth/me', updateData)
-        // <UpdateUserType,AxiosResponse<UpdateUserResponseType>>
+        return instance.put<UpdateUserType,AxiosResponse<UpdateUserResponseType>>('auth/me', updateData)
     },
     logOut () {
         return instance.delete<LogOutForgotResponseType>('auth/me')

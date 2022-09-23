@@ -1,5 +1,6 @@
 import {authAPI, UpdateUserType, UserDataType} from "../api/auth/auth-api";
 import {Dispatch} from "redux";
+import {handleServerNetworkError} from "../utils/errors-utils";
 
 
 const PROFILE = "PROFILE/PROFILE"
@@ -71,7 +72,7 @@ export const logoutTC = () => async (dispatch: Dispatch) => {
         await authAPI.logOut()
         dispatch(isLoggedInAC(false))
     } catch (e) {
-        console.log(e)
+        handleServerNetworkError(e, dispatch)
     }
 }
 
@@ -81,6 +82,6 @@ export const updateUserTC = (model: UpdateUserType) => async (dispatch: Dispatch
         dispatch(setProfileAC(response.data.updatedUser))
     }
     catch (e) {
-        console.log(e)
+        handleServerNetworkError(e, dispatch)
     }
 }
