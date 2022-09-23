@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/app-cards/static/css/main.ba92ef9f.css",
-    "main.js": "/app-cards/static/js/main.ddaaf06a.js",
+    "main.css": "/app-cards/static/css/main.5eb19cee.css",
+    "main.js": "/app-cards/static/js/main.93c61079.js",
     "static/js/787.28cb0dcd.chunk.js": "/app-cards/static/js/787.28cb0dcd.chunk.js",
     "static/media/display-password.png": "/app-cards/static/media/display-password.ed9412092c4d29799580.png",
     "static/media/checkbox.png": "/app-cards/static/media/checkbox.ee37c0644d7f69efb8c2.png",
-    "static/media/Edit.svg": "/app-cards/static/media/Edit.bca6090361ecab99ed7ded62403bfe46.svg",
-    "static/media/Union.svg": "/app-cards/static/media/Union.e89d7656c1a62f2ee5e1ac6aa3e7d9a9.svg",
+    "static/media/Edit.svg": "/app-cards/static/media/Edit.d2962525fc4ca1f53b8ebcd1ae580d51.svg",
+    "static/media/Union.svg": "/app-cards/static/media/Union.bcf9fd18a6c2b3354645e768a27bb111.svg",
     "index.html": "/app-cards/index.html",
-    "static/media/Vector 1.svg": "/app-cards/static/media/Vector 1.19c7bd8ee7d32ca8451f1de3f6803354.svg",
-    "main.ba92ef9f.css.map": "/app-cards/static/css/main.ba92ef9f.css.map",
-    "main.ddaaf06a.js.map": "/app-cards/static/js/main.ddaaf06a.js.map",
+    "static/media/Vector 1.svg": "/app-cards/static/media/Vector 1.9c43ee4473c188dca31578cbfa023bb9.svg",
+    "main.5eb19cee.css.map": "/app-cards/static/css/main.5eb19cee.css.map",
+    "main.93c61079.js.map": "/app-cards/static/js/main.93c61079.js.map",
     "787.28cb0dcd.chunk.js.map": "/app-cards/static/js/787.28cb0dcd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ba92ef9f.css",
-    "static/js/main.ddaaf06a.js"
+    "static/css/main.5eb19cee.css",
+    "static/js/main.93c61079.js"
   ]
 }
