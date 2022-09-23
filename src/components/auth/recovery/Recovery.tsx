@@ -24,8 +24,8 @@ export const Recovery = () => {
                 email: values.email,
                 from: '',
                 message: process.env.NODE_ENV === 'development'
-                    ? `Follow the link to create a new password: <a href='http://localhost:3000/#/set-password/$token$'> Link</a></div>`
-                    : `Follow the link to create a new password: <a href='http://https://Valeriy-Radionov.github.io/app-cardsgit/#/set-password/$token$'> Link</a></div>`
+                    ? `Follow the link to create a new password: <a href='http://localhost:3000/#/set-password/$token$'> Link</a>`
+                    : `Follow the link to create a new password: <a href='http://https://Valeriy-Radionov.github.io/app-cards/#/set-password/$token$'> Link</a>`
             }))
         },
         validate: values => {
