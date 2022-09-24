@@ -1,6 +1,7 @@
 import {authAPI, ForgotPasswordDataType, SetNewPasswordDataType} from "../api/auth/auth-api";
 import {Dispatch} from "redux";
 import {AppThunk} from "./store";
+import {setAppStatusAC} from "./appReducer";
 
 const TOGGLE_IS_EMAIL_SENT = 'RECOVERY/TOGGLE_IS_EMAIL_SENT'
 const TOGGLE_IS_PASSWORD_CHANGED = 'RECOVERY/TOGGLE_IS_PASSWORD_CHANGED'
@@ -31,9 +32,11 @@ export const toggleIsPasswordChangedAC = (isPasswordChanged: boolean) => ({
 
 //thunks
 export const sendEmail = (forgotPasswordData: ForgotPasswordDataType) => (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC("loading"))
     authAPI.forgotPassword(forgotPasswordData)
         .then(() => {
             dispatch(toggleIsEmailSentAC(true))
+            dispatch(setAppStatusAC("idle"))
         })
         .catch(res => {
             console.log(res)
@@ -42,9 +45,11 @@ export const sendEmail = (forgotPasswordData: ForgotPasswordDataType) => (dispat
 }
 export const setNewPassword = (setNewPasswordData: SetNewPasswordDataType): AppThunk =>
     (dispatch) => {
+        dispatch(setAppStatusAC("loading"))
         authAPI.setNewPassword(setNewPasswordData)
             .then(res => {
                 dispatch(toggleIsPasswordChangedAC(true))
+                dispatch(setAppStatusAC("idle"))
                 console.log(res.data)
             })
             .catch(res => {

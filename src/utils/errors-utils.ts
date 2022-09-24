@@ -1,7 +1,7 @@
 import {Dispatch} from "redux";
 import {AppRootActionsType} from "../bll/store";
 import axios, {AxiosError} from "axios";
-import {setAppErrorAC} from "../bll/appReducer";
+import {setAppErrorAC, setAppStatusAC} from "../bll/appReducer";
 
 export const handleServerNetworkError = (e: unknown, dispatch: Dispatch<AppRootActionsType>) => {
     const err = e as Error | AxiosError
@@ -10,4 +10,5 @@ export const handleServerNetworkError = (e: unknown, dispatch: Dispatch<AppRootA
         dispatch(setAppErrorAC(error))
         console.log(error)
     }
+    dispatch((setAppStatusAC('failed')))
 }

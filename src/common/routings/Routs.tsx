@@ -8,27 +8,28 @@ import {Profile} from "../../components/profile/Profile";
 import {SuperComponents} from "../../components/superComponent/SuperComponents";
 import {Error} from "../../components/error/Error";
 
-export const PATH = {
-    LOGIN: '/login',
-    REGISTR: "/registration",
-    PROFILE: "/profile",
-    ERROR: "/error-404",
-    RECOVERY: "/recovery-password",
-    SET_PASSWORD: "/set-password/:token",
-    TEST: "all-super-components"
+export enum PATH {
+    LOGIN = "/login",
+    REGISTR = "/registration",
+    PROFILE = "/profile",
+    ERROR = "*",
+    RECOVERY = "/recovery-password",
+    SET_PASSWORD = "/set-password/:token",
+    TEST = "all-super-components"
 }
+
 export const Routs = () => {
     return (
         <nav>
             <Routes>
-                <Route path={'/'} element={<Login/>} />
-                <Route path={PATH.LOGIN} element={<Login/>} />
-                <Route path={PATH.SET_PASSWORD} element={<SetPassword/>} />
-                <Route path={PATH.RECOVERY} element={<Recovery/>} />
-                <Route path={PATH.REGISTR} element={<Registration/>} />
-                <Route path={PATH.PROFILE} element={<Profile/>} />
-                <Route path={PATH.TEST} element={<SuperComponents/>} />
-                <Route path={PATH.ERROR} element={<Error/>} />
+                <Route path={'/'} element={<Login/>}/>
+                <Route path={PATH.LOGIN} element={<Login/>}/>
+                <Route path={PATH.SET_PASSWORD} element={<SetPassword/>}/>
+                <Route path={PATH.RECOVERY} element={<Recovery/>}/>
+                <Route path={PATH.REGISTR} element={<Registration/>}/>
+                <Route path={PATH.PROFILE} element={<Profile/>}/>
+                <Route path={PATH.TEST} element={<SuperComponents/>}/>
+                <Route path={PATH.ERROR} element={<Error/>}/>
             </Routes>
         </nav>
 

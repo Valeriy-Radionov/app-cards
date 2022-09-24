@@ -1,6 +1,7 @@
 import {authAPI, UpdateUserType, UserDataType} from "../api/auth/auth-api";
 import {Dispatch} from "redux";
 import {handleServerNetworkError} from "../utils/errors-utils";
+import {setAppStatusAC} from "./appReducer";
 
 
 const PROFILE = "PROFILE/PROFILE"
@@ -13,27 +14,29 @@ export type ProfileStateType = {
 }
 
 const initialProfileState = {
-   user: {
-       _id: '',
-       email: '',
-       name: '',
-       publicCardPacksCount: 0,
-       avatar: 'https://icons.iconarchive.com/icons/hopstarter/soft-scraps/256/User-Administrator-Blue-icon.png',
-       created: null,
-       __v: 0,
-       updated: null,
-       isAdmin: false,
-       verified: false, // подтвердил ли почту
-       rememberMe: false,
-       error: ''
-   },
+    user: {
+        _id: '',
+        email: '',
+        name: '',
+        publicCardPacksCount: 0,
+        avatar: 'https://icons.iconarchive.com/icons/hopstarter/soft-scraps/256/User-Administrator-Blue-icon.png',
+        created: null,
+        __v: 0,
+        updated: null,
+        isAdmin: false,
+        verified: false, // подтвердил ли почту
+        rememberMe: false,
+        error: ''
+    },
     isLoggedIn: false
 }
 export const profileReducer = (state: ProfileStateType = initialProfileState, action: ProfileActionsType): ProfileStateType => {
     switch (action.type) {
         case 'PROFILE/PROFILE': {
-            return {...state,
-            user: {...action.payload.profile}}
+            return {
+                ...state,
+                user: {...action.payload.profile}
+            }
         }
         case "PROFILE/LOGGEDIN": {
             return {
@@ -68,9 +71,11 @@ export const isLoggedInAC = (log: boolean) => {
 }
 
 export const logoutTC = () => async (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC("loading"))
     try {
         await authAPI.logOut()
         dispatch(isLoggedInAC(false))
+        dispatch(setAppStatusAC("idle"))
     } catch (e) {
         handleServerNetworkError(e, dispatch)
     }
@@ -80,8 +85,7 @@ export const updateUserTC = (model: UpdateUserType) => async (dispatch: Dispatch
     try {
         const response = await authAPI.userUpdate(model)
         dispatch(setProfileAC(response.data.updatedUser))
-    }
-    catch (e) {
+    } catch (e) {
         handleServerNetworkError(e, dispatch)
     }
 }
