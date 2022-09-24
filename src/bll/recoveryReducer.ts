@@ -36,7 +36,7 @@ export const sendEmail = (forgotPasswordData: ForgotPasswordDataType) => (dispat
     authAPI.forgotPassword(forgotPasswordData)
         .then(() => {
             dispatch(toggleIsEmailSentAC(true))
-            dispatch(setAppStatusAC("idle"))
+            dispatch(setAppStatusAC("succeeded"))
         })
         .catch(res => {
             console.log(res)
@@ -49,7 +49,7 @@ export const setNewPassword = (setNewPasswordData: SetNewPasswordDataType): AppT
         authAPI.setNewPassword(setNewPasswordData)
             .then(res => {
                 dispatch(toggleIsPasswordChangedAC(true))
-                dispatch(setAppStatusAC("idle"))
+                dispatch(setAppStatusAC("succeeded"))
                 console.log(res.data)
             })
             .catch(res => {

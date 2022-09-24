@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
 import {authAPI, RegistrationDatatype} from "../api/auth/auth-api";
-import {appInitializedAC, setAppStatusAC} from "./appReducer";
+import {setAppStatusAC} from "./appReducer";
 import {AppThunk} from "./store";
 
 const REGISTRATION = "REGISTRATION/REGISTRATION"
@@ -56,15 +56,12 @@ export const setErrorMessageAC = (message: string) => (
 
 export const registrationTC = (data: RegistrationDatatype): AppThunk => {
     return (dispatch: Dispatch) => {
-        dispatch(appInitializedAC(false))
-        dispatch(setAppStatusAC("loading"))
+        setAppStatusAC("loading")
         authAPI.registration(data).then(() => {
             dispatch(registrationAC(true))
-            dispatch(setAppStatusAC("idle"))
+            setAppStatusAC("loading")
         }).catch(err => {
             dispatch(setErrorMessageAC(err.response.data.error))
-        }).finally(() => {
-            dispatch(appInitializedAC(true))
         })
     }
 }
