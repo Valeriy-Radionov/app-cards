@@ -4,8 +4,11 @@ import {isLoggedInAC, setProfileAC} from "./profileReducer";
 import {handleServerNetworkError} from "../utils/errors-utils";
 
 const SET_ERROR = "APP/SET-ERROR"
+const SET_STATUS = "APP/SET-STATUS"
+export type RequestStatusType = "idle" | "loading" | "succeeded" | "failed"
 
 const initialState = {
+    status: "idle" as RequestStatusType,
     error: null as null | string,
     isInitialized: false
 }
@@ -14,6 +17,9 @@ export const appReducer = (state = initialState, action: AppActionType): typeof 
     switch (action.type) {
         case "APP-INITIALIZED": {
             return {...state, isInitialized: action.payload.isInitialized}
+        }
+        case "APP/SET-STATUS": {
+            return {...state, status: action.status}
         }
         case "APP/SET-ERROR": {
             return {...state, error: action.error}
@@ -24,10 +30,16 @@ export const appReducer = (state = initialState, action: AppActionType): typeof 
 
 }
 
-export type AppActionType = AppInitializedACType | SetAppErrorACType
+export type AppActionType = AppInitializedACType | SetAppErrorACType | SetAppStatusACType
 
 //actions
-
+export type SetAppStatusACType = ReturnType<typeof setAppStatusAC>
+export const setAppStatusAC = (status: RequestStatusType) => (
+    {
+        type: SET_STATUS,
+        status
+    } as const
+)
 export type SetAppErrorACType = ReturnType<typeof setAppErrorAC>
 export const setAppErrorAC = (error: null | string) => (
     {

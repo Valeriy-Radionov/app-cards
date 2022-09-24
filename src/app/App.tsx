@@ -7,9 +7,9 @@ import {AppRootStateType, useAppDispatch, useAppSelector} from "../bll/store";
 import {initializeAPPThunkCreator} from "../bll/appReducer";
 
 const App = () => {
+    const status = useAppSelector((state: AppRootStateType) => state.app.status)
     const isInitialized = useAppSelector((state: AppRootStateType) => state.app.isInitialized)
     const dispatch = useAppDispatch
-
 
     useEffect(() => {
         dispatch(initializeAPPThunkCreator())
@@ -19,22 +19,20 @@ const App = () => {
         return <Preloader/>
     }
 
-  return (
+    return (
 
-    <div className="App">
-      {/*
+        <div className="App">
+            {/*
       рекомендуют тут hash router + Provider
       */}
-      <>
-          <Header/>
-          <Routs/>
-              {/*<Main/> ---> в main будут Header и Router(в роуте пути в виде строковыч констант)
+            <Header/>
+            {status === "loading" && <Preloader/>}
+            <Routs/>
+            {/*<Main/> ---> в main будут Header и Router(в роуте пути в виде строковыч констант)
       в папке common компонента с кнопкой инпутом  и Navlink
       */}
-
-      </>
-    </div>
-  );
+        </div>
+    );
 }
 
 export default App;
