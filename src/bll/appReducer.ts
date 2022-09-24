@@ -33,6 +33,7 @@ export const appReducer = (state = initialState, action: AppActionType): typeof 
 export type AppActionType = AppInitializedACType | SetAppErrorACType | SetAppStatusACType
 
 //actions
+
 export type SetAppStatusACType = ReturnType<typeof setAppStatusAC>
 export const setAppStatusAC = (status: RequestStatusType) => (
     {
@@ -40,16 +41,8 @@ export const setAppStatusAC = (status: RequestStatusType) => (
         status
     } as const
 )
+
 export type SetAppErrorACType = ReturnType<typeof setAppErrorAC>
-
-export type SetAppStatusACType = ReturnType<typeof setAppStatusAC>
-export const setAppStatusAC = (status: RequestStatusType) => (
-    {
-        type: SET_STATUS,
-        status
-    } as const
-)
-
 export const setAppErrorAC = (error: null | string) => (
     {
         type: SET_ERROR,

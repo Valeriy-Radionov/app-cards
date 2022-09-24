@@ -9,8 +9,6 @@ import {initializeAPPThunkCreator} from "../bll/appReducer";
 const App = () => {
     const status = useAppSelector((state: AppRootStateType) => state.app.status)
     const isInitialized = useAppSelector((state: AppRootStateType) => state.app.isInitialized)
-    const status = useAppSelector(state => state.app.status)
-
     const dispatch = useAppDispatch
 
     useEffect(() => {
