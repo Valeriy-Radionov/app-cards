@@ -40,6 +40,7 @@ export const sendEmail = (forgotPasswordData: ForgotPasswordDataType) => (dispat
         })
         .catch(res => {
             console.log(res)
+            dispatch(setAppStatusAC("failed"))
             alert(res.response.data.error)
         })
 }
@@ -54,6 +55,7 @@ export const setNewPassword = (setNewPasswordData: SetNewPasswordDataType): AppT
             })
             .catch(res => {
                 console.log(res.data.error)
+                dispatch(setAppStatusAC("failed"))
             })
     }
 
