@@ -6,8 +6,8 @@ import {NavLink} from "react-router-dom";
 import {PATH} from "../../../common/routings/Routs";
 import SuperButton from "../../../common/c2-SuperButton 2/SuperButton";
 import {Login} from "../login/Login";
-import {registrationTC} from "../../../bll/registReducer";
 import {useAppDispatch, useAppSelector} from "../../../bll/store";
+import {registrationTC} from "../../../bll/authReducer";
 
 
 type FormikErrorType = {
@@ -17,8 +17,8 @@ type FormikErrorType = {
 }
 export const Registration = () => {
 
-    let errorMessage = useAppSelector(state => state.registration.errorMessage)
-    let isRegistrationSuccessful = useAppSelector(state => state.registration.isRegistrationSuccessful)
+    let errorMessage = useAppSelector(state => state.app.error)
+    let isRegistrationSuccessful = useAppSelector(state => state.auth.isRegistrationSuccessful)
     let dispatch = useAppDispatch
 
     const formik = useFormik({

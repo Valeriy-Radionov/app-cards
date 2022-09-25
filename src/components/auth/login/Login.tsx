@@ -7,8 +7,8 @@ import SuperButton from "../../../common/c2-SuperButton 2/SuperButton";
 import {Navigate, NavLink} from "react-router-dom";
 import {PATH} from "../../../common/routings/Routs";
 import {authAPI} from "../../../api/auth/auth-api";
-import {loginTC} from "../../../bll/loginReducer";
 import {useAppDispatch, useAppSelector} from "../../../bll/store";
+import {loginTC} from "../../../bll/authReducer";
 
 type FormikErrorType = {
     email?: string
@@ -17,7 +17,7 @@ type FormikErrorType = {
 }
 export const Login = () => {
     const dispatch = useAppDispatch
-    const isLoggedIn = useAppSelector(state => state.profile.isLoggedIn)
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
 
     const [togglePassword, setTogglePassword] = useState<boolean>(false)
 
