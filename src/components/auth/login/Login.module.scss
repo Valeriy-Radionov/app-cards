@@ -59,7 +59,18 @@
         }
 
         .password {
-          background-image: url("../../../common/image/iconHiddenPassword.png");
+          background-image: url("../../../common/image/display-password.png");
+          @include backgroundImg(contain, no-repeat, right);
+          opacity: 1;
+          border: none;
+          border-radius: 50%;
+          cursor: pointer;
+          width: 18px;
+          height: 18px;
+        }
+
+        .passwordHidden {
+          background-image: url("../../../common/image/hide_icon_215200.png");
           @include backgroundImg(contain, no-repeat, right);
           opacity: 1;
           border: none;

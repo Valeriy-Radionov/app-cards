@@ -25,6 +25,8 @@ export const Login = () => {
         setTogglePassword(!togglePassword)
         console.log(togglePassword)
     }
+    const classNameBtn = togglePassword ? style.passwordHidden : style.password
+
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -75,7 +77,7 @@ export const Login = () => {
                         <div className={style.wrapperBtn}>
                             <input
                                 type={togglePassword ? "text" : "password"} {...formik.getFieldProps("password")}/>
-                            <button type={"button"} className={style.password} onClick={onClickShowPassword}></button>
+                            <button type={"button"} className={classNameBtn} onClick={onClickShowPassword}></button>
                         </div>
                         {formik.touched.password && formik.errors.password &&
                             <div style={{color: "red"}}>{formik.errors.password}</div>}
