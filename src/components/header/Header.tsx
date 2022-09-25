@@ -4,7 +4,7 @@ import {PATH} from "../../common/routings/Routs";
 import {NavLink} from "react-router-dom";
 import SuperButton from "../../common/c2-SuperButton 2/SuperButton";
 import {useAppDispatch} from "../../bll/store";
-import {logoutTC} from "../../bll/profileReducer";
+import {logoutTC} from "../../bll/authReducer";
 
 export const Header = () => {
 

@@ -1,17 +1,18 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import s from './Profile.module.scss'
 import ProfileRename from "./profile_rename/ProfileRename";
-import { logoutTC, updateUserTC} from "../../bll/profileReducer";
+import {  updateUserTC} from "../../bll/profileReducer";
 import {useAppDispatch, useAppSelector} from "../../bll/store";
 import {Navigate, NavLink} from "react-router-dom";
 import {UpdateUserType} from "../../api/auth/auth-api";
 import arrow from '../../common/image/Vector 1.svg'
 import updateAva from '../../common/image/Union.svg'
 import {backgroundImg} from "../../common/style/utilitsBg";
+import {logoutTC} from "../../bll/authReducer";
 
 export const Profile = () => {
     const dispatch = useAppDispatch
-    const isLoggedIn = useAppSelector(state => state.profile.isLoggedIn)
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const user = useAppSelector(state => state.profile.user)
 
     const logout = () => {
@@ -36,14 +37,14 @@ export const Profile = () => {
             <div className={s.block}>
                 <h1>Personal information</h1>
                 <div className={s.imgBlock}>
-                    <div className={s.avatar} style={backgroundImg(user.avatar || updateAva)}></div>
+                    <div className={s.avatar} style={backgroundImg(user? user.avatar || updateAva : '')}></div>
                     <div className={s.updatePhoto}>
                         <img src={updateAva} alt='' className={s.updateAva}/>
                     </div>
                 </div>
-                <ProfileRename name={user.name} changeTask={updateUsers}/>
+                <ProfileRename name={user?  user.name : ''} changeTask={updateUsers}/>
                 <div className={s.email}>
-                    <span>{user.email}</span>
+                    <span>{user? user.email : ''}</span>
                 </div>
                 <button onClick={logout} className={s.logoutBtn}>Log Out</button>
             </div>

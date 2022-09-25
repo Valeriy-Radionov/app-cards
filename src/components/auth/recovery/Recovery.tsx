@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../../bll/store";
 import {EmailSentPage} from "./EmailSentPage/EmailSentPage";
-import {toggleIsEmailSentAC, sendEmail} from "../../../bll/recoveryReducer";
 import {useFormik} from "formik";
 import SuperInputText from "../../../common/c1-SuperInputText 2/SuperInputText";
 import SuperButton from "../../../common/c2-SuperButton 2/SuperButton";
@@ -9,11 +8,12 @@ import style from './Recovery.module.css'
 import authStyle from '../AuthPageContainer.module.css'
 import {PATH} from "../../../common/routings/Routs";
 import {Link} from 'react-router-dom';
+import {sendEmail, toggleIsEmailSentAC} from "../../../bll/authReducer";
 
 
 export const Recovery = () => {
     const dispatch = useAppDispatch
-    const isSentEmail = useAppSelector(state => state.recovery.isEmailSent)
+    const isSentEmail = useAppSelector(state => state.auth.isEmailSent)
 
     const formik = useFormik({
         initialValues: {

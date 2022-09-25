@@ -7,12 +7,12 @@ import {useFormik} from "formik";
 import displayPassword from '../../../../common/image/display-password.png'
 import {useNavigate, useParams} from "react-router-dom";
 import {PATH} from "../../../../common/routings/Routs";
-import {setNewPassword, toggleIsPasswordChangedAC} from "../../../../bll/recoveryReducer";
+import {setNewPassword, toggleIsPasswordChangedAC} from "../../../../bll/authReducer";
 
 export const SetPassword = () => {
     const [toggleTypeInput, setToggleTypeInput] = useState(false)
     const dispatch = useAppDispatch
-    const isPasswordChanged = useAppSelector(state => state.recovery.isPasswordChanged)
+    const isPasswordChanged = useAppSelector(state => state.auth.isPasswordChanged)
     const {token} = useParams()
     const navigate = useNavigate()
 

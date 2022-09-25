@@ -5,57 +5,49 @@ import {setAppStatusAC} from "./appReducer";
 
 
 const PROFILE = "PROFILE/PROFILE"
-const LOGGEDIN = "PROFILE/LOGGEDIN"
 
 
 export type ProfileStateType = {
-    user: UserDataType
-    isLoggedIn?: boolean
+    user: null | UserDataType
 }
 
 const initialProfileState = {
-    user: {
-        _id: '',
-        email: '',
-        name: '',
-        publicCardPacksCount: 0,
-        avatar: 'https://icons.iconarchive.com/icons/hopstarter/soft-scraps/256/User-Administrator-Blue-icon.png',
-        created: null,
-        __v: 0,
-        updated: null,
-        isAdmin: false,
-        verified: false, // подтвердил ли почту
-        rememberMe: false,
-        error: ''
-    },
-    isLoggedIn: false
+    user: null as null | UserDataType,
 }
 export const profileReducer = (state: ProfileStateType = initialProfileState, action: ProfileActionsType): ProfileStateType => {
     switch (action.type) {
         case 'PROFILE/PROFILE': {
-            return {
-                ...state,
-                user: {...action.payload.profile}
+            if(action.payload.profile !== null) {
+                return {
+                    ...state,
+                    user: {...action.payload.profile}
+                }
+            } else {
+                return {
+                    ...state,
+                    user: action.payload.profile
+                }
             }
         }
-        case "PROFILE/LOGGEDIN": {
-            return {
-                ...state,
-                isLoggedIn: action.payload.log
-            }
-        }
+        // case "PROFILE/LOGGEDIN": {
+        //     return {
+        //         ...state,
+        //         isLoggedIn: action.payload.log
+        //     }
+        // }
         default:
             return state
     }
 }
 
 //TYPE ACs
-export type ProfileActionsType = SetProfileACType | IsLoggedInACType
+export type ProfileActionsType = SetProfileACType
 
 type SetProfileACType = ReturnType<typeof setProfileAC>
-type IsLoggedInACType = ReturnType<typeof isLoggedInAC>
+// type IsLoggedInACType = ReturnType<typeof isLoggedInAC>
 
-export const setProfileAC = (profile: UserDataType) => {
+// AC
+export const setProfileAC = (profile: UserDataType | null) => {
     return {
         type: PROFILE,
         payload: {
@@ -63,25 +55,27 @@ export const setProfileAC = (profile: UserDataType) => {
         }
     } as const
 }
-export const isLoggedInAC = (log: boolean) => {
-    return {
-        type: LOGGEDIN,
-        payload: {
-            log
-        }
-    } as const
-}
+// export const isLoggedInAC = (log: boolean) => {
+//     return {
+//         type: LOGGEDIN,
+//         payload: {
+//             log
+//         }
+//     } as const
+// }
 
-export const logoutTC = () => async (dispatch: Dispatch) => {
-    dispatch(setAppStatusAC("loading"))
-    try {
-        await authAPI.logOut()
-        dispatch(isLoggedInAC(false))
-        dispatch(setAppStatusAC("succeeded"))
-    } catch (e) {
-        handleServerNetworkError(e, dispatch)
-    }
-}
+// TC
+// export const logoutTC = () => async (dispatch: Dispatch) => {
+//     dispatch(setAppStatusAC("loading"))
+//     try {
+//         await authAPI.logOut()
+//         dispatch(isLoggedInAC(false))
+//         dispatch(setProfileAC(null))
+//         dispatch(setAppStatusAC("succeeded"))
+//     } catch (e) {
+//         handleServerNetworkError(e, dispatch)
+//     }
+// }
 
 export const updateUserTC = (model: UpdateUserType) => async (dispatch: Dispatch) => {
     dispatch(setAppStatusAC("loading"))
@@ -92,4 +86,4 @@ export const updateUserTC = (model: UpdateUserType) => async (dispatch: Dispatch
     } catch (e) {
         handleServerNetworkError(e, dispatch)
     }
-}
+};

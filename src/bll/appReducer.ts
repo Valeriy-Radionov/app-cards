@@ -1,7 +1,8 @@
 import {AppThunk} from "./store";
 import {authAPI} from "../api/auth/auth-api";
-import {isLoggedInAC, setProfileAC} from "./profileReducer";
+import { setProfileAC} from "./profileReducer";
 import {handleServerNetworkError} from "../utils/errors-utils";
+import {isLoggedInAC} from "./authReducer";
 
 const SET_ERROR = "APP/SET-ERROR"
 const SET_STATUS = "APP/SET-STATUS"
