@@ -1,7 +1,7 @@
 import {instance} from "./auth/auth-api";
 import {AxiosResponse} from "axios";
 
-export const getPack = (userId?: string, page?: number, pageCount?: number, minCardsCount?: number, maxCardsCount?: number, sortUpDown?: sortUpDown, sortField?: sortField, block?: boolean) => {
+export const getPacks = (userId?: string, page?: number, pageCount?: number, minCardsCount?: number, maxCardsCount?: number, sortUpDown?: sortUpDown, sortField?: sortField, block?: boolean) => {
     return instance.get<Users>("cards/pack", {
         params: {
             user_id: userId,
