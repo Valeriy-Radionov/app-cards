@@ -1,0 +1,36 @@
+.container {
+    box-sizing: border-box;
+    width: 196px;
+    height: 36px;
+    display: flex;
+    flex-direction: row;
+}
+.item {
+    box-sizing: border-box;
+    width: 98px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.firstItem {
+    border: 1px solid #D9D9D9;
+    border-radius: 2px 0 0 2px;
+    background-color: #FFFFFF;
+}
+.activeFirstItem {
+    background-color: #366EFF;
+    border-radius: 2px 0 0 2px;
+    color: #FFFFFF;
+}
+.secondItem {
+    border: 1px solid #D9D9D9;
+    border-radius: 0 2px 2px 0;
+    background-color: #FFFFFF;
+}
+.activeSecondItem {
+    background-color: #366EFF;
+    border-radius: 0 2px 2px 0;
+    color: #FFFFFF;
+}
