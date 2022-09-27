@@ -8,7 +8,7 @@ export const instance = axios.create({
 
 export const cardsApi = {
     getCards(params: ParamsGetCardsType){
-        return instance.get<ResponseCardsType<CardType[]>>('/cards/card', {
+        return instance.get<ResponseCardsType>('/cards/card', {
             params
         })
     },
@@ -18,10 +18,10 @@ export const cardsApi = {
         })
     },
     deleteCard(id: string){
-        return instance.delete(`/cards/card?id=${id}`)
+        return instance.delete<AxiosResponse>(`/cards/card?id=${id}`)
     },
     updateCard(card: PostCardType){
-        return instance.put(`/cards/card`, {
+        return instance.put<PostCardType, AxiosResponse>(`/cards/card`, {
             card
         })
     },
@@ -31,11 +31,11 @@ export type ParamsGetCardsType = {
     cardAnswer?: string  // не обязательно
     cardQuestion?: string // не обязательно
     cardsPack_id: string //обязательно!!!
-    min?: string | number  // не обязательно
-    max?: string | number // не обязательно
+    min?: string   // не обязательно
+    max?: string // не обязательно
     sortCards?: string // не обязательно
-    page?: string | number // не обязательно
-    pageCount?: string | number// не обязательно
+    page?: string  // не обязательно
+    pageCount?: string// не обязательно
 }
 
 export type CardType = {
@@ -55,33 +55,33 @@ export type CardType = {
     __v: string | number
 }
 
-export type ResponseCardsType<D = []> = {
-    cards: D
-    "packUserId": string
-    "packName": string
-    "packPrivate": boolean
-    "packDeckCover": string
-    "packCreated": string
-    "packUpdated": string
-    "page": string | number
-    "pageCount": string | number
-    "cardsTotalCount": string | number
-    "minGrade": string | number
-    "maxGrade": string | number
-    "token": string
-    "tokenDeathTime": string | number
+export type ResponseCardsType = {
+    cards: CardType[]
+    packUserId: string
+    packName: string
+    packPrivate: boolean
+    packDeckCover: string
+    packCreated: string
+    packUpdated: string
+    page: string
+    pageCount: string
+    cardsTotalCount: string
+    minGrade: string
+    maxGrade: string
+    token: string
+    tokenDeathTime: string
 }
 
 export type PostCardType = {
-    card: {
-        cardsPack_id: "5eb543f6bea3ad21480f1ee7"
-        question?: "no question" // если не отправить будет таким
-        answer?: "no answer" // если не отправить будет таким
-        grade?: 0 // 0..5, не обязателен
-        shots?: 0 // не обязателен
-        answerImg?: "url or base 64" // не обязателен
-        questionImg?: "url or base 64" // не обязателен
-        questionVideo?: "url or base 64" // не обязателен
-        answerVideo?: "url or base 64" // не обязателен
-    }
+
+        cardsPack_id?: string
+        question?: string// если не отправить будет таким
+        answer?: string // если не отправить будет таким
+        grade?: string  // 0..5, не обязателен
+        shots?: string // не обязателен
+        answerImg?: string // не обязателен
+        questionImg?: string // не обязателен
+        questionVideo?: string // не обязателен
+        answerVideo?: string // не обязателен
+
 }
