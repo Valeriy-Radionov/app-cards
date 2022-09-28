@@ -1,10 +1,15 @@
+@import "../../common/style/mixins";
+
 .container {
   display: flex;
   flex-direction: column;
   width: 100%;
   min-height: 100%;
-  padding: 92px 142px 0 142px;
+  padding: 135px 142px 90px 142px;
+
   .content {
+    height: 100%;
+
     .link {
       position: absolute;
       left: 142px;
@@ -17,6 +22,69 @@
         img {
           margin: 0 10px 0 0;
         }
+      }
+    }
+
+    .packName {
+      margin-bottom: 28px;
+      display: flex;
+      justify-content: start;
+      align-items: center;
+
+      span {
+        @include font(normal, 600, 22px, 27px);
+      }
+
+      button {
+        outline: none;
+        border: none;
+        background: none;
+        transition: 0.5s;
+
+        &:hover {
+          transform: translateY(-4px);
+        }
+      }
+
+    }
+
+    .searchBlock {
+      .searchItem {
+        margin-bottom: 14px;
+      }
+
+      .searchItem2 {
+        margin-bottom: 24px;
+      }
+    }
+
+    .blockTable {
+      position: relative;
+
+      .addCard {
+        position: absolute;
+        @include width-height(184px, 36px);
+        top: -270px;
+        right: 0;
+        border: none;
+        outline: none;
+
+        @include font(normal, 500, 16px, 20px);
+        letter-spacing: 0.01em;
+        //font-family: 'Montserrat';
+
+        color: #FFFFFF;
+        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+        background: #366EFF;
+        border-radius: 30px;
+        transition: 0.4s;
+
+        &:hover {
+          box-shadow: 0 4px 18px rgba(54, 110, 255, 0.35);
+
+        }
+
       }
     }
   }

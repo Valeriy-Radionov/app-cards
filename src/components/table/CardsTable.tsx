@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {
     Table,
-    TableBody,
     TableCell,
     TableContainer,
     TableHead,
@@ -10,7 +9,7 @@ import {
     TableFooter,
     TablePagination
 } from '@mui/material'
-import {CardsType, deleteCardsTC} from "../../bll/cardsReducer";
+import {CardsType} from "../../bll/cardsReducer";
 import arrow from '../../common/image/arrow.svg'
 
 type BasicTablePropsType = {
@@ -39,11 +38,10 @@ export const BasicTable: React.FC<BasicTablePropsType> = ({
                         <TableCell align="center">Question</TableCell>
                         <TableCell align="center">Answer</TableCell>
                         <TableCell align="center">Last Updated</TableCell>
-                        <TableCell align="center" onClick={addParamsGrade}>
+                        <TableCell align="left" onClick={addParamsGrade}>
                             Grade
-                            <img src={arrow} style={grade ? {transform: 'rotate(180deg)'} : {}}/>
+                            <img src={arrow} style={grade ? {transform: 'rotate(180deg)'} : {} } alt='arrow'/>
                         </TableCell>
-                        <TableCell align="center">Actions</TableCell>
                     </TableRow>
                 </TableHead>
                 {children}
