@@ -51,7 +51,7 @@ const initialState = {
     tokenDeathTime: '1664723259245'
 }
 
-type CardsType = {
+export type CardsType = {
     cards: CardType[]
     params: ParamsType
     packUserId: string
@@ -77,12 +77,32 @@ export const cardReducer = (state: CardsType = initialState, action: CardsAction
                 ...action.payload.cards
             }
         }
-        case "CARDS/UPDATE_PARAMS":{
+        case "CARDS/UPDATE_PARAMS": {
             return {
                 ...state,
-                params:{
+                params: {
                     ...state.params,
                     ...action.payload.params
+                }
+            }
+        }
+        case "CARDS/UPDATE_PAGE_PAGINATE": {
+            const page = action.payload.page.toString()
+            return {
+                ...state,
+                params: {
+                    ...state.params,
+                    page
+                }
+            }
+        }
+        case "CARDS/UPDATE_PAGE_COUNT_PAGINATE": {
+            const pageCount = action.payload.count.toString()
+            return {
+                ...state,
+                params: {
+                    ...state.params,
+                    pageCount
                 }
             }
         }
@@ -92,9 +112,14 @@ export const cardReducer = (state: CardsType = initialState, action: CardsAction
 }
 
 // Types
-export type CardsActionsType = getCardsACType | updateParamsACType
+export type CardsActionsType = getCardsACType
+    | updateParamsACType
+    | updatePagePaginateACType
+    | updatePageCountPaginateACType
 type getCardsACType = ReturnType<typeof getCardsAC>
 type updateParamsACType = ReturnType<typeof updateParamsAC>
+type updatePagePaginateACType = ReturnType<typeof updatePagePaginateAC>
+type updatePageCountPaginateACType = ReturnType<typeof updatePageCountPaginateAC>
 
 // ACs
 export const getCardsAC = (cards: ResponseCardsType) => {
@@ -113,6 +138,23 @@ export const updateParamsAC = (params: ParamsType) => {
         }
     } as const
 }
+export const updatePagePaginateAC = (page: number) => {
+    return {
+        type: 'CARDS/UPDATE_PAGE_PAGINATE',
+        payload: {
+            page
+        }
+    } as const
+}
+export const updatePageCountPaginateAC = (count: number) => {
+    return {
+        type: 'CARDS/UPDATE_PAGE_COUNT_PAGINATE',
+        payload: {
+            count
+        }
+    } as const
+}
+
 
 // TCs
 export const getCardsTC = (id: string): AppThunk => async (dispatch, getState) => {
@@ -127,14 +169,13 @@ export const getCardsTC = (id: string): AppThunk => async (dispatch, getState) =
 export const deleteCardsTC = (cardId: string): AppThunk => async (dispatch, getState) => {
     const {cardsPack_id} = getState().cards.params
     try {
-        const res = await cardsApi.deleteCard(cardId)
+        await cardsApi.deleteCard(cardId)
         dispatch(getCardsTC(cardsPack_id))
     } catch (e) {
         handleServerNetworkError(e, dispatch)
     }
 }
-
-export const addNewCardTC = (id: string): AppThunk => async (dispatch, getState) => {
+export const addNewCardTC = (id: string): AppThunk => async (dispatch) => {
     const card: PostCardType = {
         cardsPack_id: id,
         question: "map",
@@ -148,7 +189,7 @@ export const addNewCardTC = (id: string): AppThunk => async (dispatch, getState)
 
     }
     try {
-        const res = await cardsApi.addNewCard(card)
+        await cardsApi.addNewCard(card)
         dispatch(getCardsTC(id))
     } catch (e) {
         handleServerNetworkError(e, dispatch)
