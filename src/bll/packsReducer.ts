@@ -22,23 +22,24 @@ const initialState: PacksType = {
     cardPacks: [{
         _id: "63306a3a6caad3673917ba62",
         user_id: "632502cb94b7970fb4f08698",
-        user_name: "Valera Radionov",
+        user_name: "Loading",
         private: false,
-        name: "UUUUUUUUUUU",
+        name: "Loading",
         path: "/def",
         grade: 0,
         shots: 0,
         cardsCount: 0,
         type: "packs",
         rating: 0,
-        created: new Date("2022-09-25T14:48:26.990Z"),
-        updated: new Date("2022-09-25T15:16:57.523Z"),
+        created: new Date(""),
+        updated: new Date(""),
         more_id: "632502cb94b7970fb4f08698",
         __v: 0,
         deckCover: ""
     }],
     params: {
         user_id: "",
+        packName: "",
         packs_Id: "",
         page: "1",
         pageCount: "10",
@@ -86,30 +87,33 @@ export const packsReducer = (state = initialState, action: PacksActionType): Pac
 
 export type PacksActionType = setPacksACType | updateParamsPacksAC
     | updatePacksPagePaginateACType | updatePacksPageCountPaginateType
-//actions
+
 type setPacksACType = ReturnType<typeof setUsersPacksAC>
+type updateParamsPacksAC = ReturnType<typeof updateParamsAC>
+type updatePacksPagePaginateACType = ReturnType<typeof updatePacksPagePaginateAC>
+type updatePacksPageCountPaginateType = ReturnType<typeof updatePacksPageCountPaginate>
+
+//actions
 export const setUsersPacksAC = (userPacks: ResponsePacksType) => ({
     type: GET_USERS_PACKS,
     userPacks
 } as const)
 
-type updateParamsPacksAC = ReturnType<typeof updateParamsAC>
 export const updateParamsAC = (params: ParamsGetPacksType) => ({
     type: UPDATE_PACKS_PARAMS,
     params
 } as const)
 
-type updatePacksPagePaginateACType = ReturnType<typeof updatePacksPagePaginateAC>
 export const updatePacksPagePaginateAC = (page: number) => ({
     type: UPDATE_PACKS_PAGE_PAGINATE,
     page
 } as const)
 
-type updatePacksPageCountPaginateType = ReturnType<typeof updatePacksPageCountPaginate>
 export const updatePacksPageCountPaginate = (count: number) => ({
     type: 'CARDS/UPDATE_PAGE_COUNT_PAGINATE',
     count
 } as const)
+
 //thunks
 export const setUsersPacksTC = (userId: string): AppThunk => {
     return async (dispatch, getState) => {

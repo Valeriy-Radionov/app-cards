@@ -53,6 +53,7 @@ export type CardPackType = {
 }
 export type ParamsGetPacksType = {
     user_id?: string,
+    packName: string,
     packs_Id: string
     page?: string,
     pageCount?: string,
