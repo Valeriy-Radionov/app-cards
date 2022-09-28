@@ -68,16 +68,17 @@ export const packsReducer = (state = initialState, action: PacksActionType): Pac
             const page = action.page.toString()
             return {...state, params: {...state.params, page}}
         }
-        case "CARDS/UPDATE_PAGE_COUNT_PAGINATE": {
-            const pageCount = action.count.toString()
-            return {
-                ...state,
-                params: {
-                    ...state.params,
-                    pageCount
-                }
-            }
-        }
+        // не пишите чужие экшены к себе в reducer они срабатывают и генерят ошибку, сразу меняйте имя!!!!!
+        // case "CARDS/UPDATE_PAGE_COUNT_PAGINATE": {
+        //     const pageCount = action.count.toString()
+        //     return {
+        //         ...state,
+        //         params: {
+        //             ...state.params,
+        //             pageCount
+        //         }
+        //     }
+        // }
         default:
             return state
     }
