@@ -3,12 +3,12 @@ import s from './Profile.module.scss'
 import ProfileRename from "./profile_rename/ProfileRename";
 import {  updateUserTC} from "../../bll/profileReducer";
 import {useAppDispatch, useAppSelector} from "../../bll/store";
-import {Navigate, NavLink} from "react-router-dom";
+import {Navigate} from "react-router-dom";
 import {UpdateUserType} from "../../api/auth/auth-api";
-import arrow from '../../common/image/Vector 1.svg'
 import updateAva from '../../common/image/Union.svg'
 import {backgroundImg} from "../../common/style/utilitsBg";
 import {logoutTC} from "../../bll/authReducer";
+import {LinkArrow} from "../../common/Link/LinkArrow";
 
 export const Profile = () => {
     const dispatch = useAppDispatch
@@ -28,12 +28,7 @@ export const Profile = () => {
 
     return (
         <div className={s.container}>
-            <div className={s.link}>
-                <NavLink to={'/login'}>
-                    <img src={arrow} alt=""/>
-                    Back to Packs List
-                </NavLink>
-            </div>
+            <LinkArrow className={s.link} to={'/login'} name={'Back to Packs List'}/>
             <div className={s.block}>
                 <h1>Personal information</h1>
                 <div className={s.imgBlock}>
