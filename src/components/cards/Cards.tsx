@@ -156,7 +156,7 @@ function Cards() {
     return (
         <div className={s.container}>
             <div className={s.content}>
-                <LinkArrow className={s.link} to={'/profile'} name={'Back to Packs List'}/>
+                <LinkArrow className={s.link} to={'/packs'} name={'Back to Packs List'}/>
                 <div className={s.packName}>
                     <span>{cards.packName}</span>
                     {isMyCards
