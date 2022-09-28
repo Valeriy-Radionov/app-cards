@@ -21,7 +21,6 @@ export enum PATH {
 
 export const Routs = () => {
     return (
-        <nav>
             <Routes>
                 <Route path={'/'} element={<Login/>}/>
                 <Route path={PATH.LOGIN} element={<Login/>}/>
@@ -33,7 +32,5 @@ export const Routs = () => {
                 <Route path={PATH.ERROR} element={<Error/>}/>
                 <Route path={'/cards'} element={<Cards/>}/>
             </Routes>
-        </nav>
-
     );
 };
