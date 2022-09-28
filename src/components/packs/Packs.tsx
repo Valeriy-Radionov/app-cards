@@ -47,13 +47,14 @@ const rows = [
 
 export type PackPropsType = {}
 export const Packs: React.FC<PackPropsType> = (props) => {
-    const isInitialized = useAppSelector((state: AppRootStateType) => state.app.isInitialized)
     const packs = useAppSelector((state: AppRootStateType) => state.packs.cardPacks)
+    const userID = useAppSelector((state: AppRootStateType) => state.profile.user?._id)
+    // const packUserId = useAppSelector(state => state.packs.cardPacks._id)
     const dispatch = useAppDispatch
 
     useEffect(() => {
-        if (isInitialized) {
-            dispatch(setUsersPacksTC())
+        if (userID) {
+            dispatch(setUsersPacksTC(userID))
         }
     }, [setUsersPacksTC])
 
