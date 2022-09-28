@@ -7,6 +7,7 @@ import {Registration} from "../../components/auth/registration/Registration";
 import {Profile} from "../../components/profile/Profile";
 import {SuperComponents} from "../../components/superComponent/SuperComponents";
 import {Error} from "../../components/error/Error";
+import Cards from "../../components/cards/Cards";
 import {Packs} from "../../components/packs/Packs";
 
 export enum PATH {
@@ -33,6 +34,7 @@ export const Routs = () => {
                 <Route path={PATH.TEST} element={<SuperComponents/>}/>
                 <Route path={PATH.PACKS} element={<Packs/>}/>
                 <Route path={PATH.ERROR} element={<Error/>}/>
+                <Route path={'/cards'} element={<Cards/>}/>
             </Routes>
         </nav>
 
