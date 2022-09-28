@@ -7,6 +7,7 @@ import {Registration} from "../../components/auth/registration/Registration";
 import {Profile} from "../../components/profile/Profile";
 import {SuperComponents} from "../../components/superComponent/SuperComponents";
 import {Error} from "../../components/error/Error";
+import {Packs} from "../../components/packs/Packs";
 
 export enum PATH {
     LOGIN = "/login",
@@ -15,7 +16,8 @@ export enum PATH {
     ERROR = "*",
     RECOVERY = "/recovery-password",
     SET_PASSWORD = "/set-password/:token",
-    TEST = "all-super-components"
+    TEST = "all-super-components",
+    PACKS = "/packs"
 }
 
 export const Routs = () => {
@@ -29,6 +31,7 @@ export const Routs = () => {
                 <Route path={PATH.REGISTR} element={<Registration/>}/>
                 <Route path={PATH.PROFILE} element={<Profile/>}/>
                 <Route path={PATH.TEST} element={<SuperComponents/>}/>
+                <Route path={PATH.PACKS} element={<Packs/>}/>
                 <Route path={PATH.ERROR} element={<Error/>}/>
             </Routes>
         </nav>

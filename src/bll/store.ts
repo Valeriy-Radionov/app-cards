@@ -4,11 +4,13 @@ import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk'
 import {TypedUseSelectorHook, useSelector} from "react-redux";
 import {AppActionType, appReducer} from "./appReducer";
 import {AuthActionsType, authReducer} from "./authReducer";
+import {PacksActionType, packsReducer} from "./packsReducer";
 
 const reducers = combineReducers({
     app: appReducer,
     auth: authReducer,
-    profile: profileReducer
+    profile: profileReducer,
+    packs: packsReducer
 })
 
 export const store = legacy_createStore(reducers, applyMiddleware(thunkMiddleware))
@@ -18,6 +20,7 @@ export type AppRootActionsType =
     | ProfileActionsType
     | AppActionType
     | AuthActionsType
+    | PacksActionType
 
 export const useAppDispatch = store.dispatch as ThunkDispatch<AppRootStateType, unknown, AppRootActionsType>
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector

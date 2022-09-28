@@ -1,39 +1,41 @@
 import {instance} from "./auth/auth-api";
 import {AxiosResponse} from "axios";
 
-export const getPacks = (userId?: string, page?: number, pageCount?: number, minCardsCount?: number, maxCardsCount?: number, sortUpDown?: sortUpDown, sortField?: sortField, block?: boolean) => {
-    return instance.get<Users>("cards/pack", {
-        params: {
-            user_id: userId,
-            page: page,
-            pageCount: pageCount,
-            min: minCardsCount,
-            max: maxCardsCount,
-            sortPacks: `${sortUpDown}${sortField}`,
-            block: block
-        }
-    })
-}
+export const packsApi = {
 
-export const sortBy = (sortType: sortUpDown = "0", sortField: sortField = "created") => {
-    return instance.get<Users>(`cards/pack?sortPacks=${sortType}${sortField}`)
-}
+    getPacks(userId?: string, page?: number, pageCount?: number, minCardsCount?: number, maxCardsCount?: number, sortUpDown?: sortUpDown, sortField?: sortField, block?: boolean) {
+        return instance.get<Users>("cards/pack", {
+            params: {
+                user_id: userId,
+                page: page,
+                pageCount: pageCount,
+                min: minCardsCount,
+                max: maxCardsCount,
+                sortPacks: `${sortUpDown}${sortField}`,
+                block: block
+            }
+        })
+    },
 
-export const addPack = (newPack: addPackDataType) => {
-    return instance.post<addPackDataType, AxiosResponse<Users>>("cards/pack", newPack)
-}
+    sortBy(sortType: sortUpDown = "0", sortField: sortField = "created") {
+        return instance.get<Users>(`cards/pack?sortPacks=${sortType}${sortField}`)
+    },
 
-export const deletePack = (id: string) => {
-    return instance.delete(`cards/pack?id=${id}`,)
-}
+    addPack(newPack: addPackDataType) {
+        return instance.post<addPackDataType, AxiosResponse<Users>>("cards/pack", newPack)
+    },
 
-export const updatePack = (newPack: updatePackDataType) => {
-    return instance.put<updatePackDataType, AxiosResponse<Users>>("cards/pack", newPack)
-}
+    deletePack(id: string) {
+        return instance.delete(`cards/pack?id=${id}`,)
+    },
 
+    updatePack(newPack: updatePackDataType) {
+        return instance.put<updatePackDataType, AxiosResponse<Users>>("cards/pack", newPack)
+    }
+}
 //types
 export type Users = {
-    cardPacks: CardPack[];
+    cardPacks: CardPackType[];
     page: number;
     pageCount: number;
     cardPacksTotalCount: number;
@@ -43,7 +45,7 @@ export type Users = {
     tokenDeathTime: number;
 }
 
-export type CardPack = {
+export type CardPackType = {
     _id: string;
     user_id: string;
     user_name: string;
@@ -61,6 +63,7 @@ export type CardPack = {
     __v: number;
     deckCover?: string;
 }
+
 export type addPackDataType = {
     cardsPack: {
         name: string,
@@ -68,6 +71,7 @@ export type addPackDataType = {
         deckCover: string
     }
 }
+
 export type updatePackDataType = {
     cardsPack: {
         _id: string
