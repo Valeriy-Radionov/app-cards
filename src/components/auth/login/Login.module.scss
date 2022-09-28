@@ -1,12 +1,20 @@
 @import "src/common/style/mixins";
 
 .container {
+  //display: flex;
+  //flex-direction: column;
+  //width: 100%;
+  //align-items: center;
+  //margin: 60px auto;
+  //color: black;
+  @include width-height(100%, 100%);
+  display: flex;
+  justify-content: center;
+  padding: 120px 0 0 0;
+  flex-direction: column;
   display: flex;
   flex-direction: column;
-  width: 100%;
   align-items: center;
-  margin: 60px auto;
-  color: black;
 
   .blockAuth {
     box-sizing: border-box;
@@ -16,6 +24,8 @@
     min-height: 552px;
     background-color: #fff;
     border-radius: 2px;
+
+
     @media screen and (max-width: 415px) {
       width: 100%;
     }

@@ -8,12 +8,14 @@ import {
     updatePagePaginateAC,
     updateParamsAC
 } from "../../bll/cardsReducer";
-import { useSearchParams} from 'react-router-dom'
+import {useSearchParams} from 'react-router-dom'
 import {BasicTable} from "../table/CardsTable";
 import {useDebounce} from "../../common/hooks/debounceHook";
 import {MapTableBody} from "../table/TableBody";
 import {EmptyCards} from "./EmptyCards";
 import {LinkArrow} from "../../common/Link/LinkArrow";
+import {InputSearch} from "../../common/inputSearch/InputSearch";
+import actions from '../../common/image/actions.svg'
 
 
 export type ParamsType = {
@@ -33,6 +35,8 @@ function Cards() {
     const userID = useAppSelector(state => state.profile.user?._id)
     const packUserId = useAppSelector(state => state.cards.packUserId)
     const cards = useAppSelector(state => state.cards)
+
+    const isMyCards = cards.packUserId === userID
 
     // URLSearchParams
     const [searchParams, setSearchParams] = useSearchParams();
@@ -153,15 +157,37 @@ function Cards() {
         <div className={s.container}>
             <div className={s.content}>
                 <LinkArrow className={s.link} to={'/profile'} name={'Back to Packs List'}/>
-                <div>
-                    <input value={paramsSearch.cardQuestion}
-                           onChange={addParamsQuestion}/>
-                    <input value={paramsSearch.cardAnswer}
-                           onChange={addParamsAnswer}/>
+                <div className={s.packName}>
+                    <span>{cards.packName}</span>
+                    {isMyCards
+                        ? <button><img src={actions} alt='actions'/></button>
+                        : null
+                    }
+                </div>
+                <div className={s.searchBlock}>
+                    <div className={s.searchItem}>
+                        <InputSearch name={'Search question'}
+                                     inputId={'search-question'}
+                                     label={'Provide your question'}
+                                     sx={{width: '100%', background: '#FFFFFF'}}
+                                     value={paramsSearch.cardQuestion}
+                                     onChange={addParamsQuestion}
+                        />
+                    </div>
+                    <div className={s.searchItem2}>
+                        <InputSearch name={'Search answer'}
+                                     inputId={'search-answer'}
+                                     label={'Provide your answer'}
+                                     sx={{width: '100%', background: '#FFFFFF'}}
+                                     value={paramsSearch.cardAnswer}
+                                     onChange={addParamsAnswer}
+                        />
+                    </div>
                 </div>
                 {cards.cards.length
-                    ? <div>
-                        {userID == packUserId ? <button onClick={addNewCards}>add new card</button> : null}
+                    ? <div className={s.blockTable}>
+                        {userID == packUserId ?
+                            <button onClick={addNewCards} className={s.addCard}>Add new card</button> : null}
                         <BasicTable
                             addParamsGrade={addParamsGrade}
                             grade={gradeSearch}
@@ -169,10 +195,10 @@ function Cards() {
                             handleChangeRowsPerPage={handleChangeRowsPerPage}
                             stateItems={cards}
                         >
-                            <MapTableBody items={cards.cards} deleteItem={deleteCard} isWho={'cards'}/>
+                            <MapTableBody items={cards.cards} deleteItem={deleteCard} isWho={'cards'} isMy={true}/>
                         </BasicTable>
                     </div>
-                    : <EmptyCards/>
+                    : <EmptyCards addNewItem={addNewCards} isMy={isMyCards}/>
                 }
             </div>
         </div>
