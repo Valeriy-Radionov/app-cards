@@ -28,7 +28,7 @@ export const Profile = () => {
 
     return (
         <div className={s.container}>
-            <LinkArrow className={s.link} to={'/login'} name={'Back to Packs List'}/>
+            <LinkArrow className={s.link} to={'/packs'} name={'Back to Packs List'}/>
             <div className={s.block}>
                 <h1>Personal information</h1>
                 <div className={s.imgBlock}>
