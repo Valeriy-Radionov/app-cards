@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100%;
+  padding: 92px 142px 0 142px;
+  .content {
+    .link {
+      position: absolute;
+      left: 142px;
+      top: 84px;
+      color: #FFFFFF;
+
+      a {
+        color: black;
+
+        img {
+          margin: 0 10px 0 0;
+        }
+      }
+    }
+  }
+}

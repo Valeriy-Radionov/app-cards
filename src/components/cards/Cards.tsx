@@ -1,10 +1,19 @@
 import React, {ChangeEvent, useEffect, useState} from 'react'
 import s from './Crads.module.scss'
 import {useAppDispatch, useAppSelector} from "../../bll/store";
-import {addNewCardTC, getCardsTC, updateParamsAC} from "../../bll/cardsReducer";
+import {
+    addNewCardTC, deleteCardsTC,
+    getCardsTC,
+    updatePageCountPaginateAC,
+    updatePagePaginateAC,
+    updateParamsAC
+} from "../../bll/cardsReducer";
 import { useSearchParams} from 'react-router-dom'
-import {BasicTable} from "./CardsTable";
+import {BasicTable} from "../table/CardsTable";
 import {useDebounce} from "../../common/hooks/debounceHook";
+import {MapTableBody} from "../table/TableBody";
+import {EmptyCards} from "./EmptyCards";
+import {LinkArrow} from "../../common/Link/LinkArrow";
 
 
 export type ParamsType = {
@@ -19,90 +28,153 @@ export type ParamsType = {
 }
 
 function Cards() {
-    const dispatch = useAppDispatch
-    const params = useAppSelector(state => state.cards.params)
-
-    const [questionSearch, setQuestionSearch] = useState('')
-    const [answerSearch, setAnswerSearch] = useState('')
-    const [gradeSearch, setGradeSearch] = useState(false)
-    const debouncedQuestionSearch = useDebounce<string>(questionSearch, 1000)
-    const debouncedAnswerSearch = useDebounce<string>(answerSearch, 1000)
-    const debouncedGradeSearch = useDebounce<boolean>(gradeSearch, 1000)
-
-
     const cardsPack_id = '63319bd2ef99210257c3d013'
+    const dispatch = useAppDispatch
+    const userID = useAppSelector(state => state.profile.user?._id)
+    const packUserId = useAppSelector(state => state.cards.packUserId)
+    const cards = useAppSelector(state => state.cards)
 
-    let [searchParams, setSearchParams] = useSearchParams();
-    const cardAnswer = searchParams.get('cardAnswer')
-    const cardQuestion = searchParams.get('cardQuestion')
-    const cardGrade = searchParams.get('sortCards')
+    // URLSearchParams
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [gradeSearch, setGradeSearch] = useState(false)
+    const [paramsSearch, setParamsSearch] = useState<ParamsType>({
+        cardsPack_id,
+        cardAnswer: '',
+        cardQuestion: '',
+        min: '',
+        max: '',
+        sortCards: '',
+        page: '1',
+        pageCount: '10'
+    })
+    const debouncedParamsSearch = useDebounce<ParamsType>(paramsSearch, 1000)
+    //
 
-
-    const addParamsQuestion = (e: ChangeEvent<HTMLInputElement>) => {
-        setQuestionSearch(e.currentTarget.value)
-        // dispatch(updateParamsAC({cardsPack_id: cardsPack_id , cardQuestion: e.currentTarget.value }))
-        // dispatch(getCardsTC(cardsPack_id))
-        if (e.currentTarget.value) {
-            setSearchParams({cardQuestion: e.currentTarget.value, cardAnswer: answerSearch})
-        } else {
-            setSearchParams(answerSearch ? {cardAnswer: answerSearch} : {})
-        }
+    const checkParamsForQuery = (params: any) => {
+        const nameParams = Object.keys(params);
+        let resultSearchParams = {};
+        nameParams.forEach(name => {
+            if (params[name]) {
+                resultSearchParams = {...resultSearchParams, [name]: params[name]}
+            }
+        })
+        setSearchParams(resultSearchParams);
     }
 
+    // functions add filter
+    const addParamsQuestion = (e: ChangeEvent<HTMLInputElement>) => {
+        setParamsSearch({
+            ...paramsSearch,
+            cardQuestion: e.currentTarget.value
+        })
+        checkParamsForQuery({...paramsSearch, "cardQuestion": e.currentTarget.value});
+    }
     const addParamsAnswer = (e: ChangeEvent<HTMLInputElement>) => {
-        setAnswerSearch(e.currentTarget.value)
-        // dispatch(updateParamsAC({cardsPack_id: cardsPack_id ,  cardAnswer: e.currentTarget.value }))
-        // dispatch(getCardsTC(cardsPack_id))
-        if (e.currentTarget.value) {
-            setSearchParams({cardQuestion: questionSearch, cardAnswer: e.currentTarget.value})
-        } else {
+        setParamsSearch({
+            ...paramsSearch,
+            cardAnswer: e.currentTarget.value
+        })
+        checkParamsForQuery({...paramsSearch, "cardAnswer": e.currentTarget.value})
 
-            setSearchParams(questionSearch ? {cardQuestion: questionSearch} : {})
-        }
     }
     const addParamsGrade = () => {
         setGradeSearch(!gradeSearch)
-        // gradeSearch
-        //     ? dispatch(updateParamsAC({cardsPack_id: cardsPack_id, sortCards: '0grade'}))
-        //     : dispatch(updateParamsAC({cardsPack_id: cardsPack_id, sortCards: '1grade'}))
-        if (gradeSearch) {
-            setSearchParams({cardQuestion: questionSearch, cardAnswer: answerSearch, sortCards: '1grade'})
+        if (!gradeSearch) {
+            setParamsSearch({...paramsSearch, sortCards: '1grade'})
+            checkParamsForQuery({...paramsSearch, sortCards: '1grade'})
         } else {
-            setSearchParams({cardQuestion: questionSearch, cardAnswer: answerSearch, sortCards: '0grade'})
+            setParamsSearch({...paramsSearch, sortCards: '0grade'})
+            checkParamsForQuery({...paramsSearch, sortCards: '0grade'})
         }
     }
+    //
 
+    // functions paginate
+    const handleChangePage = (event: unknown, newPage: number) => {
+        const page = newPage + 1
 
+        checkParamsForQuery({...paramsSearch, page})
+        setParamsSearch({...paramsSearch, page: page.toString()})
+
+        dispatch(updatePagePaginateAC(page))
+    }
+    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const pageCount = parseInt(event.target.value, 10)
+
+        checkParamsForQuery({...paramsSearch, pageCount: pageCount})
+        setParamsSearch({...paramsSearch, pageCount: pageCount.toString()})
+
+        dispatch(updatePageCountPaginateAC(pageCount))
+    };
+    //
+
+    //control card
     const addNewCards = () => {
         dispatch(addNewCardTC(cardsPack_id))
     }
+    const deleteCard = (id: string) => {
+        dispatch(deleteCardsTC(id))
+    }
+    //
 
-    useEffect(() => {
-        const params: ParamsType = {
-            cardsPack_id: cardsPack_id,
-            cardQuestion: '',
+
+    const getQueryParams = (id: string) => {
+        const params: any = {
+            cardsPack_id: id,
             cardAnswer: '',
-            sortCards: ''
+            cardQuestion: '',
+            min: '',
+            max: '',
+            sortCards: '',
+            page: '1',
+            pageCount: '10'
         }
 
-        if (cardQuestion) params.cardQuestion = cardQuestion
-        if (cardAnswer) params.cardAnswer = cardAnswer
-        if (cardGrade) params.sortCards = cardGrade
+        searchParams.forEach((value, key) => {
+            if (key) {
+                params[key] = value
+            }
+        })
+        return params
+    }
 
-        dispatch(updateParamsAC(params))
+    useEffect(() => {
+        // if(JSON.stringify(getQueryParams(cardsPack_id)) !== JSON.stringify(paramsSearch)) {
+        //     //     setParamsSearch(getQueryParams(cardsPack_id))
+        //     //     dispatch(updateParamsAC(getQueryParams(cardsPack_id)))
+        //     //     dispatch(getCardsTC(cardsPack_id))
+        //     // }
+
+        dispatch(updateParamsAC(getQueryParams(cardsPack_id)))
         dispatch(getCardsTC(cardsPack_id))
-    }, [debouncedQuestionSearch, debouncedAnswerSearch, debouncedGradeSearch])
+    }, [debouncedParamsSearch])
 
     return (
-        <div className={s.table}>
-            <div>
-                <input value={questionSearch}
-                       onChange={addParamsQuestion}/>
-                <input value={answerSearch}
-                       onChange={addParamsAnswer}/>
+        <div className={s.container}>
+            <div className={s.content}>
+                <LinkArrow className={s.link} to={'/profile'} name={'Back to Packs List'}/>
+                <div>
+                    <input value={paramsSearch.cardQuestion}
+                           onChange={addParamsQuestion}/>
+                    <input value={paramsSearch.cardAnswer}
+                           onChange={addParamsAnswer}/>
+                </div>
+                {cards.cards.length
+                    ? <div>
+                        {userID == packUserId ? <button onClick={addNewCards}>add new card</button> : null}
+                        <BasicTable
+                            addParamsGrade={addParamsGrade}
+                            grade={gradeSearch}
+                            handleChangePage={handleChangePage}
+                            handleChangeRowsPerPage={handleChangeRowsPerPage}
+                            stateItems={cards}
+                        >
+                            <MapTableBody items={cards.cards} deleteItem={deleteCard} isWho={'cards'}/>
+                        </BasicTable>
+                    </div>
+                    : <EmptyCards/>
+                }
             </div>
-            <button onClick={addNewCards}>add new card</button>
-            <BasicTable packId={cardsPack_id} addParamsGrade={addParamsGrade} grade={gradeSearch}/>
         </div>
     )
 }
