@@ -27,7 +27,7 @@ const App = () => {
       */}
             <Header/>
             {status === "loading" && <Preloader/>}
-            <Routs/>
+                <Routs/>
             {/*<Main/> ---> в main будут Header и Router(в роуте пути в виде строковыч констант)
       в папке common компонента с кнопкой инпутом  и Navlink
       */}
