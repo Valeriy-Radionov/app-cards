@@ -7,18 +7,24 @@ import {useAppSelector} from "../../../bll/store";
 
 type MapTableBodyPropsType = {
     items: CardPackType[]
-    deleteItem?: (id: string) => void
-    isWho: "packs"
+    deletePack: (id: string) => void
+    learnPack: (id: string) => void
+    updatePack: (id: string) => void
 }
 
-export const PacksTableBody: React.FC<MapTableBodyPropsType> = ({items, deleteItem, isWho}) => {
+export const PacksTableBody: React.FC<MapTableBodyPropsType> = ({
+                                                                    items,
+                                                                    deletePack,
+                                                                    updatePack,
+                                                                    learnPack
+                                                                }) => {
     const userID = useAppSelector(state => state.profile.user?._id)
 
     return (<>
             <TableBody>
                 {items.map(item => {
                     return (
-                        <TableRow key={item._id}>
+                        <TableRow key={item._id} hover role="complementary" tabIndex={-1}>
                             <TableCell align="left" component="th" scope="row">
                                 {item.name}
                             </TableCell>
@@ -30,13 +36,13 @@ export const PacksTableBody: React.FC<MapTableBodyPropsType> = ({items, deleteIt
                             </TableCell>
                             <TableCell align="left">{item.user_name}</TableCell>
                             <TableCell align="left">
-                                {/*
-                                    pack && two buttons
-                                    cards && 3 B
-                                    з*/}
+
                                 {
-                                    isWho === 'packs' && deleteItem ?
-                                        <ActionsPacks id={item._id} deleteItem={deleteItem}/> : 'pack'
+                                    userID === item.user_id ? <ActionsPacks learnItem={learnPack}
+                                                                            updateItem={updatePack}
+                                                                            deleteItem={deletePack}
+                                                                            id={item._id}/> :
+                                        <ActionsPacks learnItem={learnPack} id={item._id}/>
                                 }
                             </TableCell>
                         </TableRow>)

@@ -1,10 +1,16 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../bll/store";
-import {addNewPackTC, deletePacksTC, setUsersPacksTC, updatePacksPagePaginateAC} from "../../bll/packsReducer";
+import {
+    addNewPackTC,
+    deletePacksTC,
+    getUsersPacksTC,
+    updatePacksPageCountPaginate,
+    updatePacksPagePaginateAC
+} from "../../bll/packsReducer";
 import {useSearchParams} from "react-router-dom";
 import {ParamsGetPacksType} from "../../api/packs/packs-api";
 import {useDebounce} from "../../common/hooks/debounceHook";
-import {updatePageCountPaginateAC, updateParamsAC} from "../../bll/cardsReducer";
+import {updateParamsAC} from "../../bll/cardsReducer";
 import s from "../cards/Crads.module.scss";
 import {LinkArrow} from "../../common/Link/LinkArrow";
 import {EmptyCards} from "../cards/EmptyCards";
@@ -16,11 +22,9 @@ export const Packs: React.FC<PackPropsType> = (props) => {
     const packId = "633069736caad3673917ba5f"
     const packs = useAppSelector(state => state.packs)
     const userID = useAppSelector(state => state.profile.user?._id)
-    // const packUserId = useAppSelector(state => state.packs.cardPacks._id)
     const dispatch = useAppDispatch
     //hooks
     const [searchParams, setSearchParams] = useSearchParams();
-    // const [gradeSearch, setGradeSearch] = useState(false)
     const [paramsSearch, setParamsSearch] = useState<ParamsGetPacksType>({
         packs_Id: packId,
         packName: "",
@@ -33,10 +37,6 @@ export const Packs: React.FC<PackPropsType> = (props) => {
     })
     const debouncedParamsSearch = useDebounce<ParamsGetPacksType>(paramsSearch, 1000)
 
-    useEffect(() => {
-        dispatch(updateParamsAC(getPackQueryParams(packId)))
-        userID && dispatch(setUsersPacksTC(userID))
-    }, [debouncedParamsSearch])
 
     const checkParamsForQuery = (params: any) => {
         const nameParams = Object.keys(params);
@@ -57,17 +57,6 @@ export const Packs: React.FC<PackPropsType> = (props) => {
         checkParamsForQuery({...paramsSearch, "packName": e.currentTarget.value});
     }
 
-    // const addParamsGrade = () => {
-    //     setGradeSearch(!gradeSearch)
-    //     if (!gradeSearch) {
-    //         setParamsSearch({...paramsSearch, sortPacks: '1grade'})
-    //         checkParamsForQuery({...paramsSearch, sortPacks: '1grade'})
-    //     } else {
-    //         setParamsSearch({...paramsSearch, sortPacks: '0grade'})
-    //         checkParamsForQuery({...paramsSearch, sortPacks: '0grade'})
-    //     }
-    // }
-
     // functions paginate
     const handleChangePage = (event: unknown, newPage: number) => {
         const page = newPage + 1
@@ -83,19 +72,19 @@ export const Packs: React.FC<PackPropsType> = (props) => {
         checkParamsForQuery({...paramsSearch, pageCount: pageCount})
         setParamsSearch({...paramsSearch, pageCount: pageCount.toString()})
 
-        dispatch(updatePageCountPaginateAC(pageCount))
+        dispatch(updatePacksPageCountPaginate(pageCount))
     };
 
     const addNewPacks = () => {
         userID && dispatch(addNewPackTC(userID))
     }
-    const deletePack = (packId: string) => {
-        dispatch(deletePacksTC(packId))
+    const deletePack = (userId: string) => {
+        dispatch(deletePacksTC(userId))
     }
 
     const getPackQueryParams = (packId: string) => {
         const params: any = {
-            packs_Id: packId,
+            packs_Id: "",
             packName: "",
             user_id: "",
             page: "1",
@@ -112,6 +101,10 @@ export const Packs: React.FC<PackPropsType> = (props) => {
         })
         return params
     }
+    useEffect(() => {
+        dispatch(updateParamsAC(getPackQueryParams(packId)))
+        dispatch(getUsersPacksTC())
+    }, [debouncedParamsSearch])
     return (
         <div className={s.container}>
             <div className={s.content}>
@@ -129,10 +122,12 @@ export const Packs: React.FC<PackPropsType> = (props) => {
                             handleChangeRowsPerPage={handleChangeRowsPerPage}
                             statePacks={packs}
                         >
-                            <PacksTableBody items={packs.cardPacks} deleteItem={deletePack} isWho={'packs'}/>
+                            <PacksTableBody deletePack={deletePack} learnPack={() => {
+                            }} updatePack={() => {
+                            }} items={packs.cardPacks}/>
                         </PacksTableContainer>
                     </div>
-                    : <EmptyCards/>
+                    : <EmptyCards addNewItem={addNewPacks} isMy={true}/>
                 }
             </div>
         </div>

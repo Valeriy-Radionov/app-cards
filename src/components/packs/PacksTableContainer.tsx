@@ -16,7 +16,7 @@ export const PacksTableContainer: React.FC<BasicTablePropsType> = ({
                                                                        statePacks
                                                                    }) => {
     return (
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} sx={{height: 432}}>
             <Table sx={{minWidth: 650}} stickyHeader aria-label="sticky table">
                 <TableHead>
                     <TableRow>
