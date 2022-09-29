@@ -2,6 +2,7 @@ import {AppThunk} from "./store";
 import {cardsApi, CardType, PostCardType, ResponseCardsType} from "../api/cards/cards-api";
 import {handleServerNetworkError} from "../utils/errors-utils";
 import {ParamsType} from "../components/cards/Cards";
+import {setAppStatusAC} from "./appReducer";
 
 const initialState = {
     cards: [
@@ -159,20 +160,32 @@ export const updatePageCountPaginateAC = (count: number) => {
 // TCs
 export const getCardsTC = (id: string): AppThunk => async (dispatch, getState) => {
     const {params} = getState().cards
+    dispatch(setAppStatusAC("loading"))
     try {
         const res = await cardsApi.getCards({...params, cardsPack_id: id})
         dispatch(getCardsAC(res.data))
+        dispatch(setAppStatusAC("succeeded"))
     } catch (e) {
         handleServerNetworkError(e, dispatch)
+        dispatch(setAppStatusAC("failed"))
+    }
+    finally {
+        dispatch(setAppStatusAC("idle"))
     }
 }
 export const deleteCardsTC = (cardId: string): AppThunk => async (dispatch, getState) => {
     const {cardsPack_id} = getState().cards.params
+    dispatch(setAppStatusAC("loading"))
     try {
         await cardsApi.deleteCard(cardId)
         dispatch(getCardsTC(cardsPack_id))
+        dispatch(setAppStatusAC("succeeded"))
     } catch (e) {
         handleServerNetworkError(e, dispatch)
+        dispatch(setAppStatusAC("failed"))
+    }
+    finally {
+        dispatch(setAppStatusAC("idle"))
     }
 }
 export const addNewCardTC = (id: string): AppThunk => async (dispatch) => {
@@ -188,10 +201,16 @@ export const addNewCardTC = (id: string): AppThunk => async (dispatch) => {
         answerVideo: "url or base 64"
 
     }
+    dispatch(setAppStatusAC("loading"))
     try {
         await cardsApi.addNewCard(card)
         dispatch(getCardsTC(id))
+        dispatch(setAppStatusAC("succeeded"))
     } catch (e) {
         handleServerNetworkError(e, dispatch)
+        dispatch(setAppStatusAC("failed"))
+    }
+    finally {
+        dispatch(setAppStatusAC("idle"))
     }
 }
