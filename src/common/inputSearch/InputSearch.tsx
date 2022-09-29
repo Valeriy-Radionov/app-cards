@@ -9,6 +9,7 @@ type InputSearchPropsType = {
     name: string
     value: string | undefined
     onChange: (e: ChangeEvent<HTMLInputElement>) => void
+    defaultValue?: any
 }
 export const InputSearch: React.FC<InputSearchPropsType> = ({
                                                                 inputId,
@@ -16,7 +17,8 @@ export const InputSearch: React.FC<InputSearchPropsType> = ({
                                                                 sx,
                                                                 name,
                                                                 value,
-                                                                onChange
+                                                                onChange,
+                                                                defaultValue
                                                             }) => {
     return (
         <div className={s.block}>
@@ -30,6 +32,7 @@ export const InputSearch: React.FC<InputSearchPropsType> = ({
                 sx={sx}
                 value={value}
                 onChange={onChange}
+                defaultValue={defaultValue}
             />
         </div>
     );
