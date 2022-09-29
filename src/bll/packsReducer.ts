@@ -22,23 +22,24 @@ const initialState: PacksType = {
     cardPacks: [{
         _id: "63306a3a6caad3673917ba62",
         user_id: "632502cb94b7970fb4f08698",
-        user_name: "Valera Radionov",
+        user_name: "Loading",
         private: false,
-        name: "UUUUUUUUUUU",
+        name: "Loading",
         path: "/def",
         grade: 0,
         shots: 0,
         cardsCount: 0,
         type: "packs",
         rating: 0,
-        created: new Date("2022-09-25T14:48:26.990Z"),
-        updated: new Date("2022-09-25T15:16:57.523Z"),
+        created: new Date(""),
+        updated: new Date(""),
         more_id: "632502cb94b7970fb4f08698",
         __v: 0,
         deckCover: ""
     }],
     params: {
         user_id: "",
+        packName: "",
         packs_Id: "",
         page: "1",
         pageCount: "10",
@@ -68,17 +69,16 @@ export const packsReducer = (state = initialState, action: PacksActionType): Pac
             const page = action.page.toString()
             return {...state, params: {...state.params, page}}
         }
-        // не пишите чужие экшены к себе в reducer они срабатывают и генерят ошибку, сразу меняйте имя!!!!!
-        // case "CARDS/UPDATE_PAGE_COUNT_PAGINATE": {
-        //     const pageCount = action.count.toString()
-        //     return {
-        //         ...state,
-        //         params: {
-        //             ...state.params,
-        //             pageCount
-        //         }
-        //     }
-        // }
+        case "PACKS/UPDATE_PACKS_PAGE_COUNT_PAGINATE": {
+            const pageCount = action.count.toString()
+            return {
+                ...state,
+                params: {
+                    ...state.params,
+                    pageCount
+                }
+            }
+        }
         default:
             return state
     }
@@ -86,37 +86,42 @@ export const packsReducer = (state = initialState, action: PacksActionType): Pac
 
 export type PacksActionType = setPacksACType | updateParamsPacksAC
     | updatePacksPagePaginateACType | updatePacksPageCountPaginateType
-//actions
+
 type setPacksACType = ReturnType<typeof setUsersPacksAC>
+type updateParamsPacksAC = ReturnType<typeof updatePacksParamsAC>
+type updatePacksPagePaginateACType = ReturnType<typeof updatePacksPagePaginateAC>
+type updatePacksPageCountPaginateType = ReturnType<typeof updatePacksPageCountPaginate>
+
+//actions
 export const setUsersPacksAC = (userPacks: ResponsePacksType) => ({
     type: GET_USERS_PACKS,
     userPacks
 } as const)
 
-type updateParamsPacksAC = ReturnType<typeof updateParamsAC>
-export const updateParamsAC = (params: ParamsGetPacksType) => ({
-    type: UPDATE_PACKS_PARAMS,
-    params
-} as const)
+export const updatePacksParamsAC = (params: ParamsGetPacksType) => {
+    return {
+        type: UPDATE_PACKS_PARAMS,
+        params
+    } as const
+}
 
-type updatePacksPagePaginateACType = ReturnType<typeof updatePacksPagePaginateAC>
 export const updatePacksPagePaginateAC = (page: number) => ({
     type: UPDATE_PACKS_PAGE_PAGINATE,
     page
 } as const)
 
-type updatePacksPageCountPaginateType = ReturnType<typeof updatePacksPageCountPaginate>
 export const updatePacksPageCountPaginate = (count: number) => ({
-    type: 'CARDS/UPDATE_PAGE_COUNT_PAGINATE',
+    type: UPDATE_PACKS_PAGE_COUNT_PAGINATE,
     count
 } as const)
+
 //thunks
-export const setUsersPacksTC = (userId: string): AppThunk => {
+export const getUsersPacksTC = (userId?: string): AppThunk => {
     return async (dispatch, getState) => {
         const {params} = getState().packs
         dispatch(setAppStatusAC("loading"))
         try {
-            const response = await packsApi.getPacks({...params, user_id: userId})
+            const response = await packsApi.getPacks({...params})
             dispatch(setUsersPacksAC(response.data))
             dispatch(setAppStatusAC("succeeded"))
         } catch (e) {
@@ -125,13 +130,13 @@ export const setUsersPacksTC = (userId: string): AppThunk => {
     }
 }
 
-export const deletePacksTC = (packId: string): AppThunk => {
+export const deletePacksTC = (userId: string): AppThunk => {
     return async (dispatch, getState) => {
-        const {user_id} = getState().packs.params
+        const {packs_Id} = getState().packs.params
         dispatch(setAppStatusAC("loading"))
         try {
-            const response = await packsApi.deletePack(packId)
-            user_id && dispatch(setUsersPacksTC(user_id))
+            const response = await packsApi.deletePack(userId)
+            dispatch(getUsersPacksTC(packs_Id))
             dispatch(setAppStatusAC("succeeded"))
         } catch (e) {
             handleServerNetworkError(e, dispatch)
@@ -147,7 +152,7 @@ export const addNewPackTC = (userId: string): AppThunk => async (dispatch) => {
     dispatch(setAppStatusAC("loading"))
     try {
         await packsApi.addPack(pack)
-        dispatch(setUsersPacksTC(userId))
+        dispatch(getUsersPacksTC(userId))
         dispatch(setAppStatusAC("succeeded"))
     } catch (e) {
         handleServerNetworkError(e, dispatch)

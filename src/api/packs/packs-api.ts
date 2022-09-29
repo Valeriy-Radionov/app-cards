@@ -9,8 +9,8 @@ export const packsApi = {
         })
     },
 
-    addPack(newPack: PostPackDataType) {
-        return instance.post<PostPackDataType, AxiosResponse<ResponsePacksType>>("cards/pack", newPack)
+    addPack(cardsPack: PostPackDataType) {
+        return instance.post<PostPackDataType, AxiosResponse<ResponsePacksType>>("cards/pack", {cardsPack})
     },
 
     deletePack(id: string) {
@@ -53,7 +53,8 @@ export type CardPackType = {
 }
 export type ParamsGetPacksType = {
     user_id?: string,
-    packs_Id: string
+    packName?: string,
+    packs_Id?: string
     page?: string,
     pageCount?: string,
     min?: string,

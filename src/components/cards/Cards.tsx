@@ -2,7 +2,8 @@ import React, {ChangeEvent, useEffect, useState} from 'react'
 import s from './Crads.module.scss'
 import {useAppDispatch, useAppSelector} from "../../bll/store";
 import {
-    addNewCardTC, deleteCardsTC,
+    addNewCardTC,
+    deleteCardsTC,
     getCardsTC,
     updatePageCountPaginateAC,
     updatePagePaginateAC,
