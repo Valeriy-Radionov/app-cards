@@ -143,12 +143,6 @@ function Cards() {
     }
 
     useEffect(() => {
-        // if(JSON.stringify(getQueryParams(cardsPack_id)) !== JSON.stringify(paramsSearch)) {
-        //     //     setParamsSearch(getQueryParams(cardsPack_id))
-        //     //     dispatch(updateParamsAC(getQueryParams(cardsPack_id)))
-        //     //     dispatch(getCardsTC(cardsPack_id))
-        //     // }
-
         dispatch(updateParamsAC(getQueryParams(cardsPack_id)))
         dispatch(getCardsTC(cardsPack_id))
     }, [debouncedParamsSearch])
