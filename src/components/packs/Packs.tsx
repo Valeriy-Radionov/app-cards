@@ -128,7 +128,7 @@ export const Packs: React.FC<PackPropsType> = (props) => {
                 </div>
                 {packs.cardPacks.length
                     ? <div>
-                        <button onClick={addNewPacks} className={stylePacks.btnAddPack}>Add new card</button>
+                        <button onClick={addNewPacks} className={stylePacks.btnAddPack}>Add new pack</button>
                         <PacksTableContainer
                             sorting={sort}
                             addParamsUpdate={addParamsOfSorting}
