@@ -35,9 +35,9 @@ export const BasicTable: React.FC<BasicTablePropsType> = ({
             <Table sx={{minWidth: 650}} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell align="center">Question</TableCell>
-                        <TableCell align="center">Answer</TableCell>
-                        <TableCell align="center">Last Updated</TableCell>
+                        <TableCell align="left">Question</TableCell>
+                        <TableCell align="left">Answer</TableCell>
+                        <TableCell align="left">Last Updated</TableCell>
                         <TableCell align="left" onClick={addParamsGrade}>
                             Grade
                             <img src={arrow} style={grade ? {transform: 'rotate(180deg)'} : {} } alt='arrow'/>

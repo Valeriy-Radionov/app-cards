@@ -24,13 +24,13 @@ export const MapTableBody: React.FC<MapTableBodyPropsType> = ({items, deleteItem
                 {items.map(item => {
                     return (
                         <TableRow key={item._id} hover>
-                            <TableCell align="center" component="th" scope="row">
+                            <TableCell align="left" component="th" scope="row">
                                 {item.question}
                             </TableCell>
-                            <TableCell align="center">
+                            <TableCell align="left">
                                 {item.answer}
                             </TableCell>
-                            <TableCell align="center">
+                            <TableCell align="left">
                                 {formatDate(item.updated)}
                             </TableCell>
                             <TableCell align="center" >
