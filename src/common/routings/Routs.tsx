@@ -33,7 +33,7 @@ export const Routs = () => {
                 <Route path={PATH.TEST} element={<SuperComponents/>}/>
                 <Route path={PATH.PACKS} element={<Packs/>}/>
                 <Route path={PATH.ERROR} element={<Error/>}/>
-                <Route path={'/cards'} element={<Cards/>}/>
+                <Route path={'/cards/:id'} element={<Cards/>}/>
             </Routes>
     );
 };
