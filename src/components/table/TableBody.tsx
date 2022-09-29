@@ -5,13 +5,13 @@ import {
     TableRow,
     Rating
 } from '@mui/material'
-import {CardType} from "../../api/cards/cards-api";
 import {formatDate} from "../../utils/formatDate-utils";
 import {ActionsCardTable} from "../cards/ActionsCardTable";
 import s from './TableBode.module.scss'
+import {FullCardType} from "../../bll/cardsReducer";
 
 type MapTableBodyPropsType = {
-    items: CardType[]
+    items: FullCardType[]
     deleteItem?: (id: string) => void
     isWho: 'packs' | 'cards'
     isMy: boolean

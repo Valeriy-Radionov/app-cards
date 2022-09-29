@@ -2,9 +2,9 @@ import {AppThunk} from "./store";
 import {cardsApi, CardType, PostCardType, ResponseCardsType} from "../api/cards/cards-api";
 import {handleServerNetworkError} from "../utils/errors-utils";
 import {ParamsType} from "../components/cards/Cards";
-import {setAppStatusAC} from "./appReducer";
+import {RequestStatusType, setAppStatusAC} from "./appReducer";
 
-const initialState = {
+const initialState: CardsType = {
     cards: [
         {
             _id: "632f99bcef99210257c3d010",
@@ -24,7 +24,8 @@ const initialState = {
             more_id: "63272e99d38dbc8a0103935d",
             created: "2022-09-24T23:58:52.218Z",
             updated: "2022-09-24T23:58:52.218Z",
-            __v: 0
+            __v: 0,
+            entityStatusCard: "idle"
         }
     ],
     params: {
@@ -51,9 +52,12 @@ const initialState = {
     token: "cbc791d0-3ce3-11ed-a20f-91911aef6e0d",
     tokenDeathTime: '1664723259245'
 }
+export type FullCardType = CardType & {
+    entityStatusCard: RequestStatusType
+}
 
 export type CardsType = {
-    cards: CardType[]
+    cards: FullCardType[]
     params: ParamsType
     packUserId: string
     packName: string
@@ -75,7 +79,8 @@ export const cardReducer = (state: CardsType = initialState, action: CardsAction
         case "CARDS/GET_CARDS": {
             return {
                 ...state,
-                ...action.payload.cards
+                ...action.payload.cards,
+                cards: action.payload.cards.cards.map(card => ({...card, entityStatusCard: "idle"}))
             }
         }
         case "CARDS/UPDATE_PARAMS": {

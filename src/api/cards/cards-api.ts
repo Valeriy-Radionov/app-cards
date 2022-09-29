@@ -53,6 +53,10 @@ export type CardType = {
     created: string
     updated: string
     __v: string | number
+    questionImg: string
+    answerImg: string
+    answerVideo: string
+    questionVideo: string
 }
 
 export type ResponseCardsType = {
