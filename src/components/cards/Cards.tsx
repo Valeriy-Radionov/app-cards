@@ -9,7 +9,7 @@ import {
     updatePagePaginateAC,
     updateParamsAC
 } from "../../bll/cardsReducer";
-import {useSearchParams} from 'react-router-dom'
+import {useParams, useSearchParams} from 'react-router-dom'
 import {BasicTable} from "../table/CardsTable";
 import {useDebounce} from "../../common/hooks/debounceHook";
 import {MapTableBody} from "../table/TableBody";
@@ -30,8 +30,13 @@ export type ParamsType = {
     pageCount?: string // не обязательно
 }
 
+type PackIdParamsType = {
+    id: string
+}
+
 function Cards() {
-    const cardsPack_id = '632f9975ef99210257c3d00f'
+    let { id } = useParams<PackIdParamsType>();
+    console.log(id)
     const dispatch = useAppDispatch
     const userID = useAppSelector(state => state.profile.user?._id)
     const cards = useAppSelector(state => state.cards)
@@ -42,7 +47,7 @@ function Cards() {
     const [searchParams, setSearchParams] = useSearchParams();
     const [gradeSearch, setGradeSearch] = useState(false)
     const [paramsSearch, setParamsSearch] = useState<ParamsType>({
-        cardsPack_id,
+        cardsPack_id: '',
         page: '1',
         pageCount: '10'
     })
@@ -112,14 +117,14 @@ function Cards() {
 
     //control card
     const addNewCards = () => {
-        dispatch(addNewCardTC(cardsPack_id))
+        dispatch(addNewCardTC())
     }
     const deleteCard = (id: string) => {
         dispatch(deleteCardsTC(id))
     }
     //
 
-    const getQueryParams = (id: string) => {
+    const getQueryParams = (id: string | undefined) => {
         const params: any = {
             cardsPack_id: id,
             page: '1',
@@ -135,11 +140,11 @@ function Cards() {
     }
 
     useEffect(() => {
-        checkParamsForQuery(getQueryParams(cardsPack_id))
+        checkParamsForQuery(getQueryParams(id))
     }, [])
 
     useEffect(() => {
-        dispatch(updateParamsAC(getQueryParams(cardsPack_id)))
+        dispatch(updateParamsAC(getQueryParams(id)))
         dispatch(getCardsTC())
     }, [debouncedParamsSearch])
 
