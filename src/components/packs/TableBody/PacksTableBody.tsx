@@ -3,6 +3,7 @@ import {TableBody, TableCell, TableRow} from '@mui/material'
 import {formatDate} from "../../../utils/formatDate-utils";
 import {CardPackType} from "../../../api/packs/packs-api";
 import {ActionsPacks} from "./ActionsPacks";
+import {useNavigate} from 'react-router-dom'
 
 type MapTableBodyPropsType = {
     items: CardPackType[]
@@ -17,6 +18,7 @@ export const PacksTableBody: React.FC<MapTableBodyPropsType> = ({
                                                                     updatePack,
                                                                     learnPack
                                                                 }) => {
+    const navigate = useNavigate()
 
     return (
         <TableBody>
@@ -24,8 +26,12 @@ export const PacksTableBody: React.FC<MapTableBodyPropsType> = ({
                 return (
                     <TableRow key={item._id} sx={{
                         "&:hover": {bgcolor: 'lightgray'}
-                    }}>
-                        <TableCell align="left">
+                    }}
+
+                    >
+                        <TableCell align="left"
+                                   onClick={() => navigate(`/cards/${item._id}`)}
+                        >
                             {item.name}
                         </TableCell>
                         <TableCell align="left">
