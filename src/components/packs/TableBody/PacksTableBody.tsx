@@ -24,7 +24,7 @@ export const PacksTableBody: React.FC<MapTableBodyPropsType> = ({
             <TableBody>
                 {items.map(item => {
                     return (
-                        <TableRow key={item._id} hover role="complementary" tabIndex={-1}>
+                        <TableRow key={item._id} hover role="complementary">
                             <TableCell align="left" component="th" scope="row">
                                 {item.name}
                             </TableCell>

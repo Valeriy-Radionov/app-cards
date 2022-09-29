@@ -89,9 +89,9 @@ export const Packs: React.FC<PackPropsType> = (props) => {
             user_id: "",
             page: "1",
             pageCount: "10",
-            min: "string",
-            max: "string",
-            sortPacks: "string",
+            min: "",
+            max: "",
+            sortPacks: "0updated",
         }
 
         searchParams.forEach((value, key) => {

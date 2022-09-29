@@ -63,7 +63,7 @@ export const packsReducer = (state = initialState, action: PacksActionType): Pac
             return {...state, ...action.userPacks}
         }
         case "PACKS/UPDATE_PACKS_PARAMS": {
-            return {...state, params: {...state.params, ...action.params}}
+            return {...state, params: {...state.params}}
         }
         case "PACKS/UPDATE_PACKS_PAGE_PAGINATE": {
             const page = action.page.toString()
@@ -157,4 +157,4 @@ export const addNewPackTC = (userId: string): AppThunk => async (dispatch) => {
     } catch (e) {
         handleServerNetworkError(e, dispatch)
     }
-}
+};
