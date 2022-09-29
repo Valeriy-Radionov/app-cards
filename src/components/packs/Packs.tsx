@@ -5,12 +5,12 @@ import {
     deletePacksTC,
     getUsersPacksTC,
     updatePacksPageCountPaginate,
-    updatePacksPagePaginateAC
+    updatePacksPagePaginateAC,
+    updatePacksParamsAC
 } from "../../bll/packsReducer";
 import {useSearchParams} from "react-router-dom";
 import {ParamsGetPacksType} from "../../api/packs/packs-api";
 import {useDebounce} from "../../common/hooks/debounceHook";
-import {updateParamsAC} from "../../bll/cardsReducer";
 import s from "../cards/Crads.module.scss";
 import {LinkArrow} from "../../common/Link/LinkArrow";
 import {EmptyCards} from "../cards/EmptyCards";
@@ -102,7 +102,7 @@ export const Packs: React.FC<PackPropsType> = (props) => {
         return params
     }
     useEffect(() => {
-        dispatch(updateParamsAC(getPackQueryParams(packId)))
+        dispatch(updatePacksParamsAC(getPackQueryParams(packId)))
         dispatch(getUsersPacksTC())
     }, [debouncedParamsSearch])
     return (

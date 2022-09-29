@@ -63,7 +63,6 @@ export const packsReducer = (state = initialState, action: PacksActionType): Pac
             return {...state, ...action.userPacks}
         }
         case "PACKS/UPDATE_PACKS_PARAMS": {
-            debugger
             return {...state, params: {...state.params, ...action.params}}
         }
         case "PACKS/UPDATE_PACKS_PAGE_PAGINATE": {
@@ -89,7 +88,7 @@ export type PacksActionType = setPacksACType | updateParamsPacksAC
     | updatePacksPagePaginateACType | updatePacksPageCountPaginateType
 
 type setPacksACType = ReturnType<typeof setUsersPacksAC>
-type updateParamsPacksAC = ReturnType<typeof updateParamsAC>
+type updateParamsPacksAC = ReturnType<typeof updatePacksParamsAC>
 type updatePacksPagePaginateACType = ReturnType<typeof updatePacksPagePaginateAC>
 type updatePacksPageCountPaginateType = ReturnType<typeof updatePacksPageCountPaginate>
 
@@ -99,7 +98,7 @@ export const setUsersPacksAC = (userPacks: ResponsePacksType) => ({
     userPacks
 } as const)
 
-export const updateParamsAC = (params: ParamsGetPacksType) => {
+export const updatePacksParamsAC = (params: ParamsGetPacksType) => {
     return {
         type: UPDATE_PACKS_PARAMS,
         params
