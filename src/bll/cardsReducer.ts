@@ -29,14 +29,7 @@ const initialState: CardsType = {
         }
     ],
     params: {
-        cardsPack_id: '',
-        cardAnswer: '',
-        cardQuestion: '',
-        min: '0',
-        max: '0',
-        sortCards: '',
-        page: '1',
-        pageCount: '10',
+        cardsPack_id: ''
     },
     packUserId: "63272e99d38dbc8a0103935d",
     packName: "no Name",
@@ -163,11 +156,11 @@ export const updatePageCountPaginateAC = (count: number) => {
 
 
 // TCs
-export const getCardsTC = (id: string): AppThunk => async (dispatch, getState) => {
+export const getCardsTC = (): AppThunk => async (dispatch, getState) => {
     const {params} = getState().cards
     dispatch(setAppStatusAC("loading"))
     try {
-        const res = await cardsApi.getCards({...params, cardsPack_id: id})
+        const res = await cardsApi.getCards({...params})
         dispatch(getCardsAC(res.data))
         dispatch(setAppStatusAC("succeeded"))
     } catch (e) {
@@ -178,12 +171,11 @@ export const getCardsTC = (id: string): AppThunk => async (dispatch, getState) =
         dispatch(setAppStatusAC("idle"))
     }
 }
-export const deleteCardsTC = (cardId: string): AppThunk => async (dispatch, getState) => {
-    const {cardsPack_id} = getState().cards.params
+export const deleteCardsTC = (cardId: string): AppThunk => async (dispatch) => {
     dispatch(setAppStatusAC("loading"))
     try {
         await cardsApi.deleteCard(cardId)
-        dispatch(getCardsTC(cardsPack_id))
+        dispatch(getCardsTC())
         dispatch(setAppStatusAC("succeeded"))
     } catch (e) {
         handleServerNetworkError(e, dispatch)
@@ -209,7 +201,7 @@ export const addNewCardTC = (id: string): AppThunk => async (dispatch) => {
     dispatch(setAppStatusAC("loading"))
     try {
         await cardsApi.addNewCard(card)
-        dispatch(getCardsTC(id))
+        dispatch(getCardsTC())
         dispatch(setAppStatusAC("succeeded"))
     } catch (e) {
         handleServerNetworkError(e, dispatch)

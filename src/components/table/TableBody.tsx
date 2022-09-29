@@ -12,12 +12,11 @@ import {FullCardType} from "../../bll/cardsReducer";
 
 type MapTableBodyPropsType = {
     items: FullCardType[]
-    deleteItem?: (id: string) => void
-    isWho: 'packs' | 'cards'
+    deleteItem: (id: string) => void
     isMy: boolean
 }
 
-export const MapTableBody: React.FC<MapTableBodyPropsType> = ({items, deleteItem, isWho,isMy}) => {
+export const MapTableBody: React.FC<MapTableBodyPropsType> = ({items, deleteItem, isMy}) => {
 
     return (<>
             <TableBody>
@@ -33,17 +32,11 @@ export const MapTableBody: React.FC<MapTableBodyPropsType> = ({items, deleteItem
                             <TableCell align="left">
                                 {formatDate(item.updated)}
                             </TableCell>
-                            <TableCell align="center" >
-                                <div className={s.rating} >
+                            <TableCell align="center">
+                                <div className={s.rating}>
                                     <Rating name="read-only" value={Number(item.grade)}
                                             readOnly/>
-                                    {
-                                        isWho === 'cards' && deleteItem &&
-                                        <ActionsCardTable id={item._id} deleteItem={deleteItem} isMy={isMy}/>
-                                    }
-                                    {
-                                        isWho === 'packs' && <span>gggvhbj</span>
-                                    }
+                                    <ActionsCardTable id={item._id} deleteItem={deleteItem} isMy={isMy}/>
                                 </div>
                             </TableCell>
                         </TableRow>

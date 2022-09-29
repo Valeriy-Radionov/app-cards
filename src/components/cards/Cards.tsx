@@ -31,10 +31,9 @@ export type ParamsType = {
 }
 
 function Cards() {
-    const cardsPack_id = '63319bd2ef99210257c3d013'
+    const cardsPack_id = '632f9975ef99210257c3d00f'
     const dispatch = useAppDispatch
     const userID = useAppSelector(state => state.profile.user?._id)
-    const packUserId = useAppSelector(state => state.cards.packUserId)
     const cards = useAppSelector(state => state.cards)
 
     const isMyCards = cards.packUserId === userID
@@ -44,11 +43,6 @@ function Cards() {
     const [gradeSearch, setGradeSearch] = useState(false)
     const [paramsSearch, setParamsSearch] = useState<ParamsType>({
         cardsPack_id,
-        cardAnswer: '',
-        cardQuestion: '',
-        min: '',
-        max: '',
-        sortCards: '',
         page: '1',
         pageCount: '10'
     })
@@ -57,13 +51,16 @@ function Cards() {
 
     const checkParamsForQuery = (params: any) => {
         const nameParams = Object.keys(params);
-        let resultSearchParams = {};
+        let resultSearchParams:ParamsType = {
+            cardsPack_id:''
+        };
         nameParams.forEach(name => {
             if (params[name]) {
                 resultSearchParams = {...resultSearchParams, [name]: params[name]}
             }
         })
         setSearchParams(resultSearchParams);
+        return resultSearchParams
     }
 
     // functions add filter
@@ -122,15 +119,9 @@ function Cards() {
     }
     //
 
-
     const getQueryParams = (id: string) => {
         const params: any = {
             cardsPack_id: id,
-            cardAnswer: '',
-            cardQuestion: '',
-            min: '',
-            max: '',
-            sortCards: '',
             page: '1',
             pageCount: '10'
         }
@@ -144,8 +135,12 @@ function Cards() {
     }
 
     useEffect(() => {
+        checkParamsForQuery(getQueryParams(cardsPack_id))
+    }, [])
+
+    useEffect(() => {
         dispatch(updateParamsAC(getQueryParams(cardsPack_id)))
-        dispatch(getCardsTC(cardsPack_id))
+        dispatch(getCardsTC())
     }, [debouncedParamsSearch])
 
     return (
@@ -167,6 +162,7 @@ function Cards() {
                                      sx={{width: '100%', background: '#FFFFFF'}}
                                      value={paramsSearch.cardQuestion}
                                      onChange={addParamsQuestion}
+                                     defaultValue={searchParams.get('cardQuestion')}
                         />
                     </div>
                     <div className={s.searchItem2}>
@@ -176,13 +172,15 @@ function Cards() {
                                      sx={{width: '100%', background: '#FFFFFF'}}
                                      value={paramsSearch.cardAnswer}
                                      onChange={addParamsAnswer}
+                                     defaultValue={searchParams.get('cardAnswer')}
                         />
                     </div>
                 </div>
                 {cards.cards.length
                     ? <div className={s.blockTable}>
-                        {userID == packUserId ?
-                            <button onClick={addNewCards} className={s.addCard}>Add new card</button> : null}
+                        {isMyCards ?
+                            <button onClick={addNewCards} className={s.addCard}>Add new card</button> : null
+                        }
                         <BasicTable
                             addParamsGrade={addParamsGrade}
                             grade={gradeSearch}
@@ -190,7 +188,7 @@ function Cards() {
                             handleChangeRowsPerPage={handleChangeRowsPerPage}
                             stateItems={cards}
                         >
-                            <MapTableBody items={cards.cards} deleteItem={deleteCard} isWho={'cards'} isMy={true}/>
+                            <MapTableBody items={cards.cards} deleteItem={deleteCard} isMy={isMyCards}/>
                         </BasicTable>
                     </div>
                     : <EmptyPage addNewItem={addNewCards} isMy={isMyCards} name={'Add new card'}/>
