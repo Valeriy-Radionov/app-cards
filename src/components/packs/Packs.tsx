@@ -1,5 +1,6 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../bll/store";
+import "../../common/style/mixins.scss";
 import {
     addNewPackTC,
     deletePacksTC,
@@ -16,6 +17,7 @@ import {LinkArrow} from "../../common/Link/LinkArrow";
 import {EmptyPage} from "../cards/EmptyPage";
 import {PacksTableContainer} from "./PacksTableContainer";
 import {PacksTableBody} from "./TableBody/PacksTableBody";
+import stylePacks from "./Packs.module.scss"
 
 export type PackPropsType = {}
 export const Packs: React.FC<PackPropsType> = (props) => {
@@ -26,7 +28,6 @@ export const Packs: React.FC<PackPropsType> = (props) => {
     //hooks
     const [searchParams, setSearchParams] = useSearchParams();
     const [sort, setSort] = useState(false)
-
     const [paramsSearch, setParamsSearch] = useState<ParamsGetPacksType>({
         packs_Id: packId,
         packName: "",
@@ -38,7 +39,10 @@ export const Packs: React.FC<PackPropsType> = (props) => {
         sortPacks: "",
     })
     const debouncedParamsSearch = useDebounce<ParamsGetPacksType>(paramsSearch, 1000)
-
+    useEffect(() => {
+        dispatch(updatePacksParamsAC(getPackQueryParams(packId)))
+        dispatch(getUsersPacksTC())
+    }, [debouncedParamsSearch])
 
     const checkParamsForQuery = (params: any) => {
         const nameParams = Object.keys(params);
@@ -112,22 +116,19 @@ export const Packs: React.FC<PackPropsType> = (props) => {
         })
         return params
     }
-    useEffect(() => {
-        dispatch(updatePacksParamsAC(getPackQueryParams(packId)))
-        dispatch(getUsersPacksTC())
-    }, [debouncedParamsSearch])
+
     return (
         <div className={s.container}>
             <div className={s.content}>
                 <LinkArrow className={s.link} to={'/profile'} name={'Back to Profile'}/>
                 <div>
-                    <input value={paramsSearch.packName}
+                    <input placeholder={"search text"}
+                           value={paramsSearch.packName}
                            onChange={addParamsName}/>
-
                 </div>
                 {packs.cardPacks.length
                     ? <div>
-                        {userID ? <button onClick={addNewPacks}>add new card</button> : null}
+                        <button onClick={addNewPacks} className={stylePacks.btnAddPack}>Add new card</button>
                         <PacksTableContainer
                             sorting={sort}
                             addParamsUpdate={addParamsOfSorting}

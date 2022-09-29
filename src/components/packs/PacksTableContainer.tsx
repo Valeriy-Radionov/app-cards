@@ -40,14 +40,15 @@ export const PacksTableContainer: React.FC<BasicTablePropsType> = ({
                 </Table>
             </TableContainer>
             {statePacks &&
-                <TablePagination
-                    rowsPerPageOptions={[5, 10, 25]}
-                    count={+statePacks.cardPacksTotalCount}
-                    rowsPerPage={+statePacks.pageCount}
-                    page={+statePacks.page - 1}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                />}
+                <TablePagination component={"div"}
+                                 rowsPerPageOptions={[5, 10, 25]}
+                                 count={+statePacks.cardPacksTotalCount}
+                                 rowsPerPage={+statePacks.pageCount}
+                                 page={+statePacks.page - 1}
+                                 onPageChange={handleChangePage}
+                                 onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+            }
         </Paper>
     );
 }
