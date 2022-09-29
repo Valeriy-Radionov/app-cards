@@ -25,15 +25,17 @@ export const Packs: React.FC<PackPropsType> = (props) => {
     const dispatch = useAppDispatch
     //hooks
     const [searchParams, setSearchParams] = useSearchParams();
+    const [sort, setSort] = useState(false)
+
     const [paramsSearch, setParamsSearch] = useState<ParamsGetPacksType>({
         packs_Id: packId,
         packName: "",
         user_id: "",
         page: "1",
         pageCount: "10",
-        min: "string",
-        max: "string",
-        sortPacks: "string",
+        min: "",
+        max: "",
+        sortPacks: "",
     })
     const debouncedParamsSearch = useDebounce<ParamsGetPacksType>(paramsSearch, 1000)
 
@@ -56,7 +58,16 @@ export const Packs: React.FC<PackPropsType> = (props) => {
         })
         checkParamsForQuery({...paramsSearch, "packName": e.currentTarget.value});
     }
-
+    const addParamsOfSorting = () => {
+        setSort(!sort)
+        if (!sort) {
+            setParamsSearch({...paramsSearch, sortPacks: '1created'})
+            checkParamsForQuery({...paramsSearch, sortPacks: '1created'})
+        } else {
+            setParamsSearch({...paramsSearch, sortPacks: '0created'})
+            checkParamsForQuery({...paramsSearch, sortPacks: '0created'})
+        }
+    }
     // functions paginate
     const handleChangePage = (event: unknown, newPage: number) => {
         const page = newPage + 1
@@ -84,7 +95,7 @@ export const Packs: React.FC<PackPropsType> = (props) => {
 
     const getPackQueryParams = (packId: string) => {
         const params: any = {
-            packs_Id: "",
+            packs_Id: packId,
             packName: "",
             user_id: "",
             page: "1",
@@ -108,7 +119,7 @@ export const Packs: React.FC<PackPropsType> = (props) => {
     return (
         <div className={s.container}>
             <div className={s.content}>
-                <LinkArrow className={s.link} to={'/profile'} name={'Back to Packs List'}/>
+                <LinkArrow className={s.link} to={'/profile'} name={'Back to Profile'}/>
                 <div>
                     <input value={paramsSearch.packName}
                            onChange={addParamsName}/>
@@ -118,6 +129,8 @@ export const Packs: React.FC<PackPropsType> = (props) => {
                     ? <div>
                         {userID ? <button onClick={addNewPacks}>add new card</button> : null}
                         <PacksTableContainer
+                            sorting={sort}
+                            addParamsUpdate={addParamsOfSorting}
                             handleChangePage={handleChangePage}
                             handleChangeRowsPerPage={handleChangeRowsPerPage}
                             statePacks={packs}

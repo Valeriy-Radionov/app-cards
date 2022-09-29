@@ -1,19 +1,24 @@
 import * as React from 'react';
 import {Paper, Table, TableCell, TableContainer, TableHead, TablePagination, TableRow} from '@mui/material'
 import {PacksType} from "../../bll/packsReducer";
+import arrow from "../../common/image/arrow.svg";
 
 type BasicTablePropsType = {
     handleChangePage: (event: unknown, newPage: number) => void
     handleChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement>) => void
     children: React.ReactNode
     statePacks: PacksType
+    addParamsUpdate: () => void
+    sorting: boolean
 }
 
 export const PacksTableContainer: React.FC<BasicTablePropsType> = ({
                                                                        handleChangePage,
                                                                        handleChangeRowsPerPage,
                                                                        children,
-                                                                       statePacks
+                                                                       statePacks,
+                                                                       addParamsUpdate,
+                                                                       sorting
                                                                    }) => {
     return (
         <Paper sx={{width: '100%', overflow: 'hidden'}}>
@@ -24,7 +29,10 @@ export const PacksTableContainer: React.FC<BasicTablePropsType> = ({
                             <TableCell align="left">Name</TableCell>
                             <TableCell align="left">Cards</TableCell>
                             <TableCell align="left">Last Updated</TableCell>
-                            <TableCell align="left">Created by</TableCell>
+                            <TableCell align="left" onClick={addParamsUpdate}>
+                                Created by
+                                <img src={arrow} style={sorting ? {transform: 'rotate(180deg)'} : {}} alt='arrow'/>
+                            </TableCell>
                             <TableCell align="left">Actions</TableCell>
                         </TableRow>
                     </TableHead>
