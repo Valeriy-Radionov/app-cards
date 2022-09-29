@@ -13,7 +13,7 @@ import {ParamsGetPacksType} from "../../api/packs/packs-api";
 import {useDebounce} from "../../common/hooks/debounceHook";
 import s from "../cards/Crads.module.scss";
 import {LinkArrow} from "../../common/Link/LinkArrow";
-import {EmptyCards} from "../cards/EmptyCards";
+import {EmptyPage} from "../cards/EmptyPage";
 import {PacksTableContainer} from "./PacksTableContainer";
 import {PacksTableBody} from "./TableBody/PacksTableBody";
 
@@ -127,7 +127,7 @@ export const Packs: React.FC<PackPropsType> = (props) => {
                             }} items={packs.cardPacks}/>
                         </PacksTableContainer>
                     </div>
-                    : <EmptyCards addNewItem={addNewPacks} isMy={true}/>
+                    : <EmptyPage addNewItem={addNewPacks} isMy={true} name={'Add new pack'}/>
                 }
             </div>
         </div>

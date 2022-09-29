@@ -13,7 +13,7 @@ import {useSearchParams} from 'react-router-dom'
 import {BasicTable} from "../table/CardsTable";
 import {useDebounce} from "../../common/hooks/debounceHook";
 import {MapTableBody} from "../table/TableBody";
-import {EmptyCards} from "./EmptyCards";
+import {EmptyPage} from "./EmptyPage";
 import {LinkArrow} from "../../common/Link/LinkArrow";
 import {InputSearch} from "../../common/inputSearch/InputSearch";
 import actions from '../../common/image/actions.svg'
@@ -193,7 +193,7 @@ function Cards() {
                             <MapTableBody items={cards.cards} deleteItem={deleteCard} isWho={'cards'} isMy={true}/>
                         </BasicTable>
                     </div>
-                    : <EmptyCards addNewItem={addNewCards} isMy={isMyCards}/>
+                    : <EmptyPage addNewItem={addNewCards} isMy={isMyCards} name={'Add new card'}/>
                 }
             </div>
         </div>
