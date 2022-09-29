@@ -4,14 +4,15 @@ import s from './Empty.module.scss'
 type EmptyCardsPropsType = {
     addNewItem: () => void
     isMy: boolean
+    name: string
 }
 
-export const EmptyCards: React.FC<EmptyCardsPropsType> = ({addNewItem, isMy}) => {
+export const EmptyPage: React.FC<EmptyCardsPropsType> = ({addNewItem, isMy,name}) => {
     return (
         <div className={s.block}>
             <span>There are no cards in this pack that satisfy the search</span>
             {isMy
-                ? <button onClick={addNewItem} className={s.addCard}>Add new card</button>
+                ? <button onClick={addNewItem} className={s.addCard}>{name}</button>
                 : null
             }
 

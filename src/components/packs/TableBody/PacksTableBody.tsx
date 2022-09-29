@@ -36,14 +36,12 @@ export const PacksTableBody: React.FC<MapTableBodyPropsType> = ({
                             </TableCell>
                             <TableCell align="left">{item.user_name}</TableCell>
                             <TableCell align="left">
-
-                                {
-                                    userID === item.user_id ? <ActionsPacks learnItem={learnPack}
-                                                                            updateItem={updatePack}
-                                                                            deleteItem={deletePack}
-                                                                            id={item._id}/> :
-                                        <ActionsPacks learnItem={learnPack} id={item._id}/>
-                                }
+                                <ActionsPacks learnItem={learnPack}
+                                              updateItem={updatePack}
+                                              deleteItem={deletePack}
+                                              packId={item._id}
+                                              userId={item.user_id}
+                                />
                             </TableCell>
                         </TableRow>)
                 })}
