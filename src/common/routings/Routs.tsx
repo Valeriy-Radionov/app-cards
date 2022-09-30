@@ -9,6 +9,7 @@ import {SuperComponents} from "../../components/superComponent/SuperComponents";
 import {Error} from "../../components/error/Error";
 import Cards from "../../components/cards/Cards";
 import {Packs} from "../../components/packs/Packs";
+import {PrivateRoutes} from "./PrivateRoutes";
 
 export enum PATH {
     LOGIN = "/login",
@@ -24,16 +25,18 @@ export enum PATH {
 export const Routs = () => {
     return (
             <Routes>
+                <Route element={<PrivateRoutes/>}>
+                    <Route path={PATH.PROFILE} element={<Profile/>}/>
+                    <Route path={PATH.PACKS} element={<Packs/>}/>
+                    <Route path={'/cards/:id'} element={<Cards/>}/>
+                </Route>
                 <Route path={'/'} element={<Login/>}/>
                 <Route path={PATH.LOGIN} element={<Login/>}/>
                 <Route path={PATH.SET_PASSWORD} element={<SetPassword/>}/>
                 <Route path={PATH.RECOVERY} element={<Recovery/>}/>
                 <Route path={PATH.REGISTR} element={<Registration/>}/>
-                <Route path={PATH.PROFILE} element={<Profile/>}/>
                 <Route path={PATH.TEST} element={<SuperComponents/>}/>
-                <Route path={PATH.PACKS} element={<Packs/>}/>
                 <Route path={PATH.ERROR} element={<Error/>}/>
-                <Route path={'/cards/:id'} element={<Cards/>}/>
             </Routes>
     );
 };
