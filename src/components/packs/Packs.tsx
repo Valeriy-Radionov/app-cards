@@ -18,6 +18,7 @@ import {EmptyPage} from "../cards/EmptyPage";
 import {PacksTableContainer} from "./PacksTableContainer";
 import {PacksTableBody} from "./TableBody/PacksTableBody";
 import stylePacks from "./Packs.module.scss"
+import {SearchBlock} from "./SearchBlock/SearchBlock";
 
 export type PackPropsType = {}
 export const Packs: React.FC<PackPropsType> = (props) => {
@@ -38,7 +39,7 @@ export const Packs: React.FC<PackPropsType> = (props) => {
         max: "",
         sortPacks: "",
     })
-    const debouncedParamsSearch = useDebounce<ParamsGetPacksType>(paramsSearch, 1000)
+    const debouncedParamsSearch = useDebounce<ParamsGetPacksType>(paramsSearch, 700)
     useEffect(() => {
         dispatch(updatePacksParamsAC(getPackQueryParams(packId)))
         dispatch(getUsersPacksTC())
@@ -49,6 +50,7 @@ export const Packs: React.FC<PackPropsType> = (props) => {
         let resultSearchParams = {};
         nameParams.forEach(name => {
             if (params[name]) {
+                console.log(params[name])
                 resultSearchParams = {...resultSearchParams, [name]: params[name]}
             }
         })
@@ -61,6 +63,13 @@ export const Packs: React.FC<PackPropsType> = (props) => {
             packName: e.currentTarget.value
         })
         checkParamsForQuery({...paramsSearch, "packName": e.currentTarget.value});
+    }
+    const addParamsUserId = (filter: 'my' | 'all') => {
+        setParamsSearch({
+            ...paramsSearch,
+            user_id: filter === 'my' ? userID : ''
+        })
+        checkParamsForQuery({...paramsSearch, "user_id": filter === 'my' ? userID : ''});
     }
     const addParamsOfSorting = () => {
         setSort(!sort)
@@ -121,11 +130,12 @@ export const Packs: React.FC<PackPropsType> = (props) => {
         <div className={s.container}>
             <div className={s.content}>
                 <LinkArrow className={s.link} to={'/profile'} name={'Back to Profile'}/>
-                <div>
-                    <input placeholder={"search text"}
-                           value={paramsSearch.packName}
-                           onChange={addParamsName}/>
-                </div>
+                <SearchBlock
+                    paramsSearch={paramsSearch}
+                    user_id={getPackQueryParams(packId).user_id}
+                    addParamsName={addParamsName}
+                    addParamsUserId={addParamsUserId}
+                />
                 {packs.cardPacks.length
                     ? <div>
                         <button onClick={addNewPacks} className={stylePacks.btnAddPack}>Add new pack</button>

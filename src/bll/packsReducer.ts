@@ -54,7 +54,7 @@ const initialState: PacksType = {
     minCardsCount: 0,
     maxCardsCount: 0,
     token: "b78479d0-3f41-11ed-b364-85da2b8d0dd3",
-    tokenDeathTime: 1664389500269
+    tokenDeathTime: 1664389500269,
 }
 
 export const packsReducer = (state = initialState, action: PacksActionType): PacksType => {
@@ -114,6 +114,8 @@ export const updatePacksPageCountPaginate = (count: number) => ({
     type: UPDATE_PACKS_PAGE_COUNT_PAGINATE,
     count
 } as const)
+
+
 
 //thunks
 export const getUsersPacksTC = (userId?: string): AppThunk => {

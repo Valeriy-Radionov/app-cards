@@ -7,12 +7,15 @@
     background-color: #FFFFFF;
 }
 .content {
+    box-sizing: border-box;
     min-height: 36px;
     min-width: 300px;
     display: flex;
     flex-direction: row;
 }
 .container input{
+    padding: 0;
+    box-sizing: border-box;
     width: 100%;
     font-size: 14px;
     font-weight: 400;

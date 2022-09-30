@@ -144,7 +144,7 @@ export const sendEmail = (forgotPasswordData: ForgotPasswordDataType): AppThunk 
         })
         .catch(e => {
             handleServerNetworkError(e, dispatch)
-            alert(e.response.data.error)
+            // alert(e.response.data.error)
         })
 }
 export const setNewPassword = (setNewPasswordData: SetNewPasswordDataType): AppThunk => (dispatch) => {
