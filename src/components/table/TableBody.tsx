@@ -35,7 +35,8 @@ export const MapTableBody: React.FC<MapTableBodyPropsType> = ({items, deleteItem
                             <TableCell align="center">
                                 <div className={s.rating}>
                                     <Rating name="read-only" value={Number(item.grade)}
-                                            readOnly/>
+                                            onChange={(event, newValue) => {}}
+                                    />
                                     <ActionsCardTable isDisabled={item.entityStatusCard === 'loading'} id={item._id} deleteItem={deleteItem} isMy={isMy}/>
                                 </div>
                             </TableCell>
