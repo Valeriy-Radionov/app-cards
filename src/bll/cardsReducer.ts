@@ -1,5 +1,5 @@
 import {AppThunk} from "./store";
-import {cardsApi, CardType, PostCardType, ResponseCardsType} from "../api/cards/cards-api";
+import {cardsApi, CardType, ParamsGetCardsType, PostCardType, ResponseCardsType} from "../api/cards/cards-api";
 import {handleServerNetworkError} from "../utils/errors-utils";
 import {ParamsType} from "../components/cards/Cards";
 import {RequestStatusType, setAppStatusAC} from "./appReducer";
@@ -51,7 +51,7 @@ export type FullCardType = CardType & {
 
 export type CardsType = {
     cards: FullCardType[]
-    params: ParamsType
+    params: ParamsGetCardsType
     packUserId: string
     packName: string
     packPrivate: boolean
@@ -105,6 +105,15 @@ export const cardReducer = (state: CardsType = initialState, action: CardsAction
                 }
             }
         }
+        case "CARDS/CHANGE_ENTITY_STATUS_CARD": {
+            return {
+                ...state,
+                cards: state.cards.map(card => card._id === action.payload.cardId
+                    ? {...card, entityStatusCard: action.payload.status}
+                    : card
+                )
+            }
+        }
         default:
             return state
     }
@@ -115,10 +124,12 @@ export type CardsActionsType = getCardsACType
     | updateParamsACType
     | updatePagePaginateACType
     | updatePageCountPaginateACType
+    | changeEntityStatusCardACType
 type getCardsACType = ReturnType<typeof getCardsAC>
 type updateParamsACType = ReturnType<typeof updateParamsAC>
 type updatePagePaginateACType = ReturnType<typeof updatePagePaginateAC>
 type updatePageCountPaginateACType = ReturnType<typeof updatePageCountPaginateAC>
+type changeEntityStatusCardACType = ReturnType<typeof changeEntityStatusCardAC>
 
 // ACs
 export const getCardsAC = (cards: ResponseCardsType) => {
@@ -153,6 +164,15 @@ export const updatePageCountPaginateAC = (count: number) => {
         }
     } as const
 }
+export const changeEntityStatusCardAC = (cardId: string, status: RequestStatusType) => {
+    return {
+        type: 'CARDS/CHANGE_ENTITY_STATUS_CARD',
+        payload: {
+            cardId,
+            status
+        }
+    } as const
+}
 
 
 // TCs
@@ -166,13 +186,13 @@ export const getCardsTC = (): AppThunk => async (dispatch, getState) => {
     } catch (e) {
         handleServerNetworkError(e, dispatch)
         dispatch(setAppStatusAC("failed"))
-    }
-    finally {
+    } finally {
         dispatch(setAppStatusAC("idle"))
     }
 }
 export const deleteCardsTC = (cardId: string): AppThunk => async (dispatch) => {
     dispatch(setAppStatusAC("loading"))
+    dispatch(changeEntityStatusCardAC(cardId, "loading"))
     try {
         await cardsApi.deleteCard(cardId)
         dispatch(getCardsTC())
@@ -180,12 +200,12 @@ export const deleteCardsTC = (cardId: string): AppThunk => async (dispatch) => {
     } catch (e) {
         handleServerNetworkError(e, dispatch)
         dispatch(setAppStatusAC("failed"))
-    }
-    finally {
+    } finally {
+        dispatch(changeEntityStatusCardAC(cardId, "idle"))
         dispatch(setAppStatusAC("idle"))
     }
 }
-export const addNewCardTC = (): AppThunk => async (dispatch,getState) => {
+export const addNewCardTC = (): AppThunk => async (dispatch, getState) => {
     const {cardsPack_id} = getState().cards.params
     const card: PostCardType = {
         cardsPack_id,
@@ -207,8 +227,7 @@ export const addNewCardTC = (): AppThunk => async (dispatch,getState) => {
     } catch (e) {
         handleServerNetworkError(e, dispatch)
         dispatch(setAppStatusAC("failed"))
-    }
-    finally {
+    } finally {
         dispatch(setAppStatusAC("idle"))
     }
 }
