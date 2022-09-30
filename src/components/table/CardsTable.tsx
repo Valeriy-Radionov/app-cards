@@ -19,6 +19,7 @@ type BasicTablePropsType = {
     handleChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement>) => void
     children: React.ReactNode
     stateItems: CardsType
+    disabledPaginate: boolean
 }
 
 export const BasicTable: React.FC<BasicTablePropsType> = ({
@@ -27,7 +28,8 @@ export const BasicTable: React.FC<BasicTablePropsType> = ({
                                                               handleChangePage,
                                                               handleChangeRowsPerPage,
                                                               children,
-                                                              stateItems
+                                                              stateItems,
+                                                              disabledPaginate
                                                           }) => {
 
     return (
@@ -40,21 +42,21 @@ export const BasicTable: React.FC<BasicTablePropsType> = ({
                         <TableCell align="left">Last Updated</TableCell>
                         <TableCell align="left" onClick={addParamsGrade}>
                             Grade
-                            <img src={arrow} style={grade ? {transform: 'rotate(180deg)'} : {} } alt='arrow'/>
+                            <img src={arrow} style={grade ? {transform: 'rotate(180deg)'} : {}} alt='arrow'/>
                         </TableCell>
                     </TableRow>
                 </TableHead>
                 {children}
-                <TableFooter>
+                <TableFooter style={disabledPaginate ? {pointerEvents: 'none', opacity: '0.5'} : {}}>
                     <TableRow>
-                            <TablePagination
-                                rowsPerPageOptions={[5, 10, 25]}
-                                count={+stateItems.cardsTotalCount}
-                                rowsPerPage={+stateItems.pageCount}
-                                page={+stateItems.page - 1}
-                                onPageChange={handleChangePage}
-                                onRowsPerPageChange={handleChangeRowsPerPage}
-                            />
+                        <TablePagination
+                            rowsPerPageOptions={[5, 10, 25]}
+                            count={+stateItems.cardsTotalCount}
+                            rowsPerPage={+stateItems.pageCount}
+                            page={+stateItems.page - 1}
+                            onPageChange={handleChangePage}
+                            onRowsPerPageChange={handleChangeRowsPerPage}
+                        />
                     </TableRow>
                 </TableFooter>
             </Table>
