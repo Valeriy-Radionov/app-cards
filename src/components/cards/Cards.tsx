@@ -9,7 +9,7 @@ import {
     updatePagePaginateAC,
     updateParamsAC
 } from "../../bll/cardsReducer";
-import {useParams, useSearchParams} from 'react-router-dom'
+import { useSearchParams, useLocation} from 'react-router-dom'
 import {BasicTable} from "../table/CardsTable";
 import {useDebounce} from "../../common/hooks/debounceHook";
 import {MapTableBody} from "../table/TableBody";
@@ -22,7 +22,7 @@ import actions from '../../common/image/actions.svg'
 export type ParamsType = {
     cardAnswer?: string  // не обязательно
     cardQuestion?: string // не обязательно
-    cardsPack_id: string //обязательно!!!
+    cardsPack_id?: string //обязательно!!!
     min?: string   // не обязательно
     max?: string  // не обязательно
     sortCards?: string // не обязательно
@@ -30,35 +30,45 @@ export type ParamsType = {
     pageCount?: string // не обязательно
 }
 
-type PackIdParamsType = {
-    id: string
-}
 
 function Cards() {
-    let { id } = useParams<PackIdParamsType>();
-    console.log(id)
+    let id = useLocation().pathname.slice(7)
     const dispatch = useAppDispatch
     const userID = useAppSelector(state => state.profile.user?._id)
     const cards = useAppSelector(state => state.cards)
-
+    const appStatus = useAppSelector(state => state.app.status)
+    const updateStatusApp = appStatus === 'loading'
     const isMyCards = cards.packUserId === userID
 
     // URLSearchParams
     const [searchParams, setSearchParams] = useSearchParams();
     const [gradeSearch, setGradeSearch] = useState(false)
-    const [paramsSearch, setParamsSearch] = useState<ParamsType>({
-        cardsPack_id: '',
-        page: '1',
-        pageCount: '10'
-    })
-    const debouncedParamsSearch = useDebounce<ParamsType>(paramsSearch, 1000)
+    const [paramsSearch, setParamsSearch] = useState<ParamsType>({})
     //
 
+    //functions working to query params
+    const updateParamsBackPackLink = () => {
+        dispatch(updateParamsAC({cardQuestion: '', cardAnswer: '', cardsPack_id: id}))
+    }
+    const getQueryParams = (id: string) => {
+        const params: any = {
+            cardsPack_id: id,
+            cardQuestion: '',
+            cardAnswer: '',
+            page: '1',
+            pageCount: '10'
+        }
+
+        searchParams.forEach((value, key) => {
+            if (key) {
+                params[key] = value
+            }
+        })
+        return params
+    }
     const checkParamsForQuery = (params: any) => {
         const nameParams = Object.keys(params);
-        let resultSearchParams:ParamsType = {
-            cardsPack_id:''
-        };
+        let resultSearchParams = {};
         nameParams.forEach(name => {
             if (params[name]) {
                 resultSearchParams = {...resultSearchParams, [name]: params[name]}
@@ -74,24 +84,24 @@ function Cards() {
             ...paramsSearch,
             cardQuestion: e.currentTarget.value
         })
-        checkParamsForQuery({...paramsSearch, "cardQuestion": e.currentTarget.value});
+        checkParamsForQuery({...getQueryParams(id), "cardQuestion": e.currentTarget.value});
     }
     const addParamsAnswer = (e: ChangeEvent<HTMLInputElement>) => {
         setParamsSearch({
             ...paramsSearch,
             cardAnswer: e.currentTarget.value
         })
-        checkParamsForQuery({...paramsSearch, "cardAnswer": e.currentTarget.value})
+        checkParamsForQuery({...getQueryParams(id), "cardAnswer": e.currentTarget.value})
 
     }
     const addParamsGrade = () => {
         setGradeSearch(!gradeSearch)
         if (!gradeSearch) {
             setParamsSearch({...paramsSearch, sortCards: '1grade'})
-            checkParamsForQuery({...paramsSearch, sortCards: '1grade'})
+            checkParamsForQuery({...getQueryParams(id), sortCards: '1grade'})
         } else {
             setParamsSearch({...paramsSearch, sortCards: '0grade'})
-            checkParamsForQuery({...paramsSearch, sortCards: '0grade'})
+            checkParamsForQuery({...getQueryParams(id), sortCards: '0grade'})
         }
     }
     //
@@ -115,7 +125,7 @@ function Cards() {
     };
     //
 
-    //control card
+    //functions control card
     const addNewCards = () => {
         dispatch(addNewCardTC())
     }
@@ -124,20 +134,7 @@ function Cards() {
     }
     //
 
-    const getQueryParams = (id: string | undefined) => {
-        const params: any = {
-            cardsPack_id: id,
-            page: '1',
-            pageCount: '10'
-        }
-
-        searchParams.forEach((value, key) => {
-            if (key) {
-                params[key] = value
-            }
-        })
-        return params
-    }
+    const debouncedParamsSearch = useDebounce<ParamsType>(paramsSearch, 1000)
 
     useEffect(() => {
         checkParamsForQuery(getQueryParams(id))
@@ -151,11 +148,12 @@ function Cards() {
     return (
         <div className={s.container}>
             <div className={s.content}>
-                <LinkArrow className={s.link} to={'/packs'} name={'Back to Packs List'}/>
+                <LinkArrow className={s.link} to={'/packs'} name={'Back to Packs List'}
+                           callback={updateParamsBackPackLink}/>
                 <div className={s.packName}>
                     <span>{cards.packName}</span>
                     {isMyCards
-                        ? <button><img src={actions} alt='actions'/></button>
+                        ? <button disabled={updateStatusApp} style={updateStatusApp ? {opacity: '0.5'} : {}}><img src={actions} alt='actions'/></button>
                         : null
                     }
                 </div>
@@ -165,9 +163,9 @@ function Cards() {
                                      inputId={'search-question'}
                                      label={'Provide your question'}
                                      sx={{width: '100%', background: '#FFFFFF'}}
-                                     value={paramsSearch.cardQuestion}
+                                     value={searchParams.get('cardQuestion') || ''}
                                      onChange={addParamsQuestion}
-                                     defaultValue={searchParams.get('cardQuestion')}
+                                     disabled={updateStatusApp}
                         />
                     </div>
                     <div className={s.searchItem2}>
@@ -175,16 +173,23 @@ function Cards() {
                                      inputId={'search-answer'}
                                      label={'Provide your answer'}
                                      sx={{width: '100%', background: '#FFFFFF'}}
-                                     value={paramsSearch.cardAnswer}
+                                     value={searchParams.get('cardAnswer') || ''}
                                      onChange={addParamsAnswer}
-                                     defaultValue={searchParams.get('cardAnswer')}
+                                     disabled={updateStatusApp}
                         />
                     </div>
                 </div>
                 {cards.cards.length
                     ? <div className={s.blockTable}>
-                        {isMyCards ?
-                            <button onClick={addNewCards} className={s.addCard}>Add new card</button> : null
+                        {isMyCards
+                            ? <button onClick={addNewCards}
+                                      className={s.addCard}
+                                      disabled={updateStatusApp}
+                                      style={updateStatusApp ? {opacity: '0.5'} : {}}
+                            >
+                                Add new card
+                            </button>
+                            : null
                         }
                         <BasicTable
                             addParamsGrade={addParamsGrade}
@@ -192,6 +197,7 @@ function Cards() {
                             handleChangePage={handleChangePage}
                             handleChangeRowsPerPage={handleChangeRowsPerPage}
                             stateItems={cards}
+                            disabledPaginate={updateStatusApp}
                         >
                             <MapTableBody items={cards.cards} deleteItem={deleteCard} isMy={isMyCards}/>
                         </BasicTable>
