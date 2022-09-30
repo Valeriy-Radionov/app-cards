@@ -30,7 +30,7 @@ export const PacksTableBody: React.FC<MapTableBodyPropsType> = ({
 
                     >
                         <TableCell align="left"
-                                   onClick={() => navigate(`/cards/${item._id}`)}
+                                   onClick={() => navigate(`/cards/${item._id}`, {state: item._id})}
                         >
                             {item.name}
                         </TableCell>
