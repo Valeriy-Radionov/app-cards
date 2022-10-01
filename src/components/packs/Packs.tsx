@@ -17,11 +17,12 @@ import {LinkArrow} from "../../common/Link/LinkArrow";
 import {EmptyPage} from "../cards/EmptyPage";
 import {PacksTableContainer} from "./PacksTableContainer";
 import {PacksTableBody} from "./TableBody/PacksTableBody";
-import stylePacks from "./Packs.module.scss"
 import {SearchBlock} from "./SearchBlock/SearchBlock";
+import {AddPackModal} from "./PackModal/AddPackModal";
 
 export type PackPropsType = {}
 export const Packs: React.FC<PackPropsType> = (props) => {
+
     const packId = "633069736caad3673917ba5f"
     const packs = useAppSelector(state => state.packs)
     const userID = useAppSelector(state => state.profile.user?._id)
@@ -138,7 +139,8 @@ export const Packs: React.FC<PackPropsType> = (props) => {
                 />
                 {packs.cardPacks.length
                     ? <div>
-                        <button onClick={addNewPacks} className={stylePacks.btnAddPack}>Add new pack</button>
+                        <AddPackModal></AddPackModal>
+                        {/*<button onClick={addNewPacks} className={stylePacks.btnAddPack}>Add new pack</button>*/}
                         <PacksTableContainer
                             sorting={sort}
                             addParamsUpdate={addParamsOfSorting}

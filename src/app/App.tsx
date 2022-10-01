@@ -2,11 +2,10 @@ import React, {useEffect} from 'react';
 import './App.css';
 import {Header} from "../components/header/Header";
 import {Routs} from "../common/routings/Routs";
-import {Preloader} from "../common/Preloader/Preloader";
 import {AppRootStateType, useAppDispatch, useAppSelector} from "../bll/store";
 import {initializeAPPThunkCreator} from "../bll/appReducer";
 import {ErrorSnackbar} from "../components/error/ErrorSnackbar";
-import {CircularProgress, LinearProgress} from "@mui/material";
+import {CircularProgress} from "@mui/material";
 
 const App = () => {
     const isInitialized = useAppSelector((state: AppRootStateType) => state.app.isInitialized)

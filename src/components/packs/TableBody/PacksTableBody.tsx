@@ -25,12 +25,15 @@ export const PacksTableBody: React.FC<MapTableBodyPropsType> = ({
             {items.map(item => {
                 return (
                     <TableRow key={item._id} sx={{
-                        "&:hover": {bgcolor: 'lightgray'}
+                        "&:hover": {bgcolor: "lightgray"}
                     }}
 
                     >
                         <TableCell align="left"
                                    onClick={() => navigate(`/cards/${item._id}`, {state: item._id})}
+                                   sx={{
+                                       "&:hover": {color: "cornflowerblue"}
+                                   }}
                         >
                             {item.name}
                         </TableCell>
