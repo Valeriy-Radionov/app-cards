@@ -18,6 +18,8 @@ export const AddPackModal = () => {
     const addPack = () => {
 
     }
+
+    const styleActionBtn = ""
     return (
         <ModalWindow styleButton={stylePacks.btnPack} nameButton={"Add new pack"} open={open}
                      handleOpen={handleOpen} handleClose={handleClose}>
