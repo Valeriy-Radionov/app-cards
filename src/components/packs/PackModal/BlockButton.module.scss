@@ -1,0 +1,46 @@
+@import "src/common/style/mixins";
+
+@mixin buttonStyle($background) {
+  color: #000000;
+  opacity: 0.8;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+  border-radius: 30px;
+  transition: 0.4s;
+  background: $background;
+}
+
+.buttonBlock {
+  display: flex;
+  justify-content: space-between;
+
+  .close {
+    background: #FCFCFC;
+    @include width-height(113px, 36px);
+    border: none;
+    outline: none;
+    @include font(normal, 500, 16px, 20px);
+    letter-spacing: 0.01em;
+    text-align: center;
+    color: #000000;
+    opacity: 0.8;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+    transition: 0.4s;
+    background: white;
+
+    &:hover {
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(54, 110, 255, 0.35);
+    }
+  }
+
+  .defaultBtn {
+
+  }
+
+  .deleteBtn {
+
+  }
+}

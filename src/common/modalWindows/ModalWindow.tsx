@@ -6,12 +6,13 @@ const style = {
     position: 'absolute' as 'absolute',
     top: '50%',
     left: '50%',
+    padding: '0%',
     transform: 'translate(-50%, -50%)',
     width: 395,
     height: 311,
     bgcolor: 'white',
     boxShadow: 24,
-    p: 4,
+    p: 0
 };
 type ModalWindowType = {
     children: ReactNode

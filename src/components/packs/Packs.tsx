@@ -18,7 +18,7 @@ import {EmptyPage} from "../cards/EmptyPage";
 import {PacksTableContainer} from "./PacksTableContainer";
 import {PacksTableBody} from "./TableBody/PacksTableBody";
 import {SearchBlock} from "./SearchBlock/SearchBlock";
-import {AddPackModal} from "./PackModal/AddPackModal";
+import {AddPackModal} from "./PackModal/addPackModal/AddPackModal";
 
 export type PackPropsType = {}
 export const Packs: React.FC<PackPropsType> = (props) => {
