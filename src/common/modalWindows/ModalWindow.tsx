@@ -20,13 +20,13 @@ const style = {
 type ModalWindowType = {
     children: ReactNode
     typeAction: ButtonActionBlockType // type for button save | delete <- update scss
-    addPackHandler: () => void //
+    stylePackHandler: () => void //
     styleButton?: string | undefined
     nameButton?: string | undefined
     open?: boolean
     title: string
-    nameClose: string
-    nameAction: string
+    nameButtonCancel: string
+    nameButtonAction: string
 
 }
 
@@ -35,9 +35,9 @@ export const ModalWindow: React.FC<ModalWindowType> = ({
                                                            styleButton,
                                                            nameButton,
                                                            title,
-                                                           addPackHandler,
-                                                           nameClose,
-                                                           nameAction,
+                                                           stylePackHandler,
+                                                           nameButtonCancel,
+                                                           nameButtonAction,
                                                            typeAction
                                                        }) => {
     const [open, setOpen] = React.useState<boolean>(false);
@@ -63,8 +63,8 @@ export const ModalWindow: React.FC<ModalWindowType> = ({
                         </button>
                     </div>
                     {children}
-                    <BlockButtonModal nameAction={nameAction} nameClose={nameClose}
-                                      actionHandler={addPackHandler} handleClose={setOpen} typeAction={typeAction}/>
+                    <BlockButtonModal nameAction={nameButtonAction} nameClose={nameButtonCancel}
+                                      actionHandler={stylePackHandler} handleClose={setOpen} typeAction={typeAction}/>
                 </Box>
             </Modal>
         </div>

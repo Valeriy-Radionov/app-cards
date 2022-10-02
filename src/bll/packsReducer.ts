@@ -7,9 +7,11 @@ const GET_USERS_PACKS = "PACKS/GET_USERS_PACKS"
 const UPDATE_PACKS_PARAMS = "PACKS/UPDATE_PACKS_PARAMS"
 const UPDATE_PACKS_PAGE_PAGINATE = "PACKS/UPDATE_PACKS_PAGE_PAGINATE"
 const UPDATE_PACKS_PAGE_COUNT_PAGINATE = "PACKS/UPDATE_PACKS_PAGE_COUNT_PAGINATE"
+// const CHANGE_ENTITY_STATUS = "CHANGE_ENTITY_STATUS"
 export type PacksType = {
     cardPacks: CardPackType[]
     params: ParamsGetPacksType
+    // entityStatus: RequestStatusType
     page: number;
     pageCount: number;
     cardPacksTotalCount: number;
@@ -55,6 +57,7 @@ const initialState: PacksType = {
     maxCardsCount: 0,
     token: "b78479d0-3f41-11ed-b364-85da2b8d0dd3",
     tokenDeathTime: 1664389500269,
+    // entityStatus: "idle"
 }
 
 export const packsReducer = (state = initialState, action: PacksActionType): PacksType => {
@@ -79,6 +82,9 @@ export const packsReducer = (state = initialState, action: PacksActionType): Pac
                 }
             }
         }
+        // case "CHANGE_ENTITY_STATUS": {
+        //     return {...state, entityStatus: action.status}
+        // }
         default:
             return state
     }
@@ -91,7 +97,7 @@ type setPacksACType = ReturnType<typeof setUsersPacksAC>
 type updateParamsPacksAC = ReturnType<typeof updatePacksParamsAC>
 type updatePacksPagePaginateACType = ReturnType<typeof updatePacksPagePaginateAC>
 type updatePacksPageCountPaginateType = ReturnType<typeof updatePacksPageCountPaginate>
-
+// type changeEntityStatusACType = ReturnType<typeof changeEntityStatus>
 //actions
 export const setUsersPacksAC = (userPacks: ResponsePacksType) => ({
     type: GET_USERS_PACKS,
@@ -115,6 +121,10 @@ export const updatePacksPageCountPaginate = (count: number) => ({
     count
 } as const)
 
+// export const changeEntityStatus = (status: RequestStatusType) => ({
+//     type: CHANGE_ENTITY_STATUS,
+//     status
+// } as const)
 
 //thunks
 export const getUsersPacksTC = (userId?: string): AppThunk => {
@@ -124,9 +134,10 @@ export const getUsersPacksTC = (userId?: string): AppThunk => {
         try {
             const response = await packsApi.getPacks({...params})
             dispatch(setUsersPacksAC(response.data))
-            dispatch(setAppStatusAC("succeeded"))
         } catch (e) {
             handleServerNetworkError(e, dispatch)
+        } finally {
+            dispatch(setAppStatusAC("idle"))
         }
     }
 }
@@ -138,9 +149,10 @@ export const deletePacksTC = (userId: string): AppThunk => {
         try {
             const response = await packsApi.deletePack(userId)
             dispatch(getUsersPacksTC(packs_Id))
-            dispatch(setAppStatusAC("succeeded"))
         } catch (e) {
             handleServerNetworkError(e, dispatch)
+        } finally {
+            dispatch(setAppStatusAC("idle"))
         }
     }
 }
@@ -154,8 +166,9 @@ export const addNewPackTC = (userId: string, titlePack: string, privatePack: boo
     try {
         await packsApi.addPack(pack)
         dispatch(getUsersPacksTC(userId))
-        dispatch(setAppStatusAC("succeeded"))
     } catch (e) {
         handleServerNetworkError(e, dispatch)
+    } finally {
+        dispatch(setAppStatusAC("idle"))
     }
 };

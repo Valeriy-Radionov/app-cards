@@ -29,6 +29,7 @@ export const Packs: React.FC<PackPropsType> = (props) => {
     const packs = useAppSelector(state => state.packs)
     const userID = useAppSelector(state => state.profile.user?._id)
     const dispatch = useAppDispatch
+
     //hooks
     const [searchParams, setSearchParams] = useSearchParams();
     const [sort, setSort] = useState(false)
@@ -106,7 +107,6 @@ export const Packs: React.FC<PackPropsType> = (props) => {
     };
 
     const addNewPacks = () => {
-
         userID && dispatch(addNewPackTC(userID!, titlePack, privatePack))
         setTitlePack("")
     }
@@ -147,8 +147,8 @@ export const Packs: React.FC<PackPropsType> = (props) => {
                 {packs.cardPacks.length
                     ? <div>
                         <ModalWindow styleButton={stylePacks.btnPack} nameButton={"Add new pack"}
-                                     title={"Add new pack"} addPackHandler={addNewPacks} nameAction={"Save"}
-                                     nameClose={"Cancel"} typeAction={"save"}>
+                                     title={"Add new pack"} stylePackHandler={addNewPacks} nameButtonAction={"Save"}
+                                     nameButtonCancel={"Cancel"} typeAction={"save"}>
                             <AddPackModal titlePack={titlePack} setState={setTitlePack}
                                           setPrivatePack={setPrivatePack}/>
                         </ModalWindow>
