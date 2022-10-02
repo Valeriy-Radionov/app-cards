@@ -1,25 +1,41 @@
 import React from 'react';
 import style from "./BlockButton.module.scss";
 
+
+export type ButtonActionBlockType = "save" | "delete"
+
 type BlockButtonModalType = {
+    typeAction: ButtonActionBlockType
     nameAction: string
     nameClose: string
-    handleClose: () => void
+    handleClose: (isToggle: boolean) => void
     actionHandler: () => void
 }
 export const BlockButtonModal: React.FC<BlockButtonModalType> = ({
                                                                      handleClose,
                                                                      actionHandler,
                                                                      nameAction,
-                                                                     nameClose
+                                                                     nameClose, typeAction
                                                                  }) => {
+
+    const onCloseHandler = () => {
+        handleClose(false)
+    }
+    const onActionHandler = () => {
+        actionHandler()
+        handleClose(false)
+    }
     return (
         <div className={style.buttonBlock}>
             <button className={style.close}
-                    onClick={handleClose}>{nameClose}
+                    onClick={onCloseHandler}>{nameClose}
             </button>
-            <button className={style.defaultBtn}
-                    onClick={actionHandler}>{nameAction}</button>
+            {typeAction === "save" ?
+                <button className={style.defaultBtn}
+                        onClick={onActionHandler}>{nameAction}</button> :
+                <button className={style.deleteBtn}
+                        onClick={onActionHandler}>{nameAction}</button>
+            }
         </div>
     );
 };

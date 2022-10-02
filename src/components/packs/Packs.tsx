@@ -19,6 +19,8 @@ import {PacksTableContainer} from "./PacksTableContainer";
 import {PacksTableBody} from "./TableBody/PacksTableBody";
 import {SearchBlock} from "./SearchBlock/SearchBlock";
 import {AddPackModal} from "./PackModal/addPackModal/AddPackModal";
+import stylePacks from "./Packs.module.scss";
+import {ModalWindow} from "../../common/modalWindows/ModalWindow";
 
 export type PackPropsType = {}
 export const Packs: React.FC<PackPropsType> = (props) => {
@@ -45,6 +47,9 @@ export const Packs: React.FC<PackPropsType> = (props) => {
         dispatch(updatePacksParamsAC(getPackQueryParams(packId)))
         dispatch(getUsersPacksTC())
     }, [debouncedParamsSearch])
+
+    const [titlePack, setTitlePack] = useState<string>("")
+    const [privatePack, setPrivatePack] = useState<boolean>(false)
 
     const checkParamsForQuery = (params: any) => {
         const nameParams = Object.keys(params);
@@ -101,7 +106,9 @@ export const Packs: React.FC<PackPropsType> = (props) => {
     };
 
     const addNewPacks = () => {
-        userID && dispatch(addNewPackTC(userID))
+
+        userID && dispatch(addNewPackTC(userID!, titlePack, privatePack))
+        setTitlePack("")
     }
     const deletePack = (userId: string) => {
         dispatch(deletePacksTC(userId))
@@ -139,8 +146,12 @@ export const Packs: React.FC<PackPropsType> = (props) => {
                 />
                 {packs.cardPacks.length
                     ? <div>
-                        <AddPackModal></AddPackModal>
-                        {/*<button onClick={addNewPacks} className={stylePacks.btnAddPack}>Add new pack</button>*/}
+                        <ModalWindow styleButton={stylePacks.btnPack} nameButton={"Add new pack"}
+                                     title={"Add new pack"} addPackHandler={addNewPacks} nameAction={"Save"}
+                                     nameClose={"Cancel"} typeAction={"save"}>
+                            <AddPackModal titlePack={titlePack} setState={setTitlePack}
+                                          setPrivatePack={setPrivatePack}/>
+                        </ModalWindow>
                         <PacksTableContainer
                             sorting={sort}
                             addParamsUpdate={addParamsOfSorting}

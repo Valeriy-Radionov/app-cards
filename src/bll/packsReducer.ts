@@ -116,7 +116,6 @@ export const updatePacksPageCountPaginate = (count: number) => ({
 } as const)
 
 
-
 //thunks
 export const getUsersPacksTC = (userId?: string): AppThunk => {
     return async (dispatch, getState) => {
@@ -146,10 +145,10 @@ export const deletePacksTC = (userId: string): AppThunk => {
     }
 }
 
-export const addNewPackTC = (userId: string): AppThunk => async (dispatch) => {
+export const addNewPackTC = (userId: string, titlePack: string, privatePack: boolean): AppThunk => async (dispatch) => {
     const pack: PostPackDataType = {
-        name: "NEW PACKS CREATED",
-        private: false
+        name: titlePack,
+        private: privatePack
     }
     dispatch(setAppStatusAC("loading"))
     try {
