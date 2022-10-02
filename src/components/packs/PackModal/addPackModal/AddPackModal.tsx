@@ -3,7 +3,7 @@ import stylePacks from "../../Packs.module.scss"
 import styleModal from "./AddPackModal.module.scss"
 import {ModalWindow} from "../../../../common/modalWindows/ModalWindow";
 import closeBtn from "../../../../common/image/Page 1close.svg"
-import {BlockButtonModal} from "../BlockButtonModal";
+import {BlockButtonModal} from "../../../../common/modalWindows/ButtonModal/BlockButtonModal";
 
 export const AddPackModal = () => {
 
