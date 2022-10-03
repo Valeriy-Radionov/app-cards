@@ -12,7 +12,7 @@ const style = {
     padding: '0%',
     transform: 'translate(-50%, -50%)',
     width: 395,
-    minHeight: 311,
+    minHeight: 204,
     bgcolor: 'white',
     boxShadow: 24,
     p: 0,

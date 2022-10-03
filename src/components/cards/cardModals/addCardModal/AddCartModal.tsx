@@ -2,20 +2,28 @@ import React, {ChangeEvent, useState} from 'react';
 import {useAppDispatch} from "../../../../bll/store";
 import {ModalWindow} from "../../../../common/components/modalWindows/ModalWindow";
 import {addNewCardTC} from "../../../../bll/cardsReducer";
-import {FormControl, MenuItem, Select, SelectChangeEvent, FormHelperText, Box, TextField} from "@mui/material";
+import {FormControl, MenuItem, Select, SelectChangeEvent, FormHelperText, TextField} from "@mui/material";
 import s from './AddCartModal.module.scss'
+import stroke from "../../../../assets/image/Edit.svg";
 
-export const AddCartModal = () => {
+type AddCardModalPropsType = {
+    addEditModal: 'add' | 'edit'
+}
+export const AddCartModal: React.FC<AddCardModalPropsType> = ({addEditModal}) => {
     const dispatch = useAppDispatch
 
     const [select, setSelectInput] = useState('')
     const [questionInput, setQuestionInput] = useState('')
     const [answerInput, setAnswerInput] = useState('')
 
-    const addNewCards = () => {
+    const addNewCard = () => {
         dispatch(addNewCardTC(questionInput, answerInput))
         setQuestionInput('')
         setAnswerInput('')
+    }
+
+    const editCard = () => {
+console.log('')
     }
 
     const handleChangeSelect = (event: SelectChangeEvent) => {
@@ -30,12 +38,15 @@ export const AddCartModal = () => {
         setAnswerInput(e.currentTarget.value)
     }
 
+    const editImg = () => {
+        return <img src={stroke} alt={''}/>
+    }
 
     return (
         <div>
-            <ModalWindow namePreviousBtn={"Add new cart"}
-                         titleModal={"Add new cart"}
-                         actionSaveDeleteBtn={addNewCards}
+            <ModalWindow namePreviousBtn={addEditModal === 'add' ? "Add new cart" : editImg()}
+                         titleModal={addEditModal === 'add' ? "Add new cart" : 'Edit cart'}
+                         actionSaveDeleteBtn={addEditModal === 'add' ? addNewCard : editCard}
                          isSaveDeleteModal={"Save"}
             >
                 <div className={s.blockForm}>

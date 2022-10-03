@@ -2,8 +2,6 @@ import React, {ChangeEvent, useEffect, useState} from 'react'
 import s from './Crads.module.scss'
 import {useAppDispatch, useAppSelector} from "../../bll/store";
 import {
-    addNewCardTC,
-    deleteCardsTC,
     getCardsTC,
     updatePageCountPaginateAC,
     updatePagePaginateAC,
@@ -12,7 +10,7 @@ import {
 import { useSearchParams, useLocation} from 'react-router-dom'
 import {BasicTable} from "./table/CardsTable";
 import {useDebounce} from "../../assets/hooks/debounceHook";
-import {MapTableBody} from "./table/TableBody";
+import {TableBodyCart} from "./table/TableBody";
 import {EmptyPage} from "../emptyPage/EmptyPage";
 import {LinkArrow} from "../../common/components/Link/LinkArrow";
 import {InputSearch} from "../../common/components/inputSearchDouble/InputSearch";
@@ -127,14 +125,6 @@ function Cards() {
     //
 
 
-
-    //functions control card
-
-    const deleteCard = (id: string) => {
-        dispatch(deleteCardsTC(id))
-    }
-    //
-
     const debouncedParamsSearch = useDebounce<ParamsType>(paramsSearch, 1000)
 
     useEffect(() => {
@@ -183,14 +173,7 @@ function Cards() {
                 {cards.cards.length
                     ? <div className={s.blockTable}>
                         {isMyCards
-                            // ? <button onClick={addNewCards}
-                            //           className={s.addCard}
-                            //           disabled={updateStatusApp}
-                            //           style={updateStatusApp ? {opacity: '0.5'} : {}}
-                            // >
-                            //     Add new card
-                            // </button>
-                            ?<AddCartModal/>
+                            ?<AddCartModal addEditModal={'add'}/>
                             : null
                         }
                         <BasicTable
@@ -201,7 +184,7 @@ function Cards() {
                             stateItems={cards}
                             disabledPaginate={updateStatusApp}
                         >
-                            <MapTableBody items={cards.cards} deleteItem={deleteCard} isMy={isMyCards}/>
+                            <TableBodyCart items={cards.cards}  isMy={isMyCards}/>
                         </BasicTable>
                     </div>
                     : <EmptyPage  isMy={isMyCards} name={'Add new card'}/>

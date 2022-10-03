@@ -12,11 +12,10 @@ import {FullCardType} from "../../../bll/cardsReducer";
 
 type MapTableBodyPropsType = {
     items: FullCardType[]
-    deleteItem: (id: string) => void
     isMy: boolean
 }
 
-export const MapTableBody: React.FC<MapTableBodyPropsType> = ({items, deleteItem, isMy}) => {
+export const TableBodyCart: React.FC<MapTableBodyPropsType> = ({items, isMy}) => {
 
     return (<>
             <TableBody>
@@ -37,7 +36,7 @@ export const MapTableBody: React.FC<MapTableBodyPropsType> = ({items, deleteItem
                                     <Rating name="read-only" value={Number(item.grade)}
                                             onChange={(event, newValue) => {}}
                                     />
-                                    <ActionsCardTable isDisabled={item.entityStatusCard === 'loading'} id={item._id} deleteItem={deleteItem} isMy={isMy}/>
+                                    <ActionsCardTable isDisabled={item.entityStatusCard === 'loading'} id={item._id} isMy={isMy}/>
                                 </div>
                             </TableCell>
                         </TableRow>
