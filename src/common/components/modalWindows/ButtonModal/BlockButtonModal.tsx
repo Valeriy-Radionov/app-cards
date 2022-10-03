@@ -2,40 +2,29 @@ import React from 'react';
 import style from "./BlockButton.module.scss";
 
 
-export type ButtonActionBlockType = "save" | "delete"
-
 type BlockButtonModalType = {
-    typeAction: ButtonActionBlockType
-    nameAction: string
-    nameClose: string
-    handleClose: (isToggle: boolean) => void
-    actionHandler: () => void
+    isSaveDeleteModal: 'Save' | 'Delete'
+    toggleModal: () => void
+    actionSaveDeleteBtn: () => void
 }
 export const BlockButtonModal: React.FC<BlockButtonModalType> = ({
-                                                                     handleClose,
-                                                                     actionHandler,
-                                                                     nameAction,
-                                                                     nameClose, typeAction
+                                                                     toggleModal,
+                                                                     actionSaveDeleteBtn,
+                                                                     isSaveDeleteModal,
                                                                  }) => {
 
     const onCloseHandler = () => {
-        handleClose(false)
+        toggleModal()
     }
     const onActionHandler = () => {
-        actionHandler()
-        handleClose(false)
+        actionSaveDeleteBtn()
+        toggleModal()
     }
     return (
         <div className={style.buttonBlock}>
-            <button className={style.close}
-                    onClick={onCloseHandler}>{nameClose}
-            </button>
-            {typeAction === "save" ?
-                <button className={style.defaultBtn}
-                        onClick={onActionHandler}>{nameAction}</button> :
-                <button className={style.deleteBtn}
-                        onClick={onActionHandler}>{nameAction}</button>
-            }
+            <button className={style.close} onClick={onCloseHandler}>Cancel</button>
+
+            <button className={style.defaultBtn} onClick={onActionHandler}>{isSaveDeleteModal}</button>
         </div>
     );
 };

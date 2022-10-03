@@ -2,7 +2,7 @@ import React from 'react';
 import s from './Empty.module.scss'
 
 type EmptyCardsPropsType = {
-    addNewItem: () => void
+    addNewItem?: () => void
     isMy: boolean
     name: string
 }

@@ -1,0 +1,65 @@
+@import "../../../assets/style/mixins";
+
+.container {
+  .btnDelete {
+    outline: none;
+    border: none;
+    background: none;
+    transition: 0.5s;
+    margin: 0 5px 0 5px;
+
+    &:hover {
+      transform: translateY(-4px);
+    }
+  }
+  .btnPack {
+    position: absolute;
+    @include width-height(184px, 36px);
+    right: 136px;
+    top: 96px;
+    border: none;
+    outline: none;
+    @include font(normal, 500, 16px, 20px);
+    letter-spacing: 0.01em;
+    //font-family: 'Montserrat';
+
+    color: #FFFFFF;
+    box-shadow: 0px 2px 10px rgba(109, 109, 109, 0.25), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+    background: #366EFF;
+    border-radius: 30px;
+    transition: 0.4s;
+
+    &:hover {
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(54, 110, 255, 0.35);
+
+    }
+  }
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 19px 24px 3px 24px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+
+  .title {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .close {
+    border: none;
+    width: 14px;
+    height: 14px;
+    opacity: 0.2;
+    cursor: pointer;
+    transition: opacity ease 0.5s;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+

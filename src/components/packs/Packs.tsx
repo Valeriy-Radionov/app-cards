@@ -1,9 +1,6 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../bll/store";
-import "../../assets/style/mixins.scss";
 import {
-    addNewPackTC,
-    deletePacksTC,
     getUsersPacksTC,
     updatePacksPageCountPaginate,
     updatePacksPagePaginateAC,
@@ -19,8 +16,6 @@ import {PacksTableContainer} from "./PacksTableContainer";
 import {PacksTableBody} from "./TableBody/PacksTableBody";
 import {SearchBlock} from "./SearchBlock/SearchBlock";
 import {AddPackModal} from "./PackModal/addPackModal/AddPackModal";
-import stylePacks from "./Packs.module.scss";
-import {ModalWindow} from "../../common/components/modalWindows/ModalWindow";
 
 export type PackPropsType = {}
 export const Packs: React.FC<PackPropsType> = (props) => {
@@ -49,8 +44,6 @@ export const Packs: React.FC<PackPropsType> = (props) => {
         dispatch(getUsersPacksTC())
     }, [debouncedParamsSearch])
 
-    const [titlePack, setTitlePack] = useState<string>("")
-    const [privatePack, setPrivatePack] = useState<boolean>(false)
 
     const checkParamsForQuery = (params: any) => {
         const nameParams = Object.keys(params);
@@ -106,13 +99,6 @@ export const Packs: React.FC<PackPropsType> = (props) => {
         dispatch(updatePacksPageCountPaginate(pageCount))
     };
 
-    const addNewPacks = () => {
-        userID && dispatch(addNewPackTC(userID!, titlePack, privatePack))
-        setTitlePack("")
-    }
-    const deletePack = (userId: string) => {
-        dispatch(deletePacksTC(userId))
-    }
 
     const getPackQueryParams = (packId: string) => {
         const params: any = {
@@ -146,12 +132,7 @@ export const Packs: React.FC<PackPropsType> = (props) => {
                 />
                 {packs.cardPacks.length
                     ? <div>
-                        <ModalWindow styleButton={stylePacks.btnPack} nameButton={"Add new pack"}
-                                     title={"Add new pack"} stylePackHandler={addNewPacks} nameButtonAction={"Save"}
-                                     nameButtonCancel={"Cancel"} typeAction={"save"}>
-                            <AddPackModal titlePack={titlePack} setState={setTitlePack}
-                                          setPrivatePack={setPrivatePack}/>
-                        </ModalWindow>
+                        <AddPackModal />
                         <PacksTableContainer
                             sorting={sort}
                             addParamsUpdate={addParamsOfSorting}
@@ -159,12 +140,12 @@ export const Packs: React.FC<PackPropsType> = (props) => {
                             handleChangeRowsPerPage={handleChangeRowsPerPage}
                             statePacks={packs}
                         >
-                            <PacksTableBody deletePack={deletePack} learnPack={() => {
+                            <PacksTableBody  learnPack={() => {
                             }} updatePack={() => {
                             }} items={packs.cardPacks}/>
                         </PacksTableContainer>
                     </div>
-                    : <EmptyPage addNewItem={addNewPacks} isMy={true} name={'Add new pack'}/>
+                    : <EmptyPage isMy={true} name={'Add new pack'}/>
                 }
             </div>
         </div>

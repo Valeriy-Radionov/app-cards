@@ -4,16 +4,15 @@ import s from "../../cards/actionsCartTable/ActionsCardTable.module.scss";
 import stroke from "../../../assets/image/Edit.svg";
 import del from "../../../assets/image/Delete.svg";
 import learn from "../../../assets/image/teacherlearn.svg"
+import {DeletePackModal} from "../PackModal/deletePackModal/DeletePackModal";
 
 type ActionsCardTablePropsType = {
-    deleteItem: (id: string) => void
     updateItem: (id: string) => void
     learnItem: (id: string) => void
     packId: string
     userId: string
 }
 export const ActionsPacks: React.FC<ActionsCardTablePropsType> = ({
-                                                                      deleteItem,
                                                                       packId,
                                                                       updateItem,
                                                                       learnItem,
@@ -33,10 +32,11 @@ export const ActionsPacks: React.FC<ActionsCardTablePropsType> = ({
                 <button onClick={() => updateItem(packId)} className={s.btn} disabled={disabled}>
                     <img src={stroke} alt={''} style={styleDisable}/>
                 </button>
-                <button onClick={() => deleteItem(packId)} className={s.btn}
-                        disabled={disabled}>
-                    <img src={del} alt={''} style={styleDisable}/>
-                </button>
+                {/*<button onClick={() => deleteItem(packId)} className={s.btn}*/}
+                {/*        disabled={disabled}>*/}
+                {/*    <img src={del} alt={''} style={styleDisable}/>*/}
+                {/*</button>*/}
+                <DeletePackModal packId={packId}/>
             </div> :
             <div className={s.block}>
                 <button onClick={() => learnItem(packId)} className={s.btn}

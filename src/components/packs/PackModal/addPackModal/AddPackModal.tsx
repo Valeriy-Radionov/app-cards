@@ -1,31 +1,48 @@
-import React, {ChangeEvent} from 'react';
-import styleModal from "../../../../common/components/modalWindows/ContentModal.module.scss"
+import React, {ChangeEvent, useState} from 'react';
+import {ModalWindow} from "../../../../common/components/modalWindows/ModalWindow";
+import styleModal from "./AddPackModal.module.scss";
+import {useAppDispatch, useAppSelector} from "../../../../bll/store";
+import {addNewPackTC} from "../../../../bll/packsReducer";
 
-type AddPackModalType = {
-    titlePack: string
-    setState: (value: string) => void
-    setPrivatePack: (value: boolean) => void
-}
-export const AddPackModal: React.FC<AddPackModalType> = ({titlePack, setState, setPrivatePack}) => {
+type AddPackModalPropsType = { }
 
-    const changeTitlePack = (e: ChangeEvent<HTMLInputElement>) => {
-        const value = e.currentTarget.value
-        setState(value)
+export const AddPackModal: React.FC<AddPackModalPropsType> = ({ }) => {
+    const userID = useAppSelector(state => state.profile.user?._id)
+    const dispatch = useAppDispatch
+    const [titlePack, setTitlePack] = useState<string>("")
+    const [privatePack, setPrivatePack] = useState<boolean>(false)
+
+    const addNewPacks = () => {
+        userID && dispatch(addNewPackTC(userID!, titlePack, privatePack))
+        setTitlePack("")
     }
-    const privatePack = (e: ChangeEvent<HTMLInputElement>) => {
+
+    const changeTitlePackHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        const value = e.currentTarget.value
+        setTitlePack(value)
+    }
+
+    const privatePackHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const privatePack = e.currentTarget.checked
         setPrivatePack(privatePack)
     }
 
     return (
-        <div className={styleModal.bodyBlock}>
-            <span className={styleModal.titleBlock}>Name pack</span>
-            <input value={titlePack} className={styleModal.InputBlock} onChange={changeTitlePack}/>
-            <div className={styleModal.selectionBlock}>
-                <input type={"checkbox"} className={styleModal.checkbox} onChange={privatePack}/>
-                <label className={styleModal.description}>Private pack</label>
-            </div>
-
+        <div>
+            <ModalWindow namePreviousBtn={"Add new pack"}
+                         titleModal={"Add new pack"}
+                         actionSaveDeleteBtn={addNewPacks}
+                         isSaveDeleteModal={"Save"}
+            >
+                <div className={styleModal.bodyBlock}>
+                    <span className={styleModal.titleBlock}>Name pack</span>
+                    <input value={titlePack} className={styleModal.InputBlock} onChange={changeTitlePackHandler}/>
+                    <div className={styleModal.selectionBlock}>
+                        <input type={"checkbox"} className={styleModal.checkbox} onChange={privatePackHandler}/>
+                        <label className={styleModal.description}>Private pack</label>
+                    </div>
+                </div>
+            </ModalWindow>
         </div>
     );
 };
