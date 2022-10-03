@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import './App.css';
 import {Header} from "../components/header/Header";
-import {Routs} from "../common/routings/Routs";
+import {Routs} from "../common/routes/Routs";
 import {AppRootStateType, useAppDispatch, useAppSelector} from "../bll/store";
 import {initializeAPPThunkCreator} from "../bll/appReducer";
 import {ErrorSnackbar} from "../components/error/ErrorSnackbar";

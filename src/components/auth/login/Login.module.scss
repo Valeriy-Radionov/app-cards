@@ -1,4 +1,4 @@
-@import "src/common/style/mixins";
+@import "../../../assets/style/mixins";
 
 .container {
   @include width-height(100%, 100%);
@@ -63,7 +63,7 @@
         }
 
         .password {
-          background-image: url("../../../common/image/display-password.png");
+          background-image: url("../../../assets/image/display-password.png");
           @include backgroundImg(contain, no-repeat, right);
           opacity: 1;
           border: none;
@@ -74,7 +74,7 @@
         }
 
         .passwordHidden {
-          background-image: url("../../../common/image/hide_icon_215200.png");
+          background-image: url("../../../assets/image/hide_icon_215200.png");
           @include backgroundImg(contain, no-repeat, right);
           opacity: 1;
           border: none;

@@ -1,8 +1,8 @@
 import React from 'react';
 import style from "./Header.module.scss"
-import {PATH} from "../../common/routings/Routs";
+import {PATH} from "../../common/routes/Routs";
 import {NavLink} from "react-router-dom";
-import SuperButton from "../../common/c2-SuperButton 2/SuperButton";
+import SuperButton from "../../common/components/c2-SuperButton 2/SuperButton";
 import {AppRootStateType, useAppDispatch, useAppSelector} from "../../bll/store";
 import {logoutTC} from "../../bll/authReducer";
 import {LinearProgress} from "@mui/material";

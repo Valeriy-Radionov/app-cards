@@ -2,11 +2,11 @@ import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../../bll/store";
 import {EmailSentPage} from "./EmailSentPage/EmailSentPage";
 import {useFormik} from "formik";
-import SuperInputText from "../../../common/c1-SuperInputText 2/SuperInputText";
-import SuperButton from "../../../common/c2-SuperButton 2/SuperButton";
+import SuperInputText from "../../../common/components/c1-SuperInputText 2/SuperInputText";
+import SuperButton from "../../../common/components/c2-SuperButton 2/SuperButton";
 import style from './Recovery.module.css'
 import authStyle from '../AuthPageContainer.module.css'
-import {PATH} from "../../../common/routings/Routs";
+import {PATH} from "../../../common/routes/Routs";
 import {Link} from 'react-router-dom';
 import {sendEmail, toggleIsEmailSentAC} from "../../../bll/authReducer";
 

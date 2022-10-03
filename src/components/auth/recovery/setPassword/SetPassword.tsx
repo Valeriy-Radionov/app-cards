@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import authStyle from '../../AuthPageContainer.module.css'
 import style from "./SetPassword.module.css";
-import SuperButton from "../../../../common/c2-SuperButton 2/SuperButton";
+import SuperButton from "../../../../common/components/c2-SuperButton 2/SuperButton";
 import {useAppDispatch, useAppSelector} from "../../../../bll/store";
 import {useFormik} from "formik";
-import displayPassword from '../../../../common/image/display-password.png'
+import displayPassword from '../../../../assets/image/display-password.png'
 import {useNavigate, useParams} from "react-router-dom";
-import {PATH} from "../../../../common/routings/Routs";
+import {PATH} from "../../../../common/routes/Routs";
 import {setNewPassword, toggleIsPasswordChangedAC} from "../../../../bll/authReducer";
 
 export const SetPassword = () => {

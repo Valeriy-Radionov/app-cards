@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../bll/store";
-import "../../common/style/mixins.scss";
+import "../../assets/style/mixins.scss";
 import {
     addNewPackTC,
     deletePacksTC,
@@ -11,14 +11,16 @@ import {
 } from "../../bll/packsReducer";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {ParamsGetPacksType} from "../../api/packs/packs-api";
-import {useDebounce} from "../../common/hooks/debounceHook";
+import {useDebounce} from "../../assets/hooks/debounceHook";
 import s from "../cards/Crads.module.scss";
-import {LinkArrow} from "../../common/Link/LinkArrow";
-import {EmptyPage} from "../cards/EmptyPage";
+import {LinkArrow} from "../../common/components/Link/LinkArrow";
+import {EmptyPage} from "../emptyPage/EmptyPage";
 import {PacksTableContainer} from "./PacksTableContainer";
 import {PacksTableBody} from "./TableBody/PacksTableBody";
 import {SearchBlock} from "./SearchBlock/SearchBlock";
 import {AddPackModal} from "./PackModal/addPackModal/AddPackModal";
+import stylePacks from "./Packs.module.scss";
+import {ModalWindow} from "../../common/components/modalWindows/ModalWindow";
 import {getAllCards, updateGrade, updateParamsAC} from "../../bll/learnReducer";
 
 export type PackPropsType = {}
@@ -28,6 +30,7 @@ export const Packs: React.FC<PackPropsType> = (props) => {
     const packs = useAppSelector(state => state.packs)
     const userID = useAppSelector(state => state.profile.user?._id)
     const dispatch = useAppDispatch
+
     //hooks
     const [searchParams, setSearchParams] = useSearchParams();
     const [sort, setSort] = useState(false)
@@ -47,6 +50,9 @@ export const Packs: React.FC<PackPropsType> = (props) => {
         dispatch(updatePacksParamsAC(getPackQueryParams(packId)))
         dispatch(getUsersPacksTC())
     }, [debouncedParamsSearch])
+
+    const [titlePack, setTitlePack] = useState<string>("")
+    const [privatePack, setPrivatePack] = useState<boolean>(false)
 
     const checkParamsForQuery = (params: any) => {
         const nameParams = Object.keys(params);
@@ -103,7 +109,8 @@ export const Packs: React.FC<PackPropsType> = (props) => {
     };
 
     const addNewPacks = () => {
-        userID && dispatch(addNewPackTC(userID))
+        userID && dispatch(addNewPackTC(userID!, titlePack, privatePack))
+        setTitlePack("")
     }
     const deletePack = (userId: string) => {
         dispatch(deletePacksTC(userId))
@@ -144,8 +151,12 @@ export const Packs: React.FC<PackPropsType> = (props) => {
                 />
                 {packs.cardPacks.length
                     ? <div>
-                        <AddPackModal></AddPackModal>
-                        {/*<button onClick={addNewPacks} className={stylePacks.btnAddPack}>Add new pack</button>*/}
+                        <ModalWindow styleButton={stylePacks.btnPack} nameButton={"Add new pack"}
+                                     title={"Add new pack"} stylePackHandler={addNewPacks} nameButtonAction={"Save"}
+                                     nameButtonCancel={"Cancel"} typeAction={"save"}>
+                            <AddPackModal titlePack={titlePack} setState={setTitlePack}
+                                          setPrivatePack={setPrivatePack}/>
+                        </ModalWindow>
                         <PacksTableContainer
                             sorting={sort}
                             addParamsUpdate={addParamsOfSorting}

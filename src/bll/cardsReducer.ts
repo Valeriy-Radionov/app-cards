@@ -1,6 +1,6 @@
 import {AppThunk} from "./store";
 import {cardsApi, CardType, ParamsGetCardsType, PostCardType, ResponseCardsType} from "../api/cards/cards-api";
-import {handleServerNetworkError} from "../utils/errors-utils";
+import {handleServerNetworkError} from "../assets/utils/errors-utils";
 import {ParamsType} from "../components/cards/Cards";
 import {RequestStatusType, setAppStatusAC} from "./appReducer";
 

@@ -1,0 +1,12 @@
+@import "../../../assets/style/mixins";
+
+.block{
+  margin: 0;
+  .name{
+    margin-bottom: 14px;
+    span{
+      @include font(normal, 500, 14px, 17px);
+      //font-family: 'Montserrat';
+    }
+  }
+}

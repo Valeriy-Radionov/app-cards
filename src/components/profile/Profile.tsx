@@ -5,10 +5,10 @@ import {  updateUserTC} from "../../bll/profileReducer";
 import {useAppDispatch, useAppSelector} from "../../bll/store";
 import {Navigate} from "react-router-dom";
 import {UpdateUserType} from "../../api/auth/auth-api";
-import updateAva from '../../common/image/Union.svg'
-import {backgroundImg} from "../../common/style/utilitsBg";
+import updateAva from '../../assets/image/Union.svg'
+import {backgroundImg} from "../../assets/style/utilitsBg";
 import {logoutTC} from "../../bll/authReducer";
-import {LinkArrow} from "../../common/Link/LinkArrow";
+import {LinkArrow} from "../../common/components/Link/LinkArrow";
 
 export const Profile = () => {
     const dispatch = useAppDispatch

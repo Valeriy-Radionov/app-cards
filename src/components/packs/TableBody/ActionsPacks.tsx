@@ -1,9 +1,9 @@
 import React from 'react';
 import {useAppSelector} from "../../../bll/store";
-import s from "../../cards/ActionsCardTable.module.scss";
-import stroke from "../../../common/image/Edit.svg";
-import del from "../../../common/image/Delete.svg";
-import learn from "../../../common/image/teacherlearn.svg"
+import s from "../../cards/actionsCartTable/ActionsCardTable.module.scss";
+import stroke from "../../../assets/image/Edit.svg";
+import del from "../../../assets/image/Delete.svg";
+import learn from "../../../assets/image/teacherlearn.svg"
 
 type ActionsCardTablePropsType = {
     deleteItem: (id: string) => void
@@ -20,23 +20,28 @@ export const ActionsPacks: React.FC<ActionsCardTablePropsType> = ({
                                                                       userId
                                                                   }) => {
     const userProfileId = useAppSelector(state => state.profile.user?._id)
+    const status = useAppSelector(state => state.app.status)
+    const disabled = status === "loading"
+    const styleDisable = status === "loading" ? {opacity: "0.5"} : {}
 
     return (
         userProfileId === userId ?
             <div className={s.block}>
-                <button onClick={() => learnItem(packId)} className={s.btn}>
-                    <img src={learn} alt={''}/>
+                <button onClick={() => learnItem(packId)} className={s.btn} disabled={disabled}>
+                    <img src={learn} alt={''} style={styleDisable}/>
                 </button>
-                <button onClick={() => updateItem(packId)} className={s.btn}>
-                    <img src={stroke} alt={''}/>
+                <button onClick={() => updateItem(packId)} className={s.btn} disabled={disabled}>
+                    <img src={stroke} alt={''} style={styleDisable}/>
                 </button>
-                <button onClick={() => deleteItem(packId)} className={s.btn}>
-                    <img src={del} alt={''}/>
+                <button onClick={() => deleteItem(packId)} className={s.btn}
+                        disabled={disabled}>
+                    <img src={del} alt={''} style={styleDisable}/>
                 </button>
             </div> :
             <div className={s.block}>
-                <button onClick={() => learnItem(packId)} className={s.btn}>
-                    <img src={learn} alt={''}/>
+                <button onClick={() => learnItem(packId)} className={s.btn}
+                        disabled={disabled}>
+                    <img src={learn} alt={''} style={styleDisable}/>
                 </button>
             </div>
     );

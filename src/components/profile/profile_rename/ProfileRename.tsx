@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useState} from 'react';
 import {UpdateUserType} from "../../../api/auth/auth-api";
-import stroke from '../../../common/image/Edit.svg'
+import stroke from '../../../assets/image/Edit.svg'
 import s from './ProfileReName.module.scss'
 
 type EditableSpanPropsType = {
