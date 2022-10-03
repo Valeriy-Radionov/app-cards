@@ -26,7 +26,8 @@ export const cardsApi = {
         })
     },
     updateGrade(updateGradeRequestData: UpdateGradeRequestType) {
-        return instance.put<UpdateGradeRequestType, AxiosResponse<UpdateGradeResponseType>>(`cards/grade`, {updateGradeRequestData})
+        return instance.put<UpdateGradeRequestType, AxiosResponse<UpdateGradeResponseDataType>>(`/cards/grade`, updateGradeRequestData)
+            .then(res => res.data.updatedGrade)
     }
 }
 
@@ -90,15 +91,26 @@ export type PostCardType = {
     questionVideo?: string // не обязателен
     answerVideo?: string // не обязателен
 }
+
 export type UpdateGradeRequestType = {
-    grade: number | string
+    grade: Grades
     card_id: string
 }
-export type UpdateGradeResponseType = {
-    _id: string
-    cardsPack_id: string
-    card_id: string
-    user_id: string
-    grade: string | number
-    shots: string | number
+export type UpdateGradeResponseDataType = {
+    updatedGrade: {
+        _id: string
+        cardsPack_id: string
+        card_id: string
+        user_id: string
+        grade: string | number
+        shots: string | number
+    }
+}
+
+export enum Grades {
+    DidNotKnow = 1,
+    Forgot = 2,
+    ALotOfThought = 3,
+    Confused = 4,
+    KnewTheAnswer = 5
 }
