@@ -6,12 +6,14 @@ import {AppActionType, appReducer} from "./appReducer";
 import {AuthActionsType, authReducer} from "./authReducer";
 import {PacksActionType, packsReducer} from "./packsReducer";
 import {cardReducer, CardsActionsType} from "./cardsReducer";
+import {LearnActionType, learnReducer} from "./learnReducer";
 
 const reducers = combineReducers({
     app: appReducer,
     auth: authReducer,
     profile: profileReducer,
     cards: cardReducer,
+    learn: learnReducer,
     packs: packsReducer
 })
 
@@ -24,6 +26,7 @@ export type AppRootActionsType =
     | AuthActionsType
     | CardsActionsType
     | PacksActionType
+    | LearnActionType
 
 export const useAppDispatch = store.dispatch as ThunkDispatch<AppRootStateType, unknown, AppRootActionsType>
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector

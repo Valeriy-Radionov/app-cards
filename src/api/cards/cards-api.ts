@@ -25,6 +25,9 @@ export const cardsApi = {
             card
         })
     },
+    updateGrade(updateGradeRequestData: UpdateGradeRequestType) {
+        return instance.put<UpdateGradeRequestType, AxiosResponse<UpdateGradeResponseType>>(`cards/grade`, {updateGradeRequestData})
+    }
 }
 
 export type ParamsGetCardsType = {
@@ -86,4 +89,16 @@ export type PostCardType = {
     questionImg?: string // не обязателен
     questionVideo?: string // не обязателен
     answerVideo?: string // не обязателен
+}
+export type UpdateGradeRequestType = {
+    grade: number | string
+    card_id: string
+}
+export type UpdateGradeResponseType = {
+    _id: string
+    cardsPack_id: string
+    card_id: string
+    user_id: string
+    grade: string | number
+    shots: string | number
 }

@@ -9,7 +9,7 @@ import {
     updatePacksPagePaginateAC,
     updatePacksParamsAC
 } from "../../bll/packsReducer";
-import {useSearchParams} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import {ParamsGetPacksType} from "../../api/packs/packs-api";
 import {useDebounce} from "../../common/hooks/debounceHook";
 import s from "../cards/Crads.module.scss";
@@ -19,6 +19,7 @@ import {PacksTableContainer} from "./PacksTableContainer";
 import {PacksTableBody} from "./TableBody/PacksTableBody";
 import {SearchBlock} from "./SearchBlock/SearchBlock";
 import {AddPackModal} from "./PackModal/addPackModal/AddPackModal";
+import {getAllCards, updateGrade, updateParamsAC} from "../../bll/learnReducer";
 
 export type PackPropsType = {}
 export const Packs: React.FC<PackPropsType> = (props) => {
@@ -40,6 +41,7 @@ export const Packs: React.FC<PackPropsType> = (props) => {
         max: "",
         sortPacks: "",
     })
+    const navigate = useNavigate()
     const debouncedParamsSearch = useDebounce<ParamsGetPacksType>(paramsSearch, 700)
     useEffect(() => {
         dispatch(updatePacksParamsAC(getPackQueryParams(packId)))
@@ -106,6 +108,9 @@ export const Packs: React.FC<PackPropsType> = (props) => {
     const deletePack = (userId: string) => {
         dispatch(deletePacksTC(userId))
     }
+    const learnPack = (cardsPack_id: string) => {
+        navigate(`/learn/${cardsPack_id}`)
+    }
 
     const getPackQueryParams = (packId: string) => {
         const params: any = {
@@ -148,9 +153,11 @@ export const Packs: React.FC<PackPropsType> = (props) => {
                             handleChangeRowsPerPage={handleChangeRowsPerPage}
                             statePacks={packs}
                         >
-                            <PacksTableBody deletePack={deletePack} learnPack={() => {
-                            }} updatePack={() => {
-                            }} items={packs.cardPacks}/>
+                            <PacksTableBody
+                                deletePack={deletePack}
+                                learnPack={learnPack}
+                                updatePack={() => {}}
+                                items={packs.cardPacks}/>
                         </PacksTableContainer>
                     </div>
                     : <EmptyPage addNewItem={addNewPacks} isMy={true} name={'Add new pack'}/>
