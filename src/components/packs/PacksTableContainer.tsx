@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Paper, Table, TableCell, TableContainer, TableHead, TablePagination, TableRow} from '@mui/material'
 import {PacksType} from "../../bll/packsReducer";
-import arrow from "../../common/image/arrow.svg";
+import arrow from "../../assets/image/arrow.svg";
 
 type BasicTablePropsType = {
     handleChangePage: (event: unknown, newPage: number) => void

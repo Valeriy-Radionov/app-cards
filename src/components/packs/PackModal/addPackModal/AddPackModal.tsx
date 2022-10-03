@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from 'react';
-import styleModal from "../../../../common/modalWindows/ContentModal.module.scss"
+import styleModal from "../../../../common/components/modalWindows/ContentModal.module.scss"
 
 type AddPackModalType = {
     titlePack: string

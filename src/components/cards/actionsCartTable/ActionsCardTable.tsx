@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './ActionsCardTable.module.scss'
-import stroke from "../../common/image/Edit.svg";
-import del from "../../common/image/Delete.svg";
+import stroke from "../../../assets/image/Edit.svg";
+import del from "../../../assets/image/Delete.svg";
 
 type ActionsCardTablePropsType = {
     deleteItem: (id: string) => void

@@ -9,8 +9,8 @@ import {
     TableFooter,
     TablePagination
 } from '@mui/material'
-import {CardsType} from "../../bll/cardsReducer";
-import arrow from '../../common/image/arrow.svg'
+import {CardsType} from "../../../bll/cardsReducer";
+import arrow from '../../../assets/image/arrow.svg'
 
 type BasicTablePropsType = {
     addParamsGrade: () => void

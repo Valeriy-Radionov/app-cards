@@ -1,6 +1,6 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
-import arrow from "../image/Vector 1.svg";
+import arrow from "../../../assets/image/Vector 1.svg";
 
 type LinkArrowPropsType = {
     className: string

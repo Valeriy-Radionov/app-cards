@@ -1,6 +1,6 @@
 import {authAPI, UpdateUserType, UserDataType} from "../api/auth/auth-api";
 import {Dispatch} from "redux";
-import {handleServerNetworkError} from "../utils/errors-utils";
+import {handleServerNetworkError} from "../assets/utils/errors-utils";
 import {setAppStatusAC} from "./appReducer";
 
 

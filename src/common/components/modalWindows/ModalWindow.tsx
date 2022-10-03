@@ -2,7 +2,7 @@ import React, {ReactNode} from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import styleModal from "./ContentModal.module.scss";
-import closeBtn from "../image/Page 1close.svg";
+import closeBtn from "../../../assets/image/Page 1close.svg";
 import {BlockButtonModal, ButtonActionBlockType} from "./ButtonModal/BlockButtonModal";
 
 const style = {

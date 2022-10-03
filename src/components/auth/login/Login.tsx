@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
 import style from "./Login.module.scss"
-import SuperInputText from "../../../common/c1-SuperInputText 2/SuperInputText";
+import SuperInputText from "../../../common/components/c1-SuperInputText 2/SuperInputText";
 import {useFormik} from "formik";
-import SuperCheckbox from "../../../common/c3-SuperCheckbox/SuperCheckbox";
-import SuperButton from "../../../common/c2-SuperButton 2/SuperButton";
+import SuperButton from "../../../common/components/c2-SuperButton 2/SuperButton";
 import {Navigate, NavLink} from "react-router-dom";
-import {PATH} from "../../../common/routings/Routs";
+import {PATH} from "../../../common/routes/Routs";
 import {authAPI} from "../../../api/auth/auth-api";
 import {useAppDispatch, useAppSelector} from "../../../bll/store";
 import {loginTC} from "../../../bll/authReducer";
-import s_container from '../../../common/style/сontainer.module.scss'
+import s_container from '../../../assets/style/сontainer.module.scss'
+import {Checkbox, FormControlLabel} from "@mui/material";
 
 type FormikErrorType = {
     email?: string
@@ -50,6 +50,7 @@ export const Login = () => {
             return errors;
         },
         onSubmit: values => {
+            console.log(values)
             dispatch(loginTC(values))
             formik.resetForm()
         },
@@ -85,8 +86,11 @@ export const Login = () => {
                     </div>
                     {/*remember me*/}
                     <div className={style.containerCheckBox}>
-                        <SuperCheckbox className={style.checkbox} {...formik.getFieldProps("rememberMe")}
-                                       checked={formik.values.rememberMe}>Remember me</SuperCheckbox>
+                        <Checkbox
+                            checked={formik.values.rememberMe}
+                            {...formik.getFieldProps("rememberMe")}
+                            inputProps={{'aria-label': 'controlled'}}
+                        />Remember me
                     </div>
                     <NavLink to={PATH.RECOVERY} className={style.forgotLink}>Forgot Password</NavLink>
                     <SuperButton type={'submit'}>Sign In</SuperButton>

@@ -5,7 +5,6 @@ import {SetPassword} from "../../components/auth/recovery/setPassword/SetPasswor
 import {Recovery} from "../../components/auth/recovery/Recovery";
 import {Registration} from "../../components/auth/registration/Registration";
 import {Profile} from "../../components/profile/Profile";
-import {SuperComponents} from "../../components/superComponent/SuperComponents";
 import {Error} from "../../components/error/Error";
 import Cards from "../../components/cards/Cards";
 import {Packs} from "../../components/packs/Packs";
@@ -35,7 +34,6 @@ export const Routs = () => {
                 <Route path={PATH.SET_PASSWORD} element={<SetPassword/>}/>
                 <Route path={PATH.RECOVERY} element={<Recovery/>}/>
                 <Route path={PATH.REGISTR} element={<Registration/>}/>
-                <Route path={PATH.TEST} element={<SuperComponents/>}/>
                 <Route path={PATH.ERROR} element={<Error/>}/>
             </Routes>
     );

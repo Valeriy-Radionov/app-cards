@@ -1,7 +1,7 @@
 import {CardPackType, packsApi, ParamsGetPacksType, PostPackDataType, ResponsePacksType} from "../api/packs/packs-api";
 import {AppThunk} from "./store";
 import {setAppStatusAC} from "./appReducer";
-import {handleServerNetworkError} from "../utils/errors-utils";
+import {handleServerNetworkError} from "../assets/utils/errors-utils";
 
 const GET_USERS_PACKS = "PACKS/GET_USERS_PACKS"
 const UPDATE_PACKS_PARAMS = "PACKS/UPDATE_PACKS_PARAMS"

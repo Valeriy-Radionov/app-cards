@@ -10,13 +10,13 @@ import {
     updateParamsAC
 } from "../../bll/cardsReducer";
 import { useSearchParams, useLocation} from 'react-router-dom'
-import {BasicTable} from "../table/CardsTable";
-import {useDebounce} from "../../common/hooks/debounceHook";
-import {MapTableBody} from "../table/TableBody";
-import {EmptyPage} from "./EmptyPage";
-import {LinkArrow} from "../../common/Link/LinkArrow";
-import {InputSearch} from "../../common/inputSearch/InputSearch";
-import actions from '../../common/image/actions.svg'
+import {BasicTable} from "./table/CardsTable";
+import {useDebounce} from "../../assets/hooks/debounceHook";
+import {MapTableBody} from "./table/TableBody";
+import {EmptyPage} from "../emptyPage/EmptyPage";
+import {LinkArrow} from "../../common/components/Link/LinkArrow";
+import {InputSearch} from "../../common/components/inputSearchDouble/InputSearch";
+import actions from '../../assets/image/actions.svg'
 
 
 export type ParamsType = {

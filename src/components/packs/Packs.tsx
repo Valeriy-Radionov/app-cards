@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../bll/store";
-import "../../common/style/mixins.scss";
+import "../../assets/style/mixins.scss";
 import {
     addNewPackTC,
     deletePacksTC,
@@ -11,16 +11,16 @@ import {
 } from "../../bll/packsReducer";
 import {useSearchParams} from "react-router-dom";
 import {ParamsGetPacksType} from "../../api/packs/packs-api";
-import {useDebounce} from "../../common/hooks/debounceHook";
+import {useDebounce} from "../../assets/hooks/debounceHook";
 import s from "../cards/Crads.module.scss";
-import {LinkArrow} from "../../common/Link/LinkArrow";
-import {EmptyPage} from "../cards/EmptyPage";
+import {LinkArrow} from "../../common/components/Link/LinkArrow";
+import {EmptyPage} from "../emptyPage/EmptyPage";
 import {PacksTableContainer} from "./PacksTableContainer";
 import {PacksTableBody} from "./TableBody/PacksTableBody";
 import {SearchBlock} from "./SearchBlock/SearchBlock";
 import {AddPackModal} from "./PackModal/addPackModal/AddPackModal";
 import stylePacks from "./Packs.module.scss";
-import {ModalWindow} from "../../common/modalWindows/ModalWindow";
+import {ModalWindow} from "../../common/components/modalWindows/ModalWindow";
 
 export type PackPropsType = {}
 export const Packs: React.FC<PackPropsType> = (props) => {

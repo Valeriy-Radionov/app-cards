@@ -1,6 +1,6 @@
 import React from 'react';
 import {TableBody, TableCell, TableRow} from '@mui/material'
-import {formatDate} from "../../../utils/formatDate-utils";
+import {formatDate} from "../../../assets/utils/formatDate-utils";
 import {CardPackType} from "../../../api/packs/packs-api";
 import {ActionsPacks} from "./ActionsPacks";
 import {useNavigate} from 'react-router-dom'

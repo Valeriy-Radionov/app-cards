@@ -1,10 +1,10 @@
 import React from 'react';
 import {useFormik} from "formik";
 import style from "../login/Login.module.scss";
-import SuperInputText from "../../../common/c1-SuperInputText 2/SuperInputText";
+import SuperInputText from "../../../common/components/c1-SuperInputText 2/SuperInputText";
 import {NavLink} from "react-router-dom";
-import {PATH} from "../../../common/routings/Routs";
-import SuperButton from "../../../common/c2-SuperButton 2/SuperButton";
+import {PATH} from "../../../common/routes/Routs";
+import SuperButton from "../../../common/components/c2-SuperButton 2/SuperButton";
 import {Login} from "../login/Login";
 import {useAppDispatch, useAppSelector} from "../../../bll/store";
 import {registrationTC} from "../../../bll/authReducer";

@@ -1,9 +1,9 @@
 import React from 'react';
 import style from './EmailSentPage.module.css'
-import emailImg from "../../../../common/image/email.png";
-import SuperButton from "../../../../common/c2-SuperButton 2/SuperButton";
+import emailImg from "../../../../assets/image/email.png";
+import SuperButton from "../../../../common/components/c2-SuperButton 2/SuperButton";
 import {useNavigate} from 'react-router-dom';
-import {PATH} from "../../../../common/routings/Routs";
+import {PATH} from "../../../../common/routes/Routs";
 
 export const EmailSentPage = () => {
     const navigate = useNavigate()

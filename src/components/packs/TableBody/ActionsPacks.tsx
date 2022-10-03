@@ -1,9 +1,9 @@
 import React from 'react';
 import {useAppSelector} from "../../../bll/store";
-import s from "../../cards/ActionsCardTable.module.scss";
-import stroke from "../../../common/image/Edit.svg";
-import del from "../../../common/image/Delete.svg";
-import learn from "../../../common/image/teacherlearn.svg"
+import s from "../../cards/actionsCartTable/ActionsCardTable.module.scss";
+import stroke from "../../../assets/image/Edit.svg";
+import del from "../../../assets/image/Delete.svg";
+import learn from "../../../assets/image/teacherlearn.svg"
 
 type ActionsCardTablePropsType = {
     deleteItem: (id: string) => void

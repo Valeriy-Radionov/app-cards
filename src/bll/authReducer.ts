@@ -6,7 +6,7 @@ import {
     SetNewPasswordDataType
 } from "../api/auth/auth-api";
 import {AppThunk} from "./store";
-import {handleServerNetworkError} from "../utils/errors-utils";
+import {handleServerNetworkError} from "../assets/utils/errors-utils";
 import {setProfileAC} from "./profileReducer";
 import {setAppStatusAC} from "./appReducer";
 import {Dispatch} from "redux";
