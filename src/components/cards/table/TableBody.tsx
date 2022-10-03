@@ -6,7 +6,7 @@ import {
     Rating
 } from '@mui/material'
 import {formatDate} from "../../../assets/utils/formatDate-utils";
-import {ActionsCardTable} from "../actionsCartTable/ActionsCardTable";
+import {ActionsCardTable} from "./actionsCartTable/ActionsCardTable";
 import s from './TableBode.module.scss'
 import {FullCardType} from "../../../bll/cardsReducer";
 

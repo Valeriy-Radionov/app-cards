@@ -1,6 +1,6 @@
 import React from 'react';
 import {useAppSelector} from "../../../bll/store";
-import s from "../../cards/actionsCartTable/ActionsCardTable.module.scss";
+import s from "../../cards/table/actionsCartTable/ActionsCardTable.module.scss";
 import stroke from "../../../assets/image/Edit.svg";
 import del from "../../../assets/image/Delete.svg";
 import learn from "../../../assets/image/teacherlearn.svg"

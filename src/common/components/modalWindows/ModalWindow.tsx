@@ -12,10 +12,11 @@ const style = {
     padding: '0%',
     transform: 'translate(-50%, -50%)',
     width: 395,
-    height: 311,
+    minHeight: 311,
     bgcolor: 'white',
     boxShadow: 24,
-    p: 0
+    p: 0,
+    paddingBottom: 5
 };
 type ModalWindowType = {
     children: ReactNode
