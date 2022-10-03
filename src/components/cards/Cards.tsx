@@ -17,6 +17,7 @@ import {EmptyPage} from "../emptyPage/EmptyPage";
 import {LinkArrow} from "../../common/components/Link/LinkArrow";
 import {InputSearch} from "../../common/components/inputSearchDouble/InputSearch";
 import actions from '../../assets/image/actions.svg'
+import AddCartModal from "./cardModals/addCardModal/AddCartModal";
 
 
 export type ParamsType = {
@@ -125,10 +126,10 @@ function Cards() {
     };
     //
 
+
+
     //functions control card
-    const addNewCards = () => {
-        dispatch(addNewCardTC())
-    }
+
     const deleteCard = (id: string) => {
         dispatch(deleteCardsTC(id))
     }
@@ -182,13 +183,14 @@ function Cards() {
                 {cards.cards.length
                     ? <div className={s.blockTable}>
                         {isMyCards
-                            ? <button onClick={addNewCards}
-                                      className={s.addCard}
-                                      disabled={updateStatusApp}
-                                      style={updateStatusApp ? {opacity: '0.5'} : {}}
-                            >
-                                Add new card
-                            </button>
+                            // ? <button onClick={addNewCards}
+                            //           className={s.addCard}
+                            //           disabled={updateStatusApp}
+                            //           style={updateStatusApp ? {opacity: '0.5'} : {}}
+                            // >
+                            //     Add new card
+                            // </button>
+                            ?<AddCartModal/>
                             : null
                         }
                         <BasicTable
@@ -202,7 +204,7 @@ function Cards() {
                             <MapTableBody items={cards.cards} deleteItem={deleteCard} isMy={isMyCards}/>
                         </BasicTable>
                     </div>
-                    : <EmptyPage addNewItem={addNewCards} isMy={isMyCards} name={'Add new card'}/>
+                    : <EmptyPage  isMy={isMyCards} name={'Add new card'}/>
                 }
             </div>
         </div>
