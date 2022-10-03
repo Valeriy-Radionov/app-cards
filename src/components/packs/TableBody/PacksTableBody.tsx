@@ -45,6 +45,7 @@ export const PacksTableBody: React.FC<MapTableBodyPropsType> = ({
                                 updateItem={updatePack}
                                 packId={item._id}
                                 userId={item.user_id}
+                                packName={item.name}
                             />
                         </TableCell>
                     </TableRow>)

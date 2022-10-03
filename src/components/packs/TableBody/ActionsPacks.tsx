@@ -2,7 +2,6 @@ import React from 'react';
 import {useAppSelector} from "../../../bll/store";
 import s from "../../cards/table/actionsCartTable/ActionsCardTable.module.scss";
 import stroke from "../../../assets/image/Edit.svg";
-import del from "../../../assets/image/Delete.svg";
 import learn from "../../../assets/image/teacherlearn.svg"
 import {DeletePackModal} from "../PackModal/deletePackModal/DeletePackModal";
 
@@ -11,13 +10,16 @@ type ActionsCardTablePropsType = {
     learnItem: (id: string) => void
     packId: string
     userId: string
+    packName: string
 }
 export const ActionsPacks: React.FC<ActionsCardTablePropsType> = ({
                                                                       packId,
                                                                       updateItem,
                                                                       learnItem,
-                                                                      userId
+                                                                      userId,
+                                                                      packName
                                                                   }) => {
+
     const userProfileId = useAppSelector(state => state.profile.user?._id)
     const status = useAppSelector(state => state.app.status)
     const disabled = status === "loading"
@@ -36,7 +38,7 @@ export const ActionsPacks: React.FC<ActionsCardTablePropsType> = ({
                 {/*        disabled={disabled}>*/}
                 {/*    <img src={del} alt={''} style={styleDisable}/>*/}
                 {/*</button>*/}
-                <DeletePackModal packId={packId}/>
+                <DeletePackModal packId={packId} packName={packName}/>
             </div> :
             <div className={s.block}>
                 <button onClick={() => learnItem(packId)} className={s.btn}
@@ -46,19 +48,3 @@ export const ActionsPacks: React.FC<ActionsCardTablePropsType> = ({
             </div>
     );
 };
-//         <div>
-//             <IconButton sx={{"&:hover": {color: "red"}}} onClick={() => deleteItem(packId)}>
-//                 <Delete/>
-//             </IconButton>
-//             <IconButton sx={{"&:hover": {color: "green"}}} onClick={() => updateItem(packId)}>
-//                 <Edit/>
-//             </IconButton>
-//             <IconButton sx={{"&:hover": {color: "cornflowerblue"}}} onClick={() => learnItem(packId)}>
-//                 <SchoolOutlined/>
-//             </IconButton>
-//         </div> :
-//         <div>
-//             <IconButton sx={{"&:hover": {color: "cornflowerblue"}}} onClick={() => learnItem(packId)}>
-//                 <SchoolOutlined/>
-//             </IconButton>
-//         </div>

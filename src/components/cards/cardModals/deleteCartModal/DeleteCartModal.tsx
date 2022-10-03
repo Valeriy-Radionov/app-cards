@@ -13,7 +13,6 @@ type DeleteCardModalPropsType = {
 export const DeleteCardModal: React.FC<DeleteCardModalPropsType> = ({cardId}) => {
     const dispatch = useAppDispatch
 
-
     const deleteCard = () => {
         dispatch(deleteCardsTC(cardId))
     }

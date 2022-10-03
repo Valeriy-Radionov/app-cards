@@ -3,12 +3,14 @@ import {ModalWindow} from "../../../../common/components/modalWindows/ModalWindo
 import {deletePacksTC} from "../../../../bll/packsReducer";
 import {useAppDispatch, useAppSelector} from "../../../../bll/store";
 import del from "../../../../assets/image/Delete.svg";
+import style from "./DeletePack.module.scss"
 
 type DeletePackModalPropsType = {
     packId: string
+    packName: string
 }
 
-export const DeletePackModal: React.FC<DeletePackModalPropsType> = ({packId}) => {
+export const DeletePackModal: React.FC<DeletePackModalPropsType> = ({packId, packName}) => {
     // Создавай файл со стилями в своих папках для каждой компоненты, не используй один файл на несколько компонент!!!
     const dispatch = useAppDispatch
     const status = useAppSelector(state => state.app.status)
@@ -26,7 +28,10 @@ export const DeletePackModal: React.FC<DeletePackModalPropsType> = ({packId}) =>
                          actionSaveDeleteBtn={deletePack}
                          isSaveDeleteModal={"Delete"}
             >
-                <span>Delete pack</span>
+                <div className={style.descriptionBlock}>
+                    <span>{`Do you really want to remove `}<b>{packName}</b>?</span>
+                    <span>All cards will be deleted.</span>
+                </div>
             </ModalWindow>
         </div>
     );

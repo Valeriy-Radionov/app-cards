@@ -20,7 +20,6 @@ import {AddPackModal} from "./PackModal/addPackModal/AddPackModal";
 export type PackPropsType = {}
 export const Packs: React.FC<PackPropsType> = (props) => {
 
-    const packId = "633069736caad3673917ba5f"
     const packs = useAppSelector(state => state.packs)
     const userID = useAppSelector(state => state.profile.user?._id)
     const dispatch = useAppDispatch
@@ -29,7 +28,6 @@ export const Packs: React.FC<PackPropsType> = (props) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [sort, setSort] = useState(false)
     const [paramsSearch, setParamsSearch] = useState<ParamsGetPacksType>({
-        packs_Id: packId,
         packName: "",
         user_id: "",
         page: "1",
@@ -39,11 +37,6 @@ export const Packs: React.FC<PackPropsType> = (props) => {
         sortPacks: "",
     })
     const debouncedParamsSearch = useDebounce<ParamsGetPacksType>(paramsSearch, 700)
-    useEffect(() => {
-        dispatch(updatePacksParamsAC(getPackQueryParams(packId)))
-        dispatch(getUsersPacksTC())
-    }, [debouncedParamsSearch])
-
 
     const checkParamsForQuery = (params: any) => {
         const nameParams = Object.keys(params);
@@ -56,7 +49,8 @@ export const Packs: React.FC<PackPropsType> = (props) => {
         })
         setSearchParams(resultSearchParams);
     }
-    // functions filter
+
+    // functions search filter
     const addParamsName = (e: ChangeEvent<HTMLInputElement>) => {
         setParamsSearch({
             ...paramsSearch,
@@ -81,6 +75,7 @@ export const Packs: React.FC<PackPropsType> = (props) => {
             checkParamsForQuery({...paramsSearch, sortPacks: '0created'})
         }
     }
+
     // functions paginate
     const handleChangePage = (event: unknown, newPage: number) => {
         const page = newPage + 1
@@ -99,10 +94,8 @@ export const Packs: React.FC<PackPropsType> = (props) => {
         dispatch(updatePacksPageCountPaginate(pageCount))
     };
 
-
-    const getPackQueryParams = (packId: string) => {
+    const getPackQueryParams = () => {
         const params: any = {
-            packs_Id: packId,
             packName: "",
             user_id: "",
             page: "1",
@@ -120,19 +113,24 @@ export const Packs: React.FC<PackPropsType> = (props) => {
         return params
     }
 
+    useEffect(() => {
+        dispatch(updatePacksParamsAC(getPackQueryParams()))
+        dispatch(getUsersPacksTC())
+    }, [debouncedParamsSearch])
+
     return (
         <div className={s.container}>
             <div className={s.content}>
                 <LinkArrow className={s.link} to={'/profile'} name={'Back to Profile'}/>
                 <SearchBlock
                     paramsSearch={paramsSearch}
-                    user_id={getPackQueryParams(packId).user_id}
+                    user_id={getPackQueryParams().user_id}
                     addParamsName={addParamsName}
                     addParamsUserId={addParamsUserId}
                 />
                 {packs.cardPacks.length
                     ? <div>
-                        <AddPackModal />
+                        <AddPackModal/>
                         <PacksTableContainer
                             sorting={sort}
                             addParamsUpdate={addParamsOfSorting}
@@ -140,7 +138,7 @@ export const Packs: React.FC<PackPropsType> = (props) => {
                             handleChangeRowsPerPage={handleChangeRowsPerPage}
                             statePacks={packs}
                         >
-                            <PacksTableBody  learnPack={() => {
+                            <PacksTableBody learnPack={() => {
                             }} updatePack={() => {
                             }} items={packs.cardPacks}/>
                         </PacksTableContainer>
