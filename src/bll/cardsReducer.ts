@@ -205,12 +205,12 @@ export const deleteCardsTC = (cardId: string): AppThunk => async (dispatch) => {
         dispatch(setAppStatusAC("idle"))
     }
 }
-export const addNewCardTC = (): AppThunk => async (dispatch, getState) => {
+export const addNewCardTC = (question: string, answer: string): AppThunk => async (dispatch, getState) => {
     const {cardsPack_id} = getState().cards.params
     const card: PostCardType = {
         cardsPack_id,
-        question: "map",
-        answer: "no answer",
+        question: question,
+        answer: answer,
         grade: '0',
         shots: '0',
         answerImg: "url or base 64",
