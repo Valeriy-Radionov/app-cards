@@ -10,7 +10,8 @@ enum LEARN_ACTIONS {
     UPDATE_GRADE = 'LEARN_ACTIONS/UPDATE_GRADE',
     UPDATE_PARAMS = 'LEARN_ACTIONS/UPDATE_PARAMS',
     CHANGE_CURRENT_CARD = 'LEARN_ACTIONS/CHANGE_CURRENT_CARD',
-    TOGGLE_IS_INITIALIZED_PAGE = 'LEARN_ACTIONS/TOGGLE_IS_INITIALIZED_PAGE'
+    TOGGLE_IS_INITIALIZED_PAGE = 'LEARN_ACTIONS/TOGGLE_IS_INITIALIZED_PAGE',
+    SET_CURRENT_PACK_NAME = 'LEARN_ACTIONS/SET_CURRENT_PACK_NAME'
 }
 
 const initialState = {
@@ -18,6 +19,7 @@ const initialState = {
     params: {
         cardsPack_id: ''
     },
+    currentPackName: '',
     currentCard: null as CardType | null,
     isInitializedPage: false
 }
@@ -40,6 +42,8 @@ export const learnReducer = (state: LearnStateType = initialState, action: Learn
             return {...state, currentCard: action.newCard}
         case LEARN_ACTIONS.TOGGLE_IS_INITIALIZED_PAGE:
             return {...state, isInitializedPage: action.value}
+        case LEARN_ACTIONS.SET_CURRENT_PACK_NAME:
+            return {...state, currentPackName: action.packName}
         default:
             return state
     }
@@ -55,6 +59,8 @@ export const changeCurrentCardAC = (newCard: CardType) =>
     ({type: LEARN_ACTIONS.CHANGE_CURRENT_CARD, newCard} as const)
 export const toggleIsInitializedPageAC = (value: boolean) =>
     ({type: LEARN_ACTIONS.TOGGLE_IS_INITIALIZED_PAGE, value} as const)
+export const setCurrentPackName = (packName: string) =>
+    ({type: LEARN_ACTIONS.SET_CURRENT_PACK_NAME, packName} as const)
 
 
 //TC's
@@ -92,3 +98,4 @@ export type LearnActionType =
     | ReturnType<typeof updateParamsAC>
     | ReturnType<typeof changeCurrentCardAC>
     | ReturnType<typeof toggleIsInitializedPageAC>
+    | ReturnType<typeof setCurrentPackName>

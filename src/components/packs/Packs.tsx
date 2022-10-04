@@ -21,7 +21,7 @@ import {SearchBlock} from "./SearchBlock/SearchBlock";
 import {AddPackModal} from "./PackModal/addPackModal/AddPackModal";
 import stylePacks from "./Packs.module.scss";
 import {ModalWindow} from "../../common/components/modalWindows/ModalWindow";
-import {getAllCards, updateGrade, updateParamsAC} from "../../bll/learnReducer";
+import {getAllCards, setCurrentPackName, updateGrade, updateParamsAC} from "../../bll/learnReducer";
 
 export type PackPropsType = {}
 export const Packs: React.FC<PackPropsType> = (props) => {
@@ -115,7 +115,8 @@ export const Packs: React.FC<PackPropsType> = (props) => {
     const deletePack = (userId: string) => {
         dispatch(deletePacksTC(userId))
     }
-    const learnPack = (cardsPack_id: string) => {
+    const learnPack = (cardsPack_id: string, packName: string) => {
+        dispatch(setCurrentPackName(packName))
         navigate(`/learn/${cardsPack_id}`)
     }
 

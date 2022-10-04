@@ -8,7 +8,7 @@ import {useNavigate} from 'react-router-dom'
 type MapTableBodyPropsType = {
     items: CardPackType[]
     deletePack: (id: string) => void
-    learnPack: (id: string) => void
+    learnPack: (id: string, packName: string) => void
     updatePack: (id: string) => void
 }
 
@@ -48,6 +48,7 @@ export const PacksTableBody: React.FC<MapTableBodyPropsType> = ({
                                 deleteItem={deletePack}
                                 packId={item._id}
                                 userId={item.user_id}
+                                packName={item.name}
                             />
                         </TableCell>
                     </TableRow>)
