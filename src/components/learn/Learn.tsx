@@ -1,5 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import s from '../auth/AuthPageContainer.module.css'
+import {useAppDispatch, useAppSelector} from "../../bll/store";
+import {useParams} from "react-router-dom";
+import {changeCurrentCardAC, getAllCards, updateGrade, updateParamsAC} from "../../bll/learnReducer";
+import {Grades} from "../../api/cards/cards-api";
+import {getCard} from "../../assets/utils/randomGetCard";
 
 export const Learn = () => {
     // const dispatch = useAppDispatch

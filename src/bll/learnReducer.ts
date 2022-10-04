@@ -1,9 +1,9 @@
 import {cardsApi, CardType, UpdateGradeRequestType} from "../api/cards/cards-api";
 import {AppThunk} from "./store";
-import {handleServerNetworkError} from "../utils/errors-utils";
+import {handleServerNetworkError} from "../assets/utils/errors-utils";
 import {setAppStatusAC} from "./appReducer";
 import {ParamsType} from "../components/cards/Cards";
-import {getCard} from "../utils/randomGetCard";
+import {getCard} from "../assets/utils/randomGetCard";
 
 enum LEARN_ACTIONS {
     GET_ALL_CARDS = 'LEARN_ACTIONS/GET_ALL_CARDS',
