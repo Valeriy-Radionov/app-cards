@@ -1,18 +1,20 @@
 import React from 'react';
 import s from './Empty.module.scss'
+import AddCartModal from "../cards/cardModals/addCardModal/AddCartModal";
+import {AddPackModal} from "../packs/PackModal/addPackModal/AddPackModal";
 
 type EmptyCardsPropsType = {
-    addNewItem?: () => void
+    packCard: 'packs' | 'cards'
     isMy: boolean
     name: string
 }
 
-export const EmptyPage: React.FC<EmptyCardsPropsType> = ({addNewItem, isMy,name}) => {
+export const EmptyPage: React.FC<EmptyCardsPropsType> = ({packCard, isMy, name}) => {
     return (
         <div className={s.block}>
             <span>There are no cards in this pack that satisfy the search</span>
             {isMy
-                ? <button onClick={addNewItem} className={s.addCard}>{name}</button>
+                ? packCard === 'cards' ? <AddCartModal addEditModal={'add'}/> : <AddPackModal />
                 : null
             }
 

@@ -187,7 +187,7 @@ function Cards() {
                             <TableBodyCart items={cards.cards}  isMy={isMyCards}/>
                         </BasicTable>
                     </div>
-                    : <EmptyPage  isMy={isMyCards} name={'Add new card'}/>
+                    : <EmptyPage  isMy={isMyCards} name={'Add new card'} packCard={'cards'}/>
                 }
             </div>
         </div>

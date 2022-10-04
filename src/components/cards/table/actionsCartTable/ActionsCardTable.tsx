@@ -1,8 +1,8 @@
 import React from 'react';
 import s from './ActionsCardTable.module.scss'
 import stroke from "../../../../assets/image/Edit.svg";
-import del from "../../../../assets/image/Delete.svg";
 import {DeleteCardModal} from "../../cardModals/deleteCartModal/DeleteCartModal";
+import AddCartModal from "../../cardModals/addCardModal/AddCartModal";
 
 type ActionsCardTablePropsType = {
     id: string
@@ -14,12 +14,13 @@ export const ActionsCardTable: React.FC<ActionsCardTablePropsType> = ({ id, isMy
         isMy
             ?
             <div className={s.block} style={isDisabled ? {opacity: '0.5'} : {}}>
-                <button onClick={() => {}}
-                        className={s.btn}
-                        disabled={isDisabled}
-                >
-                    <img src={stroke} alt={''}/>
-                </button>
+                {/*<button onClick={() => {}}*/}
+                {/*        className={s.btn}*/}
+                {/*        disabled={isDisabled}*/}
+                {/*>*/}
+                {/*    <img src={stroke} alt={''}/>*/}
+                {/*</button>*/}
+                <AddCartModal addEditModal={"edit"}/>
                 <DeleteCardModal cardId={id} isDisabled={isDisabled}/>
             </div>
             :

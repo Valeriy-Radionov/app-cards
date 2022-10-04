@@ -16,14 +16,20 @@ export const AddCartModal: React.FC<AddCardModalPropsType> = ({addEditModal}) =>
     const [questionInput, setQuestionInput] = useState('')
     const [answerInput, setAnswerInput] = useState('')
 
-    const addNewCard = () => {
-        dispatch(addNewCardTC(questionInput, answerInput))
+    const clearInputs = () => {
+        setSelectInput('')
         setQuestionInput('')
         setAnswerInput('')
     }
 
+    const addNewCard = () => {
+        dispatch(addNewCardTC(questionInput, answerInput))
+        clearInputs()
+    }
+
     const editCard = () => {
-console.log('')
+        console.log('')
+        clearInputs()
     }
 
     const handleChangeSelect = (event: SelectChangeEvent) => {
@@ -43,11 +49,12 @@ console.log('')
     }
 
     return (
-        <div>
+        <div style={{display: 'inline-block'}}>
             <ModalWindow namePreviousBtn={addEditModal === 'add' ? "Add new cart" : editImg()}
                          titleModal={addEditModal === 'add' ? "Add new cart" : 'Edit cart'}
                          actionSaveDeleteBtn={addEditModal === 'add' ? addNewCard : editCard}
                          isSaveDeleteModal={"Save"}
+                         isEdit={addEditModal}
             >
                 <div className={s.blockForm}>
                     <FormControl sx={{m: 1, width: 347}}>
