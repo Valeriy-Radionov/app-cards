@@ -1,5 +1,12 @@
 import {AppThunk} from "./store";
-import {cardsApi, CardType, ParamsGetCardsType, PostCardType, ResponseCardsType} from "../api/cards/cards-api";
+import {
+    cardsApi,
+    CardType,
+    ParamsGetCardsType,
+    PostCardType,
+    ResponseCardsType,
+    UpdateCardType
+} from "../api/cards/cards-api";
 import {handleServerNetworkError} from "../assets/utils/errors-utils";
 import {ParamsType} from "../components/cards/Cards";
 import {RequestStatusType, setAppStatusAC} from "./appReducer";
@@ -222,6 +229,21 @@ export const addNewCardTC = (question: string, answer: string): AppThunk => asyn
     dispatch(setAppStatusAC("loading"))
     try {
         await cardsApi.addNewCard(card)
+        dispatch(getCardsTC())
+        dispatch(setAppStatusAC("succeeded"))
+    } catch (e) {
+        handleServerNetworkError(e, dispatch)
+        dispatch(setAppStatusAC("failed"))
+    } finally {
+        dispatch(setAppStatusAC("idle"))
+    }
+}
+
+export const updateCardTC = (card: UpdateCardType): AppThunk => async (dispatch, getState) => {
+
+    dispatch(setAppStatusAC("loading"))
+    try {
+        await cardsApi.updateCard(card)
         dispatch(getCardsTC())
         dispatch(setAppStatusAC("succeeded"))
     } catch (e) {
