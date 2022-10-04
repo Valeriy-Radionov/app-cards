@@ -109,7 +109,7 @@ function Cards() {
     const handleChangePage = (event: unknown, newPage: number) => {
         const page = newPage + 1
 
-        checkParamsForQuery({...paramsSearch, page})
+        checkParamsForQuery({...getQueryParams(id), page})
         setParamsSearch({...paramsSearch, page: page.toString()})
 
         dispatch(updatePagePaginateAC(page))
@@ -117,7 +117,7 @@ function Cards() {
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
         const pageCount = parseInt(event.target.value, 10)
 
-        checkParamsForQuery({...paramsSearch, pageCount: pageCount})
+        checkParamsForQuery({...getQueryParams(id), pageCount: pageCount})
         setParamsSearch({...paramsSearch, pageCount: pageCount.toString()})
 
         dispatch(updatePageCountPaginateAC(pageCount))
@@ -173,7 +173,7 @@ function Cards() {
                 {cards.cards.length
                     ? <div className={s.blockTable}>
                         {isMyCards
-                            ?<AddCartModal addEditModal={'add'}/>
+                            ? <AddCartModal addEditModal={'add'}/>
                             : null
                         }
                         <BasicTable
