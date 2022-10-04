@@ -14,7 +14,7 @@ export const getQueryParams  = (searchParams: URLSearchParams, id?: string) => {
     return params
 }
 
-const checkParamsForQuery = (params: ParamsType, setSearchParams: (params: ParamsType) => void  ) => {
+export const checkParamsForQuery = (params: ParamsType, setSearchParams: (params: ParamsType) => void  ) => {
     const nameParams = Object.keys(params);
     let resultSearchParams = {};
     nameParams.forEach(name => {
