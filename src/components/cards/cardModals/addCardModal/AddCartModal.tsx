@@ -1,15 +1,16 @@
 import React, {ChangeEvent, useState} from 'react';
 import {useAppDispatch} from "../../../../bll/store";
 import {ModalWindow} from "../../../../common/components/modalWindows/ModalWindow";
-import {addNewCardTC} from "../../../../bll/cardsReducer";
+import {addNewCardTC, updateCardTC} from "../../../../bll/cardsReducer";
 import {FormControl, MenuItem, Select, SelectChangeEvent, FormHelperText, TextField} from "@mui/material";
 import s from './AddCartModal.module.scss'
 import stroke from "../../../../assets/image/Edit.svg";
 
 type AddCardModalPropsType = {
     addEditModal: 'add' | 'edit'
+    _id?: string
 }
-export const AddCartModal: React.FC<AddCardModalPropsType> = ({addEditModal}) => {
+export const AddCartModal: React.FC<AddCardModalPropsType> = ({addEditModal, _id}) => {
     const dispatch = useAppDispatch
 
     const [select, setSelectInput] = useState('')
@@ -28,7 +29,7 @@ export const AddCartModal: React.FC<AddCardModalPropsType> = ({addEditModal}) =>
     }
 
     const editCard = () => {
-        console.log('')
+        _id && dispatch(updateCardTC({question: questionInput, answer: answerInput, _id}))
         clearInputs()
     }
 
