@@ -87,3 +87,14 @@ export type PostCardType = {
     questionVideo?: string // не обязателен
     answerVideo?: string // не обязателен
 }
+export type UpdateCardType = {
+    _id: string
+    question?: string
+    answer?: string
+    grade?: string
+    shots?: string
+    answerImg?: string
+    questionImg?: string
+    questionVideo?: string
+    answerVideo?: string
+}
