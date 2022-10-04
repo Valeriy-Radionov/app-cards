@@ -145,7 +145,7 @@ export const Packs: React.FC<PackPropsType> = (props) => {
                             }} items={packs.cardPacks}/>
                         </PacksTableContainer>
                     </div>
-                    : <EmptyPage isMy={true} name={'Add new pack'}/>
+                    : <EmptyPage isMy={true} name={'Add new pack'} packCard={'packs'}/>
                 }
             </div>
         </div>
