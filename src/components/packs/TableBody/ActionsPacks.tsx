@@ -1,9 +1,9 @@
 import React from 'react';
 import {useAppSelector} from "../../../bll/store";
 import s from "../../cards/table/actionsCartTable/ActionsCardTable.module.scss";
-import stroke from "../../../assets/image/Edit.svg";
 import learn from "../../../assets/image/teacherlearn.svg"
 import {DeletePackModal} from "../PackModal/deletePackModal/DeletePackModal";
+import {AddPackModal} from "../PackModal/addEditPackModal/AddPackModal";
 
 type ActionsCardTablePropsType = {
     updateItem: (id: string) => void
@@ -31,13 +31,7 @@ export const ActionsPacks: React.FC<ActionsCardTablePropsType> = ({
                 <button onClick={() => learnItem(packId)} className={s.btn} disabled={disabled}>
                     <img src={learn} alt={''} style={styleDisable}/>
                 </button>
-                <button onClick={() => updateItem(packId)} className={s.btn} disabled={disabled}>
-                    <img src={stroke} alt={''} style={styleDisable}/>
-                </button>
-                {/*<button onClick={() => deleteItem(packId)} className={s.btn}*/}
-                {/*        disabled={disabled}>*/}
-                {/*    <img src={del} alt={''} style={styleDisable}/>*/}
-                {/*</button>*/}
+                <AddPackModal isAddEditPack={"edit"} id={packId}/>
                 <DeletePackModal packId={packId} packName={packName}/>
             </div> :
             <div className={s.block}>

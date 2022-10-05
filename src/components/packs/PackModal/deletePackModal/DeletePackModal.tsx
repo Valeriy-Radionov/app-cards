@@ -11,7 +11,7 @@ type DeletePackModalPropsType = {
 }
 
 export const DeletePackModal: React.FC<DeletePackModalPropsType> = ({packId, packName}) => {
-    // Создавай файл со стилями в своих папках для каждой компоненты, не используй один файл на несколько компонент!!!
+
     const dispatch = useAppDispatch
     const status = useAppSelector(state => state.app.status)
     const styleDisable = status === "loading" ? {opacity: "0.5"} : {}

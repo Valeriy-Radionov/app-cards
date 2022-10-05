@@ -2,18 +2,22 @@ import React, {ChangeEvent, useState} from 'react';
 import {ModalWindow} from "../../../../common/components/modalWindows/ModalWindow";
 import styleModal from "./AddPackModal.module.scss";
 import {useAppDispatch, useAppSelector} from "../../../../bll/store";
-import {addNewPackTC} from "../../../../bll/packsReducer";
+import {addNewPackTC, updatePackTC} from "../../../../bll/packsReducer";
+import stroke from "../../../../assets/image/Edit.svg"
 
-type AddPackModalPropsType = { }
+type AddPackModalPropsType = {
+    id?: string
+    isAddEditPack: "edit" | "add"
+}
 
-export const AddPackModal: React.FC<AddPackModalPropsType> = ({ }) => {
-    const userID = useAppSelector(state => state.profile.user?._id)
+export const AddPackModal: React.FC<AddPackModalPropsType> = ({id, isAddEditPack}) => {
+    const namePack = useAppSelector(state => state.packs.cardPacks).filter(pack => id ? pack._id === id : pack)[0].name
     const dispatch = useAppDispatch
-    const [titlePack, setTitlePack] = useState<string>("")
+    const [titlePack, setTitlePack] = useState<string>(namePack || "")
     const [privatePack, setPrivatePack] = useState<boolean>(false)
 
     const addNewPacks = () => {
-        userID && dispatch(addNewPackTC(userID!, titlePack, privatePack))
+        dispatch(addNewPackTC(titlePack, privatePack))
         setTitlePack("")
     }
 
@@ -26,13 +30,20 @@ export const AddPackModal: React.FC<AddPackModalPropsType> = ({ }) => {
         const privatePack = e.currentTarget.checked
         setPrivatePack(privatePack)
     }
-
+    const editPack = () => {
+        dispatch(updatePackTC(id!, titlePack, privatePack))
+    }
+    const editImg = () => {
+        return <img src={stroke} alt={''}/>
+    }
     return (
         <div>
-            <ModalWindow namePreviousBtn={"Add new pack"}
-                         titleModal={"Add new pack"}
-                         actionSaveDeleteBtn={addNewPacks}
+
+            <ModalWindow namePreviousBtn={isAddEditPack === "add" ? "Add new pack" : editImg()}
+                         titleModal={isAddEditPack === "add" ? "Add new pack" : "Edit Pack"}
+                         actionSaveDeleteBtn={isAddEditPack === "add" ? addNewPacks : editPack}
                          isSaveDeleteModal={"Save"}
+                         isEdit={isAddEditPack}
             >
                 <div className={styleModal.bodyBlock}>
                     <span className={styleModal.titleBlock}>Name pack</span>
