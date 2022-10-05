@@ -70,7 +70,7 @@ export const getAllCards = (): AppThunk => async (dispatch, getState) => {
     dispatch(toggleIsInitializedPageAC(false))
     try {
         const res = await cardsApi.getCards({...params})
-        console.log(res.data.cards)
+        dispatch(setCurrentPackName(res.data.packName))
         dispatch(setAllCardsAC(res.data.cards))
         dispatch(changeCurrentCardAC(getCard(res.data.cards)))
         dispatch(setAppStatusAC("succeeded"))

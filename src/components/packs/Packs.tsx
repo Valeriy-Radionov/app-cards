@@ -115,8 +115,7 @@ export const Packs: React.FC<PackPropsType> = (props) => {
     const deletePack = (userId: string) => {
         dispatch(deletePacksTC(userId))
     }
-    const learnPack = (cardsPack_id: string, packName: string) => {
-        dispatch(setCurrentPackName(packName))
+    const learnPack = (cardsPack_id: string) => {
         navigate(`/learn/${cardsPack_id}`)
     }
 

@@ -8,18 +8,16 @@ import learn from "../../../assets/image/teacherlearn.svg"
 type ActionsCardTablePropsType = {
     deleteItem: (id: string) => void
     updateItem: (id: string) => void
-    learnItem: (id: string, packName: string) => void
+    learnItem: (id: string) => void
     packId: string
     userId: string
-    packName: string
 }
 export const ActionsPacks: React.FC<ActionsCardTablePropsType> = ({
                                                                       deleteItem,
                                                                       packId,
                                                                       updateItem,
                                                                       learnItem,
-                                                                      userId,
-                                                                      packName
+                                                                      userId
                                                                   }) => {
     const userProfileId = useAppSelector(state => state.profile.user?._id)
     const status = useAppSelector(state => state.app.status)
@@ -31,7 +29,7 @@ export const ActionsPacks: React.FC<ActionsCardTablePropsType> = ({
     return (
         userProfileId === userId ?
             <div className={s.block}>
-                <button onClick={() => learnItem(packId, packName)} className={s.btn} disabled={disabled}>
+                <button onClick={() => learnItem(packId)} className={s.btn} disabled={disabled}>
                     <img src={learn} alt={''} style={styleDisable}/>
                 </button>
                 <button onClick={() => updateItem(packId)} className={s.btn} disabled={disabled}>
@@ -43,7 +41,7 @@ export const ActionsPacks: React.FC<ActionsCardTablePropsType> = ({
                 </button>
             </div> :
             <div className={s.block}>
-                <button onClick={() => learnItem(packId, packName)} className={s.btn}
+                <button onClick={() => learnItem(packId)} className={s.btn}
                         disabled={disabled}>
                     <img src={learn} alt={''} style={styleDisable}/>
                 </button>
