@@ -14,14 +14,14 @@ import {AddPackModal} from "./PackModal/addEditPackModal/AddPackModal";
 import {checkParamsForQuery, getQueryParams} from '../../assets/utils/workingWithParameters';
 import {updatePagePaginateAC} from "../../bll/cardsReducer";
 
-export type PackPropsType = {}
-export const Packs: React.FC<PackPropsType> = (props) => {
+export const Packs = () => {
+    //data
     const packs = useAppSelector(state => state.packs)
     const userID = useAppSelector(state => state.profile.user?._id)
     const dispatch = useAppDispatch
 
     //hooks
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams()
     const [sort, setSort] = useState(false)
     const [paramsSearch, setParamsSearch] = useState<ParamsGetPacksType>({
         packName: "",
