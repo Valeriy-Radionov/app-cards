@@ -1,6 +1,9 @@
 @import "../../../assets/style/mixins";
 
 .container {
+  .btnSmall{
+
+  }
   .btnDelete {
     outline: none;
     border: none;
@@ -12,6 +15,7 @@
       transform: translateY(-4px);
     }
   }
+
   .btnPack {
     position: absolute;
     @include width-height(184px, 36px);

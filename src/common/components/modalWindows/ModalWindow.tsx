@@ -24,6 +24,7 @@ type ModalWindowType = {
     titleModal: string
     namePreviousBtn: string | ReactNode
     isSaveDeleteModal: 'Save' | 'Delete'
+    isEdit?: 'edit' | 'add'
 }
 
 export const ModalWindow: React.FC<ModalWindowType> = ({
@@ -31,10 +32,11 @@ export const ModalWindow: React.FC<ModalWindowType> = ({
                                                            titleModal,
                                                            actionSaveDeleteBtn,
                                                            namePreviousBtn,
-                                                           isSaveDeleteModal
+                                                           isSaveDeleteModal,
+                                                           isEdit
                                                        }) => {
+    const fullStyle = isEdit === 'edit' || isSaveDeleteModal === "Delete"
     const [open, setOpen] = React.useState<boolean>(false);
-    const isSaveDelete = isSaveDeleteModal === 'Save'
 
     const clickToggleModal = () => {
         setOpen(!open)
@@ -44,7 +46,7 @@ export const ModalWindow: React.FC<ModalWindowType> = ({
 
     return (
         <div className={styleModal.container}>
-            <button onClick={clickToggleModal} className={isSaveDelete ? styleModal.btnPack : styleModal.btnDelete}>{namePreviousBtn}</button>
+            <button onClick={clickToggleModal} className={fullStyle ? styleModal.btnDelete : styleModal.btnPack}>{namePreviousBtn}</button>
             <Modal
                 open={open}
                 onClose={clickToggleModal}
