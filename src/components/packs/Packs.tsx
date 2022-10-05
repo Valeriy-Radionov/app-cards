@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../bll/store";
 import {getUsersPacksTC, updatePacksPageCountPaginate, updatePacksParamsAC} from "../../bll/packsReducer";
-import {useLocation, useSearchParams} from "react-router-dom";
+import {useSearchParams} from "react-router-dom";
 import {ParamsGetPacksType} from "../../api/packs/packs-api";
 import {useDebounce} from "../../assets/hooks/debounceHook";
 import s from "../cards/Crads.module.scss";
@@ -16,7 +16,6 @@ import {updatePagePaginateAC} from "../../bll/cardsReducer";
 
 export type PackPropsType = {}
 export const Packs: React.FC<PackPropsType> = (props) => {
-    let id = useLocation().pathname.slice(7)
     const packs = useAppSelector(state => state.packs)
     const userID = useAppSelector(state => state.profile.user?._id)
     const dispatch = useAppDispatch
@@ -88,14 +87,11 @@ export const Packs: React.FC<PackPropsType> = (props) => {
 
     useEffect(() => {
         checkParamsForQuery(getQueryParams(searchParams), setSearchParams)
-        console.log(id)
     }, [])
 
     useEffect(() => {
         dispatch(updatePacksParamsAC(getQueryParams(searchParams)))
         dispatch(getUsersPacksTC())
-        console.log(id)
-
     }, [debouncedParamsSearch])
 
     return (
