@@ -93,8 +93,8 @@ export type PostCardType = {
 }
 
 export type UpdateGradeRequestType = {
-    grade: Grades
-    card_id: string
+    grade: Grades | string
+    card_id: string | null
 }
 export type UpdateGradeResponseDataType = {
     updatedGrade: {

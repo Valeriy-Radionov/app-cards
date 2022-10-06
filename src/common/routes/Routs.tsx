@@ -10,6 +10,7 @@ import Cards from "../../components/cards/Cards";
 import {Packs} from "../../components/packs/Packs";
 import {PrivateRoutes} from "./PrivateRoutes";
 import {Learn} from "../../components/learn/Learn";
+//import {Learn} from "../../components/learn/Learn";
 
 export enum PATH {
     LOGIN = "/login",

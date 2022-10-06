@@ -39,7 +39,8 @@ export const ActionsPacks: React.FC<ActionsCardTablePropsType> = ({
                         disabled={disabled}>
                     <img src={del} alt={''} style={styleDisable}/>
                 </button>
-            </div> :
+            </div>
+            :
             <div className={s.block}>
                 <button onClick={() => learnItem(packId)} className={s.btn}
                         disabled={disabled}>

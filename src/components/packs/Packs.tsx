@@ -22,6 +22,8 @@ import {AddPackModal} from "./PackModal/addPackModal/AddPackModal";
 import stylePacks from "./Packs.module.scss";
 import {ModalWindow} from "../../common/components/modalWindows/ModalWindow";
 import {getAllCards, setCurrentPackName, updateGrade, updateParamsAC} from "../../bll/learnReducer";
+import {PATH} from "../../common/routes/Routs";
+
 
 export type PackPropsType = {}
 export const Packs: React.FC<PackPropsType> = (props) => {
@@ -32,6 +34,7 @@ export const Packs: React.FC<PackPropsType> = (props) => {
     const dispatch = useAppDispatch
 
     //hooks
+    let navigate = useNavigate()
     const [searchParams, setSearchParams] = useSearchParams();
     const [sort, setSort] = useState(false)
     const [paramsSearch, setParamsSearch] = useState<ParamsGetPacksType>({
@@ -44,7 +47,7 @@ export const Packs: React.FC<PackPropsType> = (props) => {
         max: "",
         sortPacks: "",
     })
-    const navigate = useNavigate()
+
     const debouncedParamsSearch = useDebounce<ParamsGetPacksType>(paramsSearch, 700)
     useEffect(() => {
         dispatch(updatePacksParamsAC(getPackQueryParams(packId)))
