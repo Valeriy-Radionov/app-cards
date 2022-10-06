@@ -2,18 +2,19 @@ import React, {ChangeEvent} from 'react';
 import {InputSearch} from "../../../common/components/InputSearch/InputSearch";
 import {ParamsGetPacksType} from "../../../api/packs/packs-api";
 import {Toggle} from "../../../common/components/Toggle/Toggle";
-import {DoubleRange} from "../../../common/components/DoubleRange/DoubleRange";
-import {SquareWithRangeValue} from "../../../common/components/SquareWithRangeValue/SquareWithRangeValue";
 import s from './SearchBlock.module.css'
+import {DoubleRangeBlock} from "./DoubleRangeBlock/DoubleRangeBlock";
 
 type SettingsBlockPropsType = {
     paramsSearch: ParamsGetPacksType
     addParamsName: (e: ChangeEvent<HTMLInputElement>) => void
     addParamsUserId: (filter: 'my' | 'all') => void
+    addParamsMinMax: (min: string, max: string) => void
     user_id: string
 }
 
 export const SearchBlock = (props: SettingsBlockPropsType) => {
+
 
     const toggleClick = (value: boolean) => {
         value && props.addParamsUserId('my')
@@ -32,11 +33,7 @@ export const SearchBlock = (props: SettingsBlockPropsType) => {
             </div>
             <div className={s.item}>
                 <span>Number of cards</span>
-                <div className={s.doubleRange}>
-                    <SquareWithRangeValue value={0}/>
-                    <DoubleRange/>
-                    <SquareWithRangeValue value={10}/>
-                </div>
+                <DoubleRangeBlock addParamsMinMax={props.addParamsMinMax}/>
             </div>
         </div>
     );

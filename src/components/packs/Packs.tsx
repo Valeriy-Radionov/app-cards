@@ -21,7 +21,6 @@ import {SearchBlock} from "./SearchBlock/SearchBlock";
 import {AddPackModal} from "./PackModal/addPackModal/AddPackModal";
 import stylePacks from "./Packs.module.scss";
 import {ModalWindow} from "../../common/components/modalWindows/ModalWindow";
-import {getAllCards, setCurrentPackName, updateGrade, updateParamsAC} from "../../bll/learnReducer";
 
 export type PackPropsType = {}
 export const Packs: React.FC<PackPropsType> = (props) => {
@@ -79,6 +78,14 @@ export const Packs: React.FC<PackPropsType> = (props) => {
             user_id: filter === 'my' ? userID : ''
         })
         checkParamsForQuery({...paramsSearch, "user_id": filter === 'my' ? userID : ''});
+    }
+    const addParamsMinMax = (min: string, max: string) => {
+        setParamsSearch({
+            ...paramsSearch,
+            min,
+            max
+        })
+        checkParamsForQuery({...paramsSearch, "min": min, "max": max})
     }
     const addParamsOfSorting = () => {
         setSort(!sort)
@@ -148,6 +155,7 @@ export const Packs: React.FC<PackPropsType> = (props) => {
                     user_id={getPackQueryParams(packId).user_id}
                     addParamsName={addParamsName}
                     addParamsUserId={addParamsUserId}
+                    addParamsMinMax={addParamsMinMax}
                 />
                 {packs.cardPacks.length
                     ? <div>

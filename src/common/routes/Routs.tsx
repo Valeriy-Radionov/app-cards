@@ -17,7 +17,7 @@ export enum PATH {
     PROFILE = "/profile",
     ERROR = "*",
     RECOVERY = "/recovery-password",
-    SET_PASSWORD = "/set-password/:token",
+    SET_PASSWORD = "/set-new-password/:token",
     TEST = "all-super-components",
     PACKS = "/packs",
     LEARN = "/learn/:id"
