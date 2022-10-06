@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../bll/store";
 import {getUsersPacksTC, updatePacksPageCountPaginate, updatePacksParamsAC} from "../../bll/packsReducer";
-import {useSearchParams} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import {ParamsGetPacksType} from "../../api/packs/packs-api";
 import {useDebounce} from "../../assets/hooks/debounceHook";
 import s from "../cards/Crads.module.scss";
@@ -32,6 +32,10 @@ export const Packs = () => {
         max: "",
         sortPacks: "",
     })
+    const [paramsSearchWithoutDebounce, setParamsSearchWithoutDebounce] = useState({user_id: ""})
+    const [firstRender, setFirstRender] = useState(true)
+
+
     const navigate = useNavigate()
     const debouncedParamsSearch = useDebounce<ParamsGetPacksType>(paramsSearch, 700)
 
@@ -45,7 +49,7 @@ export const Packs = () => {
     }
     const addParamsUserId = (filter: 'my' | 'all') => {
         if (userID) {
-            setParamsSearch({
+            setParamsSearchWithoutDebounce({
                 ...paramsSearch,
                 user_id: filter === 'my' ? userID : ''
             })
@@ -61,7 +65,10 @@ export const Packs = () => {
             min,
             max
         })
-        checkParamsForQuery({...paramsSearch, "min": min, "max": max})
+        checkParamsForQuery({
+            ...getQueryParams(searchParams),
+            "min": min, "max": max
+        }, setSearchParams)
     }
     const addParamsOfSorting = () => {
         setSort(!sort)
@@ -107,6 +114,15 @@ export const Packs = () => {
         dispatch(getUsersPacksTC())
     }, [debouncedParamsSearch])
 
+    useEffect(() => {
+        if (firstRender) {
+            setFirstRender(false)
+        } else {
+            dispatch(updatePacksParamsAC(getQueryParams(searchParams)))
+            dispatch(getUsersPacksTC())
+        }
+    }, [paramsSearchWithoutDebounce])
+
     return (
         <div className={s.container}>
             <div className={s.content}>
@@ -129,7 +145,8 @@ export const Packs = () => {
                             statePacks={packs}
                         >
                             <PacksTableBody learnPack={learnPack}
-                                            updatePack={() => {}}
+                                            updatePack={() => {
+                                            }}
                                             items={packs.cardPacks}/>
                         </PacksTableContainer>
                     </div>
