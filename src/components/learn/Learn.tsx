@@ -10,8 +10,8 @@ import {LinkArrow} from "../../common/components/Link/LinkArrow";
 import {Grades} from '../../api/cards/cards-api'
 import {useAppDispatch, useAppSelector} from "../../bll/store";
 import {useParams} from "react-router-dom";
-import {changeCurrentCardAC, getAllCards, updateGrade, updateParamsAC} from "../../bll/learnReducer";
-import {getCard} from "../../assets/utils/randomGetCard";
+import { getAllCards, updateGrade, updateParamsAC} from "../../bll/learnReducer";
+
 import {Question} from "./Question/Question";
 import {Answer} from "./Answer/Answer";
 
@@ -56,17 +56,25 @@ export const Learn = () => {
                         <>
                             {questionMode
                                 ?
+                                <>
                                 <Question
                                     card={card}
-                                    onAnswerClickHandler={onAnswerClickHandler}
-                                    gotCradsInDeck={gotCardsInDeck}/>
+                                gotCardsInDeck={gotCardsInDeck}
+                                    />
+                                <SuperButton className={s.button}
+                                             onClick={onAnswerClickHandler}
+                                             disabled={!gotCardsInDeck}>ANSWER</SuperButton>
+                                </>
                                 :
+                                <>
+                                <Question card={card} gotCardsInDeck={gotCardsInDeck} />
                                 <Answer
                                 card_id = {card_id}
                                 cards={cards}
                                 card={card}
                                 setQuestionMode={setQuestionMode}
-                                />}
+                                />
+                                   </> }
 
                         </>}
                 </div>

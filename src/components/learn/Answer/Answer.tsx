@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import s from "../Learn.module.scss";
+import s from "./Answer.module.css";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import RadioGroup from "@mui/material/RadioGroup";
@@ -12,13 +12,13 @@ import {getCard} from "../../../assets/utils/randomGetCard";
 import {useAppDispatch} from "../../../bll/store";
 
 type AnswerPropsType = {
-    card_id:string | null,
-    cards:CardType [],
-    card:CardType | null,
-    setQuestionMode:(value:boolean) => void
+    card_id: string | null,
+    cards: CardType [],
+    card: CardType | null,
+    setQuestionMode: (value: boolean) => void
 }
 
-export const Answer:React.FC<AnswerPropsType> = (props) => {
+export const Answer: React.FC<AnswerPropsType> = (props) => {
 
     const dispatch = useAppDispatch
 
@@ -39,10 +39,12 @@ export const Answer:React.FC<AnswerPropsType> = (props) => {
     }
 
     return (
-        <div>
+        <div className = {s.main}>
             <div className={s.block}>
-                <div>Answer:</div>
-                <span>{props.card &&props.card.answer}</span>
+                <div className={s.question}>
+                    <span>Answer:</span>
+                    <span className={s.questionBody}>{props.card && props.card.answer}</span>
+                </div>
                 <FormControl>
                     <FormLabel id="radio-buttons-group-label">Rate yourself:</FormLabel>
                     <RadioGroup
@@ -50,15 +52,17 @@ export const Answer:React.FC<AnswerPropsType> = (props) => {
                         defaultValue={Grades.DidNotKnow}
                         name="radio-buttons-group"
                         value={grades}
-                        onChange={gradesHandler}>
-                        <FormControlLabel value={Grades.DidNotKnow} control={<Radio/>}
-                                          label="Did not know"/>
-                        <FormControlLabel value={Grades.Forgot} control={<Radio/>} label="Forgot"/>
-                        <FormControlLabel value={Grades.ALotOfThought} control={<Radio/>}
+                        onChange={gradesHandler}
+                    >
+                        <FormControlLabel value={Grades.DidNotKnow} control={<Radio size="small"/>}
+                                          label="Did not know" labelPlacement="end"/>
+                        <FormControlLabel value={Grades.Forgot} control={<Radio size="small"/>}
+                                          label="Forgot"/>
+                        <FormControlLabel value={Grades.ALotOfThought} control={<Radio size="small"/>}
                                           label="A lot of thought"/>
-                        <FormControlLabel value={Grades.Confused} control={<Radio/>}
+                        <FormControlLabel value={Grades.Confused} control={<Radio size="small"/>}
                                           label="Confused"/>
-                        <FormControlLabel value={Grades.KnewTheAnswer} control={<Radio/>}
+                        <FormControlLabel value={Grades.KnewTheAnswer} control={<Radio size="small"/>}
                                           label="Knew the answer"/>
                     </RadioGroup>
                 </FormControl>
