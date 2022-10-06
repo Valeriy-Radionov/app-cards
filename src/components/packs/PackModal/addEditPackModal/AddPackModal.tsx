@@ -11,7 +11,7 @@ type AddPackModalPropsType = {
 }
 
 export const AddPackModal: React.FC<AddPackModalPropsType> = ({id, isAddEditPack}) => {
-    const namePack = useAppSelector(state => state.packs.cardPacks).filter(pack => id ? pack._id === id : pack)[0].name
+    const namePack = useAppSelector(state => state.packs.cardPacks).filter(pack => id ? pack._id === id : pack)[0]?.name
     const dispatch = useAppDispatch
     const [titlePack, setTitlePack] = useState<string>(namePack || "")
     const [privatePack, setPrivatePack] = useState<boolean>(false)
