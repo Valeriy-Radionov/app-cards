@@ -9,6 +9,8 @@ import {Error} from "../../components/error/Error";
 import Cards from "../../components/cards/Cards";
 import {Packs} from "../../components/packs/Packs";
 import {PrivateRoutes} from "./PrivateRoutes";
+import {Learn} from "../../components/learn/Learn";
+//import {Learn} from "../../components/learn/Learn";
 
 export enum PATH {
     LOGIN = "/login",
@@ -16,9 +18,10 @@ export enum PATH {
     PROFILE = "/profile",
     ERROR = "*",
     RECOVERY = "/recovery-password",
-    SET_PASSWORD = "/set-password/:token",
+    SET_PASSWORD = "/set-new-password/:token",
     TEST = "all-super-components",
-    PACKS = "/packs"
+    PACKS = "/packs",
+    LEARN = "/learn/:id"
 }
 
 export const Routs = () => {
@@ -28,6 +31,7 @@ export const Routs = () => {
                     <Route path={PATH.PROFILE} element={<Profile/>}/>
                     <Route path={PATH.PACKS} element={<Packs/>}/>
                     <Route path={'/cards/:id'} element={<Cards/>}/>
+                    <Route path={PATH.LEARN} element={<Learn/>}/>
                 </Route>
                 <Route path={'/'} element={<Login/>}/>
                 <Route path={PATH.LOGIN} element={<Login/>}/>

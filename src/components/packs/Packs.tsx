@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../bll/store";
 import {getUsersPacksTC, updatePacksPageCountPaginate, updatePacksParamsAC} from "../../bll/packsReducer";
-import {useSearchParams} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import {ParamsGetPacksType} from "../../api/packs/packs-api";
 import {useDebounce} from "../../assets/hooks/debounceHook";
 import s from "../cards/Crads.module.scss";
@@ -32,6 +32,11 @@ export const Packs = () => {
         max: "",
         sortPacks: "",
     })
+    const [paramsSearchWithoutDebounce, setParamsSearchWithoutDebounce] = useState({user_id: ""})
+    const [firstRender, setFirstRender] = useState(true)
+
+
+    const navigate = useNavigate()
     const debouncedParamsSearch = useDebounce<ParamsGetPacksType>(paramsSearch, 700)
 
     // functions search filter
@@ -44,7 +49,7 @@ export const Packs = () => {
     }
     const addParamsUserId = (filter: 'my' | 'all') => {
         if (userID) {
-            setParamsSearch({
+            setParamsSearchWithoutDebounce({
                 ...paramsSearch,
                 user_id: filter === 'my' ? userID : ''
             })
@@ -53,6 +58,17 @@ export const Packs = () => {
                 "user_id": filter === 'my' ? userID : ''
             }, setSearchParams);
         }
+    }
+    const addParamsMinMax = (min: string, max: string) => {
+        setParamsSearch({
+            ...paramsSearch,
+            min,
+            max
+        })
+        checkParamsForQuery({
+            ...getQueryParams(searchParams),
+            "min": min, "max": max
+        }, setSearchParams)
     }
     const addParamsOfSorting = () => {
         setSort(!sort)
@@ -85,6 +101,10 @@ export const Packs = () => {
         dispatch(updatePacksPageCountPaginate(pageCount))
     };
 
+    const learnPack = (cardsPack_id: string) => {
+        navigate(`/learn/${cardsPack_id}`)
+    }
+
     useEffect(() => {
         checkParamsForQuery(getQueryParams(searchParams), setSearchParams)
     }, [])
@@ -93,6 +113,15 @@ export const Packs = () => {
         dispatch(updatePacksParamsAC(getQueryParams(searchParams)))
         dispatch(getUsersPacksTC())
     }, [debouncedParamsSearch])
+
+    useEffect(() => {
+        if (firstRender) {
+            setFirstRender(false)
+        } else {
+            dispatch(updatePacksParamsAC(getQueryParams(searchParams)))
+            dispatch(getUsersPacksTC())
+        }
+    }, [paramsSearchWithoutDebounce])
 
     return (
         <div className={s.container}>
@@ -103,6 +132,7 @@ export const Packs = () => {
                     user_id={searchParams.get("user_id") || ""}
                     addParamsName={addParamsName}
                     addParamsUserId={addParamsUserId}
+                    addParamsMinMax={addParamsMinMax}
                 />
                 {packs.cardPacks.length
                     ? <div>
@@ -114,9 +144,10 @@ export const Packs = () => {
                             handleChangeRowsPerPage={handleChangeRowsPerPage}
                             statePacks={packs}
                         >
-                            <PacksTableBody learnPack={() => {
-                            }} updatePack={() => {
-                            }} items={packs.cardPacks}/>
+                            <PacksTableBody learnPack={learnPack}
+                                            updatePack={() => {
+                                            }}
+                                            items={packs.cardPacks}/>
                         </PacksTableContainer>
                     </div>
                     : <EmptyPage isMy={true} name={'Add new pack'} packCard={'packs'}/>

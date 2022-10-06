@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useState} from "react";
+import React, {MouseEvent, ChangeEvent, useEffect, useState} from "react";
 import style from './DoubleRange.module.css';
 
 type SuperDoubleRangePropsType = {
@@ -10,6 +10,7 @@ type SuperDoubleRangePropsType = {
     step?: number;
     onChangeRange?: (left: number, right: number) => void;
     className?: string
+    onMouseUp?: (e: MouseEvent<HTMLInputElement>) => void
 };
 
 export const DoubleRange: React.FC<SuperDoubleRangePropsType> = (
@@ -22,6 +23,7 @@ export const DoubleRange: React.FC<SuperDoubleRangePropsType> = (
         step = 1,
         onChangeRange,
         className,
+        onMouseUp,
     }) => {
     const [localLeftValue, setLocalLeftValue] = useState(leftValue);
     const [localRightValue, setLocalRightValue] = useState(rightValue);
@@ -99,6 +101,7 @@ export const DoubleRange: React.FC<SuperDoubleRangePropsType> = (
                        min={min}
                        max={max}
                        step={step}
+                       onMouseUp={e => onMouseUp && onMouseUp(e)}
                 />
                 <input className={style.rangeMax} type="range"
                        value={localRightValue}
@@ -106,6 +109,7 @@ export const DoubleRange: React.FC<SuperDoubleRangePropsType> = (
                        min={min}
                        max={max}
                        step={step}
+                       onMouseUp={e => onMouseUp && onMouseUp(e)}
                 />
             </div>
         </div>
