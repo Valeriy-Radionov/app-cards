@@ -1,9 +1,9 @@
 import React, {ReactNode} from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import styleModal from "./ContentModal.module.scss";
+import styleModal from "./ModalWindow.module.scss";
 import closeBtn from "../../../assets/image/Page 1close.svg";
-import {BlockButtonModal, ButtonActionBlockType} from "./ButtonModal/BlockButtonModal";
+import {BlockButtonModal} from "./ButtonModal/BlockButtonModal";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -12,59 +12,56 @@ const style = {
     padding: '0%',
     transform: 'translate(-50%, -50%)',
     width: 395,
-    height: 311,
+    minHeight: 204,
     bgcolor: 'white',
     boxShadow: 24,
-    p: 0
+    p: 0,
+    paddingBottom: 5
 };
 type ModalWindowType = {
     children: ReactNode
-    typeAction: ButtonActionBlockType // type for button save | delete <- update scss
-    stylePackHandler: () => void //
-    styleButton?: string | undefined
-    nameButton?: string | undefined
-    open?: boolean
-    title: string
-    nameButtonCancel: string
-    nameButtonAction: string
-
+    actionSaveDeleteBtn: () => void
+    titleModal: string
+    namePreviousBtn: string | ReactNode
+    isSaveDeleteModal: 'Save' | 'Delete'
+    isEdit?: 'edit' | 'add'
 }
 
 export const ModalWindow: React.FC<ModalWindowType> = ({
                                                            children,
-                                                           styleButton,
-                                                           nameButton,
-                                                           title,
-                                                           stylePackHandler,
-                                                           nameButtonCancel,
-                                                           nameButtonAction,
-                                                           typeAction
+                                                           titleModal,
+                                                           actionSaveDeleteBtn,
+                                                           namePreviousBtn,
+                                                           isSaveDeleteModal,
+                                                           isEdit
                                                        }) => {
+    const fullStyle = isEdit === 'edit' || isSaveDeleteModal === "Delete"
     const [open, setOpen] = React.useState<boolean>(false);
 
-    const handleOpen = () => setOpen(true)
+    const clickToggleModal = () => {
+        setOpen(!open)
+    }
 
-    const handleClose = () => setOpen(false)
 
 
     return (
-        <div>
-            <button onClick={handleOpen} className={styleButton}>{nameButton}</button>
+        <div className={styleModal.container}>
+            <button onClick={clickToggleModal} className={fullStyle ? styleModal.btnDelete : styleModal.btnPack}>{namePreviousBtn}</button>
             <Modal
                 open={open}
-                onClose={handleClose}
+                onClose={clickToggleModal}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
                     <div className={styleModal.header}>
-                        <span className={styleModal.title}>{title}</span>
-                        <button className={styleModal.close} onClick={handleClose}><img src={closeBtn} alt={"X"}/>
+                        <span className={styleModal.title}>{titleModal}</span>
+                        <button className={styleModal.close} onClick={clickToggleModal}><img src={closeBtn} alt={"X"}/>
                         </button>
                     </div>
                     {children}
-                    <BlockButtonModal nameAction={nameButtonAction} nameClose={nameButtonCancel}
-                                      actionHandler={stylePackHandler} handleClose={setOpen} typeAction={typeAction}/>
+                    <BlockButtonModal isSaveDeleteModal={isSaveDeleteModal} toggleModal={clickToggleModal}
+                                      actionSaveDeleteBtn={actionSaveDeleteBtn}/>
                 </Box>
             </Modal>
         </div>

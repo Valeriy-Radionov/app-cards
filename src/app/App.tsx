@@ -26,6 +26,7 @@ const App = () => {
     return (
 
         <div className="App">
+
             <ErrorSnackbar/>
             {/*
       рекомендуют тут hash router + Provider

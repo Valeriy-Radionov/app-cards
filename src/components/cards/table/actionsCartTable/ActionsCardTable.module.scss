@@ -1,4 +1,6 @@
 .block {
+  display: flex;
+
   .btn {
     outline: none;
     border: none;
@@ -8,6 +10,7 @@
 
     &:hover {
       transform: translateY(-4px);
+      cursor: pointer;
     }
 
     .disable {

@@ -9,7 +9,6 @@ type InputSearchPropsType = {
     name: string
     value: string | undefined
     onChange: (e: ChangeEvent<HTMLInputElement>) => void
-    disabled: boolean
 }
 export const InputSearch: React.FC<InputSearchPropsType> = ({
                                                                 inputId,
@@ -18,7 +17,7 @@ export const InputSearch: React.FC<InputSearchPropsType> = ({
                                                                 name,
                                                                 value,
                                                                 onChange,
-                                                                disabled
+
                                                             }) => {
     return (
         <div className={s.block}>
@@ -32,7 +31,6 @@ export const InputSearch: React.FC<InputSearchPropsType> = ({
                 sx={sx}
                 value={value}
                 onChange={onChange}
-                disabled={disabled}
             />
         </div>
     );

@@ -17,8 +17,8 @@ export const packsApi = {
         return instance.delete<AxiosResponse>(`cards/pack?id=${id}`)
     },
 
-    updatePack(newPack: updatePackDataType) {
-        return instance.put<updatePackDataType, AxiosResponse<ResponsePacksType>>("cards/pack", newPack)
+    updatePack(cardsPack: updatePackDataType) {
+        return instance.put<updatePackDataType, AxiosResponse<ResponsePacksType>>("cards/pack", {cardsPack})
     }
 }
 //types
@@ -69,9 +69,8 @@ export type PostPackDataType = {
 }
 
 export type updatePackDataType = {
-    cardsPack: {
-        _id: string
-        name: string,
-        deckCover: string
-    }
+    _id: string
+    name: string,
+    private?: boolean,
+    deckCover?: string
 }

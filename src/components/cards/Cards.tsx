@@ -2,21 +2,21 @@ import React, {ChangeEvent, useEffect, useState} from 'react'
 import s from './Crads.module.scss'
 import {useAppDispatch, useAppSelector} from "../../bll/store";
 import {
-    addNewCardTC,
-    deleteCardsTC,
     getCardsTC,
     updatePageCountPaginateAC,
     updatePagePaginateAC,
     updateParamsAC
 } from "../../bll/cardsReducer";
-import { useSearchParams, useLocation} from 'react-router-dom'
+import {useSearchParams, useLocation} from 'react-router-dom'
 import {BasicTable} from "./table/CardsTable";
 import {useDebounce} from "../../assets/hooks/debounceHook";
-import {MapTableBody} from "./table/TableBody";
+import {TableBodyCart} from "./table/TableBody";
 import {EmptyPage} from "../emptyPage/EmptyPage";
 import {LinkArrow} from "../../common/components/Link/LinkArrow";
 import {InputSearch} from "../../common/components/inputSearchDouble/InputSearch";
 import actions from '../../assets/image/actions.svg'
+import AddCartModal from "./cardModals/addCardModal/AddCartModal";
+import {getQueryParams, checkParamsForQuery} from '../../assets/utils/workingWithParameters'
 
 
 export type ParamsType = {
@@ -47,35 +47,8 @@ function Cards() {
     //
 
     //functions working to query params
-    const updateParamsBackPackLink = () => {
-        dispatch(updateParamsAC({cardQuestion: '', cardAnswer: '', cardsPack_id: id}))
-    }
-    const getQueryParams = (id: string) => {
-        const params: any = {
-            cardsPack_id: id,
-            cardQuestion: '',
-            cardAnswer: '',
-            page: '1',
-            pageCount: '10'
-        }
-
-        searchParams.forEach((value, key) => {
-            if (key) {
-                params[key] = value
-            }
-        })
-        return params
-    }
-    const checkParamsForQuery = (params: any) => {
-        const nameParams = Object.keys(params);
-        let resultSearchParams = {};
-        nameParams.forEach(name => {
-            if (params[name]) {
-                resultSearchParams = {...resultSearchParams, [name]: params[name]}
-            }
-        })
-        setSearchParams(resultSearchParams);
-        return resultSearchParams
+    const updateParamsBackPackLink = (id?: string) => {
+        dispatch(updateParamsAC({cardQuestion: '', cardAnswer: '', cardsPack_id: id || ''}))
     }
 
     // functions add filter
@@ -84,24 +57,29 @@ function Cards() {
             ...paramsSearch,
             cardQuestion: e.currentTarget.value
         })
-        checkParamsForQuery({...getQueryParams(id), "cardQuestion": e.currentTarget.value});
+        checkParamsForQuery({
+            ...getQueryParams(searchParams, id),
+            "cardQuestion": e.currentTarget.value
+        }, setSearchParams);
     }
+
     const addParamsAnswer = (e: ChangeEvent<HTMLInputElement>) => {
         setParamsSearch({
             ...paramsSearch,
             cardAnswer: e.currentTarget.value
         })
-        checkParamsForQuery({...getQueryParams(id), "cardAnswer": e.currentTarget.value})
+        checkParamsForQuery({...getQueryParams(searchParams, id), "cardAnswer": e.currentTarget.value}, setSearchParams)
 
     }
+
     const addParamsGrade = () => {
         setGradeSearch(!gradeSearch)
         if (!gradeSearch) {
             setParamsSearch({...paramsSearch, sortCards: '1grade'})
-            checkParamsForQuery({...getQueryParams(id), sortCards: '1grade'})
+            checkParamsForQuery({...getQueryParams(searchParams, id), sortCards: '1grade'}, setSearchParams)
         } else {
             setParamsSearch({...paramsSearch, sortCards: '0grade'})
-            checkParamsForQuery({...getQueryParams(id), sortCards: '0grade'})
+            checkParamsForQuery({...getQueryParams(searchParams, id), sortCards: '0grade'}, setSearchParams)
         }
     }
     //
@@ -109,39 +87,35 @@ function Cards() {
     // functions paginate
     const handleChangePage = (event: unknown, newPage: number) => {
         const page = newPage + 1
+        const actualPage = page.toString()
 
-        checkParamsForQuery({...paramsSearch, page})
+        checkParamsForQuery({...getQueryParams(searchParams, id), page: actualPage}, setSearchParams)
         setParamsSearch({...paramsSearch, page: page.toString()})
 
         dispatch(updatePagePaginateAC(page))
     }
-    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const pageCount = parseInt(event.target.value, 10)
 
-        checkParamsForQuery({...paramsSearch, pageCount: pageCount})
+    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const count = parseInt(event.target.value, 10)
+        const pageCount = count.toString()
+
+        checkParamsForQuery({...getQueryParams(searchParams, id), pageCount}, setSearchParams)
         setParamsSearch({...paramsSearch, pageCount: pageCount.toString()})
 
-        dispatch(updatePageCountPaginateAC(pageCount))
+        dispatch(updatePageCountPaginateAC(count))
     };
     //
 
-    //functions control card
-    const addNewCards = () => {
-        dispatch(addNewCardTC())
-    }
-    const deleteCard = (id: string) => {
-        dispatch(deleteCardsTC(id))
-    }
-    //
 
     const debouncedParamsSearch = useDebounce<ParamsType>(paramsSearch, 1000)
 
     useEffect(() => {
-        checkParamsForQuery(getQueryParams(id))
+        checkParamsForQuery(getQueryParams(searchParams, id), setSearchParams)
     }, [])
 
     useEffect(() => {
-        dispatch(updateParamsAC(getQueryParams(id)))
+        updateParamsBackPackLink()
+        dispatch(updateParamsAC(getQueryParams(searchParams, id)))
         dispatch(getCardsTC())
     }, [debouncedParamsSearch])
 
@@ -153,7 +127,8 @@ function Cards() {
                 <div className={s.packName}>
                     <span>{cards.packName}</span>
                     {isMyCards
-                        ? <button disabled={updateStatusApp} style={updateStatusApp ? {opacity: '0.5'} : {}}><img src={actions} alt='actions'/></button>
+                        ? <button disabled={updateStatusApp} style={updateStatusApp ? {opacity: '0.5'} : {}}><img
+                            src={actions} alt='actions'/></button>
                         : null
                     }
                 </div>
@@ -165,7 +140,6 @@ function Cards() {
                                      sx={{width: '100%', background: '#FFFFFF'}}
                                      value={searchParams.get('cardQuestion') || ''}
                                      onChange={addParamsQuestion}
-                                     disabled={updateStatusApp}
                         />
                     </div>
                     <div className={s.searchItem2}>
@@ -175,20 +149,13 @@ function Cards() {
                                      sx={{width: '100%', background: '#FFFFFF'}}
                                      value={searchParams.get('cardAnswer') || ''}
                                      onChange={addParamsAnswer}
-                                     disabled={updateStatusApp}
                         />
                     </div>
                 </div>
                 {cards.cards.length
                     ? <div className={s.blockTable}>
                         {isMyCards
-                            ? <button onClick={addNewCards}
-                                      className={s.addCard}
-                                      disabled={updateStatusApp}
-                                      style={updateStatusApp ? {opacity: '0.5'} : {}}
-                            >
-                                Add new card
-                            </button>
+                            ? <AddCartModal addEditModal={'add'}/>
                             : null
                         }
                         <BasicTable
@@ -199,10 +166,10 @@ function Cards() {
                             stateItems={cards}
                             disabledPaginate={updateStatusApp}
                         >
-                            <MapTableBody items={cards.cards} deleteItem={deleteCard} isMy={isMyCards}/>
+                            <TableBodyCart items={cards.cards} isMy={isMyCards}/>
                         </BasicTable>
                     </div>
-                    : <EmptyPage addNewItem={addNewCards} isMy={isMyCards} name={'Add new card'}/>
+                    : <EmptyPage isMy={isMyCards} name={'Add new card'} packCard={'cards'}/>
                 }
             </div>
         </div>
