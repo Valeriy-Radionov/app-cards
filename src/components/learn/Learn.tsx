@@ -1,19 +1,14 @@
 import React, {useEffect, useState} from 'react'
 import s from './Learn.module.scss'
 import SuperButton from "../../common/components/c2-SuperButton 2/SuperButton";
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
 import {LinkArrow} from "../../common/components/Link/LinkArrow";
 import {Grades} from '../../api/cards/cards-api'
 import {useAppDispatch, useAppSelector} from "../../bll/store";
 import {useParams} from "react-router-dom";
-import { getAllCards, updateGrade, updateParamsAC} from "../../bll/learnReducer";
-
+import {changeCurrentCardAC, getAllCards, updateGrade, updateParamsAC} from "../../bll/learnReducer";
 import {Question} from "./Question/Question";
 import {Answer} from "./Answer/Answer";
+import {getCard} from "../../assets/utils/randomGetCard";
 
 
 export const Learn = () => {
@@ -38,11 +33,24 @@ export const Learn = () => {
     }, [])
 
 
+    const [grades, setGrades] = useState<Grades | string>(Grades.DidNotKnow)
+
+    const gradesHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setGrades(e.target.value)
+    }
+    const onNextClickHandler = () => {
+        let data = {
+            grade: grades,
+            card_id: card_id
+        }
+        dispatch(updateGrade(data))
+        dispatch(changeCurrentCardAC(getCard(cards)))
+        setQuestionMode(true)
+    }
 
     const onAnswerClickHandler = () => {
         setQuestionMode(false)
     }
-
 
 
     return (
@@ -57,24 +65,27 @@ export const Learn = () => {
                             {questionMode
                                 ?
                                 <>
-                                <Question
-                                    card={card}
-                                gotCardsInDeck={gotCardsInDeck}
+                                    <Question
+                                        card={card}
+                                        gotCardsInDeck={gotCardsInDeck}
                                     />
-                                <SuperButton className={s.button}
-                                             onClick={onAnswerClickHandler}
-                                             disabled={!gotCardsInDeck}>ANSWER</SuperButton>
+                                    <SuperButton className={s.button}
+                                                 onClick={onAnswerClickHandler}
+                                                 disabled={!gotCardsInDeck}>ANSWER</SuperButton>
                                 </>
                                 :
                                 <>
-                                <Question card={card} gotCardsInDeck={gotCardsInDeck} />
-                                <Answer
-                                card_id = {card_id}
-                                cards={cards}
-                                card={card}
-                                setQuestionMode={setQuestionMode}
-                                />
-                                   </> }
+                                    <Question card={card} gotCardsInDeck={gotCardsInDeck}/>
+                                    <Answer
+                                        card_id={card_id}
+                                        cards={cards}
+                                        card={card}
+                                        grades={grades}
+                                        gradesHandler={gradesHandler}
+                                    />
+                                    <SuperButton className={s.button}
+                                                 onClick={onNextClickHandler}>Next</SuperButton>
+                                </>}
 
                         </>}
                 </div>
