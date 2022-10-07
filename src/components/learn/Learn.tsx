@@ -13,10 +13,7 @@ import {getCard} from "../../assets/utils/randomGetCard";
 
 export const Learn = () => {
 
-
     const [questionMode, setQuestionMode] = useState(true)
-
-
     const dispatch = useAppDispatch
     const packName = useAppSelector(state => state.learn.currentPackName)
     const cards = useAppSelector(state => state.learn.cards)
@@ -26,12 +23,6 @@ export const Learn = () => {
     const {id} = useParams()
     const gotCardsInDeck = cards.length > 0
     console.log(cards.length > 0)
-
-    useEffect(() => {
-        dispatch(updateParamsAC({cardsPack_id: id}))
-        dispatch(getAllCards())
-    }, [])
-
 
     const [grades, setGrades] = useState<Grades | string>(Grades.DidNotKnow)
 
@@ -51,10 +42,12 @@ export const Learn = () => {
     const onAnswerClickHandler = () => {
         setQuestionMode(false)
     }
-
+    useEffect(() => {
+        dispatch(updateParamsAC({cardsPack_id: id}))
+        dispatch(getAllCards())
+    }, [])
 
     return (
-
         <div className={s.container}>
             <div className={s.title}>
                 <LinkArrow className={s.link} to={'/packs'} name={'Back to Packs List'}/>

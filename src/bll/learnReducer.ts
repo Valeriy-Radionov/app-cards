@@ -51,7 +51,7 @@ export const learnReducer = (state: LearnStateType = initialState, action: Learn
 //AC's
 export const setAllCardsAC = (cards: Array<CardType>) =>
     ({type: LEARN_ACTIONS.GET_ALL_CARDS, cards} as const)
-export const updateCardAC = (grade: number | string, shots: string | number, card_id: string) =>
+export const updateCardAC = (grade: number, shots: number, card_id: string) =>
     ({type: LEARN_ACTIONS.UPDATE_GRADE, payload: {grade, shots, card_id}} as const)
 export const updateParamsAC = (params: ParamsType) =>
     ({type: LEARN_ACTIONS.UPDATE_PARAMS, params} as const)
@@ -82,10 +82,14 @@ export const getAllCards = (): AppThunk => async (dispatch, getState) => {
         dispatch(setAppStatusAC("idle"))
     }
 }
+
 export const updateGrade = (updateGradeRequestData: UpdateGradeRequestType): AppThunk => dispatch => {
     cardsApi.updateGrade(updateGradeRequestData)
         .then(res => {
-            dispatch(updateCardAC(res.grade, res.shots, res.card_id))
+            const grade = Number(res.grade)
+            const shots = Number(res.shots)
+            dispatch(updateCardAC(grade, shots, res.card_id))
+            dispatch(getAllCards())
         })
         .catch(e => handleServerNetworkError(e, dispatch))
 }
