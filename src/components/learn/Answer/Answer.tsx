@@ -17,38 +17,33 @@ type AnswerPropsType = {
 }
 
 export const Answer: React.FC<AnswerPropsType> = (props) => {
-
-
     return (
-        <div className={s.main}>
-            <div className={s.block}>
-                <div className={s.question}>
-                    <span>Answer:</span>
-                    <span className={s.questionBody}>{props.card && props.card.answer}</span>
-                </div>
-                <FormControl>
-                    <FormLabel id="radio-buttons-group-label">Rate yourself:</FormLabel>
-                    <RadioGroup
-                        aria-labelledby="radio-buttons-group-label"
-                        defaultValue={Grades.DidNotKnow}
-                        name="radio-buttons-group"
-                        value={props.grades}
-                        onChange={props.gradesHandler}
-                    >
-                        <FormControlLabel value={Grades.DidNotKnow} control={<Radio size="small"/>}
-                                          label="Did not know" labelPlacement="end"/>
-                        <FormControlLabel value={Grades.Forgot} control={<Radio size="small"/>}
-                                          label="Forgot"/>
-                        <FormControlLabel value={Grades.ALotOfThought} control={<Radio size="small"/>}
-                                          label="A lot of thought"/>
-                        <FormControlLabel value={Grades.Confused} control={<Radio size="small"/>}
-                                          label="Confused"/>
-                        <FormControlLabel value={Grades.KnewTheAnswer} control={<Radio size="small"/>}
-                                          label="Knew the answer"/>
-                    </RadioGroup>
-                </FormControl>
-
+        <>
+            <div className={s.answer}>
+                <span style={{fontWeight: 600}}>Answer: </span>
+                <span >{props.card && props.card.answer}</span>
             </div>
-        </div>
+            <FormControl>
+                <FormLabel id="radio-buttons-group-label">Rate yourself:</FormLabel>
+                <RadioGroup
+                    aria-labelledby="radio-buttons-group-label"
+                    defaultValue={Grades.DidNotKnow}
+                    name="radio-buttons-group"
+                    value={props.grades}
+                    onChange={props.gradesHandler}
+                >
+                    <FormControlLabel value={Grades.DidNotKnow} control={<Radio size="small"/>}
+                                      label="Did not know" labelPlacement="end"/>
+                    <FormControlLabel value={Grades.Forgot} control={<Radio size="small"/>}
+                                      label="Forgot"/>
+                    <FormControlLabel value={Grades.ALotOfThought} control={<Radio size="small"/>}
+                                      label="A lot of thought"/>
+                    <FormControlLabel value={Grades.Confused} control={<Radio size="small"/>}
+                                      label="Confused"/>
+                    <FormControlLabel value={Grades.KnewTheAnswer} control={<Radio size="small"/>}
+                                      label="Knew the answer"/>
+                </RadioGroup>
+            </FormControl>
+        </>
     )
 }

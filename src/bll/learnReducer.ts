@@ -82,12 +82,22 @@ export const getAllCards = (): AppThunk => async (dispatch, getState) => {
         dispatch(setAppStatusAC("idle"))
     }
 }
-export const updateGrade = (updateGradeRequestData: UpdateGradeRequestType): AppThunk => dispatch => {
+export const updateGrade = (updateGradeRequestData: UpdateGradeRequestType): AppThunk => (dispatch, getState) => {
+    dispatch(setAppStatusAC("loading"))
     cardsApi.updateGrade(updateGradeRequestData)
         .then(res => {
             dispatch(updateCardAC(res.grade, res.shots, res.card_id))
+            const cards = getState().learn.cards
+            dispatch(changeCurrentCardAC(getCard(cards)))
+            dispatch(setAppStatusAC("succeeded"))
         })
-        .catch(e => handleServerNetworkError(e, dispatch))
+        .catch(e => {
+            handleServerNetworkError(e, dispatch)
+            dispatch(setAppStatusAC("failed"))
+        })
+        .finally(() => {
+            dispatch(setAppStatusAC("idle"))
+        })
 }
 
 //types

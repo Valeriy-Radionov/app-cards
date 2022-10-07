@@ -1,26 +1,11 @@
-.main {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    height: 100%;
-}
-
 .question {
-    font-family: 'Montserrat', sans-serif;
-    font-size:24px;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-
-}
-
-.questionBody {
-    font-family: 'Montserrat', sans-serif;
     font-size: 16px;
-    line-height: 24px;
+    margin: 0 0 13px 0;
 }
 .attempts {
+    font-weight: 400;
+    font-size: 14px;
+    margin: 0 0 29px 0;
     opacity: 0.5;
 }
 

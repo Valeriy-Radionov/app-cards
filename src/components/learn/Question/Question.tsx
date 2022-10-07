@@ -5,28 +5,23 @@ import s from './Question.module.css'
 
 type QuestionPropsType = {
     card: CardType | null,
-    gotCardsInDeck: boolean
+    cardsAvailability: boolean
 }
 
 export const Question: React.FC<QuestionPropsType> = (props) => {
     return (
-        <div className={s.main}>
-            <div className={s.container}>
-                <div className={s.block}>
-                    {props.gotCardsInDeck
-                        ? <div className={s.question}>
-                            <span>Question: </span>
-                            <span className={s.questionBody}>{props.card && props.card.question}</span>
-                        </div>
-                        :
-                        <span>No cards</span>
-                    }
+        <>
+            {props.cardsAvailability
+                ? <div className={s.question}>
+                    <span style={{fontWeight: 600}}>Question: </span>
+                    <span>{props.card && props.card.question}</span>
                 </div>
-            </div>
+                :
+                <span>No cards</span>
+            }
             <div className={s.attempts}>
                 {props.card && `Number of answer attempts: ${props.card.shots}`}
             </div>
-
-        </div>
+        </>
     )
 }
