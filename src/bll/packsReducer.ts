@@ -54,7 +54,6 @@ const initialState: PacksType = {
         min: "0",
         max: "0",
         sortPacks: "",
-        block: false
     },
     page: 1,
     pageCount: 4,
