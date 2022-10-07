@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/app-cards/static/css/main.7c16088c.css",
-    "main.js": "/app-cards/static/js/main.61ca9cdf.js",
+    "main.css": "/app-cards/static/css/main.a4bf71cc.css",
+    "main.js": "/app-cards/static/js/main.cabd1e1a.js",
     "static/js/787.28cb0dcd.chunk.js": "/app-cards/static/js/787.28cb0dcd.chunk.js",
     "static/media/display-password.png": "/app-cards/static/media/display-password.ed9412092c4d29799580.png",
-    "static/media/checkbox.png": "/app-cards/static/media/checkbox.ee37c0644d7f69efb8c2.png",
     "static/media/Delete.svg": "/app-cards/static/media/Delete.4917c471a6c3d7ecc0ebd1dc25171ba0.svg",
     "static/media/Edit.svg": "/app-cards/static/media/Edit.d2962525fc4ca1f53b8ebcd1ae580d51.svg",
     "static/media/Union.svg": "/app-cards/static/media/Union.bcf9fd18a6c2b3354645e768a27bb111.svg",
-    "static/media/teacherlearn.svg": "/app-cards/static/media/teacherlearn.98ddc8f9376c79b05bb474310295b927.svg",
     "index.html": "/app-cards/index.html",
+    "static/media/teacherlearn.svg": "/app-cards/static/media/teacherlearn.98ddc8f9376c79b05bb474310295b927.svg",
+    "static/media/Page 1close.svg": "/app-cards/static/media/Page 1close.97f95338c3976d30e29ac67fc8e15e59.svg",
     "static/media/actions.svg": "/app-cards/static/media/actions.4cc60b28e635bd7265ee7b2c1812758d.svg",
     "static/media/Vector 1.svg": "/app-cards/static/media/Vector 1.9c43ee4473c188dca31578cbfa023bb9.svg",
     "static/media/arrow.svg": "/app-cards/static/media/arrow.6761c73698f6dbe5adddb25893ca9354.svg",
-    "main.7c16088c.css.map": "/app-cards/static/css/main.7c16088c.css.map",
-    "main.61ca9cdf.js.map": "/app-cards/static/js/main.61ca9cdf.js.map",
+    "main.a4bf71cc.css.map": "/app-cards/static/css/main.a4bf71cc.css.map",
+    "main.cabd1e1a.js.map": "/app-cards/static/js/main.cabd1e1a.js.map",
     "787.28cb0dcd.chunk.js.map": "/app-cards/static/js/787.28cb0dcd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.7c16088c.css",
-    "static/js/main.61ca9cdf.js"
+    "static/css/main.a4bf71cc.css",
+    "static/js/main.cabd1e1a.js"
   ]
 }
