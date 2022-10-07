@@ -60,7 +60,6 @@ export type ParamsGetPacksType = {
     min?: string,
     max?: string,
     sortPacks?: string,
-    block?: boolean
 }
 export type PostPackDataType = {
     name?: string,

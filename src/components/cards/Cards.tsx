@@ -33,6 +33,8 @@ function Cards() {
     const appStatus = useAppSelector(state => state.app.status)
     const updateStatusApp = appStatus === 'loading'
     const isMyCards = cards.packUserId === userID
+    const paramsPack = useAppSelector(state => state.packs.params)
+    let queryParamsPacks = new URLSearchParams(paramsPack).toString()
 
     // URLSearchParams
     const [searchParams, setSearchParams] = useSearchParams();
@@ -116,7 +118,7 @@ function Cards() {
     return (
         <div className={s.container}>
             <div className={s.content}>
-                <LinkArrow className={s.link} to={'/packs'} name={'Back to Packs List'}
+                <LinkArrow className={s.link} to={`/packs?${queryParamsPacks}`} name={'Back to Packs List'}
                            callback={updateParamsBackPackLink}/>
                 <div className={s.packName}>
                     <span>{cards.packName}</span>
