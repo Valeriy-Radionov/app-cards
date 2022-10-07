@@ -1,13 +1,8 @@
 import React, {ChangeEvent, useEffect, useState} from 'react'
 import s from './Crads.module.scss'
 import {useAppDispatch, useAppSelector} from "../../bll/store";
-import {
-    getCardsTC,
-    updatePageCountPaginateAC,
-    updatePagePaginateAC,
-    updateParamsAC
-} from "../../bll/cardsReducer";
-import {useSearchParams, useLocation} from 'react-router-dom'
+import {getCardsTC, updatePageCountPaginateAC, updatePagePaginateAC, updateParamsAC} from "../../bll/cardsReducer";
+import {useLocation, useSearchParams} from 'react-router-dom'
 import {BasicTable} from "./table/CardsTable";
 import {useDebounce} from "../../assets/hooks/debounceHook";
 import {TableBodyCart} from "./table/TableBody";
@@ -16,7 +11,7 @@ import {LinkArrow} from "../../common/components/Link/LinkArrow";
 import {InputSearch} from "../../common/components/inputSearchDouble/InputSearch";
 import actions from '../../assets/image/actions.svg'
 import AddCartModal from "./cardModals/addCardModal/AddCartModal";
-import {getQueryParams, checkParamsForQuery} from '../../assets/utils/workingWithParameters'
+import {checkParamsForQuery, getQueryParams} from '../../assets/utils/workingWithParameters'
 
 
 export type ParamsType = {
@@ -29,7 +24,6 @@ export type ParamsType = {
     page?: string  // не обязательно
     pageCount?: string // не обязательно
 }
-
 
 function Cards() {
     let id = useLocation().pathname.slice(7)

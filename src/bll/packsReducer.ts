@@ -30,9 +30,9 @@ const initialState: PacksType = {
     cardPacks: [{
         _id: "63306a3a6caad3673917ba62",
         user_id: "632502cb94b7970fb4f08698",
-        user_name: "Loading",
+        user_name: "Loading...",
         private: false,
-        name: "Loading",
+        name: "Loading...",
         path: "/def",
         grade: 0,
         shots: 0,
@@ -51,8 +51,8 @@ const initialState: PacksType = {
         packs_Id: "",
         page: "1",
         pageCount: "10",
-        min: "0",
-        max: "0",
+        min: "",
+        max: "",
         sortPacks: "",
         block: false
     },

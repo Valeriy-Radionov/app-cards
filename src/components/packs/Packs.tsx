@@ -32,8 +32,8 @@ export const Packs = () => {
         max: "",
         sortPacks: "",
     })
-    const [paramsSearchWithoutDebounce, setParamsSearchWithoutDebounce] = useState({user_id: ""})
-    const [firstRender, setFirstRender] = useState(true)
+    // const [paramsSearchWithoutDebounce, setParamsSearchWithoutDebounce] = useState({user_id: ""})
+    // const [firstRender, setFirstRender] = useState(true)
 
 
     const navigate = useNavigate()
@@ -47,9 +47,10 @@ export const Packs = () => {
         })
         checkParamsForQuery({...getQueryParams(searchParams), "packName": e.currentTarget.value}, setSearchParams);
     }
+
     const addParamsUserId = (filter: 'my' | 'all') => {
         if (userID) {
-            setParamsSearchWithoutDebounce({
+            setParamsSearch({
                 ...paramsSearch,
                 user_id: filter === 'my' ? userID : ''
             })
@@ -114,25 +115,25 @@ export const Packs = () => {
         dispatch(getUsersPacksTC())
     }, [debouncedParamsSearch])
 
-    useEffect(() => {
-        if (firstRender) {
-            setFirstRender(false)
-        } else {
-            dispatch(updatePacksParamsAC(getQueryParams(searchParams)))
-            dispatch(getUsersPacksTC())
-        }
-    }, [paramsSearchWithoutDebounce])
+    // useEffect(() => {
+    //     if (firstRender) {
+    //         setFirstRender(false)
+    //     } else {
+    //         dispatch(updatePacksParamsAC(getQueryParams(searchParams)))
+    //         dispatch(getUsersPacksTC())
+    //     }
+    // }, [paramsSearchWithoutDebounce])
 
     return (
         <div className={s.container}>
             <div className={s.content}>
                 <LinkArrow className={s.link} to={'/profile'} name={'Back to Profile'}/>
-                <SearchBlock
-                    paramsSearch={searchParams}
-                    user_id={searchParams.get("user_id") || ""}
-                    addParamsName={addParamsName}
-                    addParamsUserId={addParamsUserId}
-                    addParamsMinMax={addParamsMinMax}
+                <SearchBlock maxValue={packs.maxCardsCount} minValue={packs.minCardsCount}
+                             paramsSearch={searchParams}
+                             user_id={searchParams.get("user_id") || ""}
+                             addParamsName={addParamsName}
+                             addParamsUserId={addParamsUserId}
+                             addParamsMinMax={addParamsMinMax}
                 />
                 {packs.cardPacks.length
                     ? <div>

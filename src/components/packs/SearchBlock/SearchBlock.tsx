@@ -10,6 +10,8 @@ type SettingsBlockPropsType = {
     addParamsUserId: (filter: 'my' | 'all') => void
     addParamsMinMax: (min: string, max: string) => void
     user_id: string
+    minValue: number
+    maxValue: number
 }
 
 export const SearchBlock = (props: SettingsBlockPropsType) => {
@@ -32,7 +34,8 @@ export const SearchBlock = (props: SettingsBlockPropsType) => {
             </div>
             <div className={s.item}>
                 <span>Number of cards</span>
-                <DoubleRangeBlock addParamsMinMax={props.addParamsMinMax}/>
+                <DoubleRangeBlock maxValue={props.maxValue} minValue={props.minValue}
+                                  addParamsMinMax={props.addParamsMinMax}/>
             </div>
         </div>
     );

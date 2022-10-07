@@ -1,33 +1,44 @@
-import React, {MouseEvent, useEffect, useState} from 'react';
-import {SquareWithRangeValue} from "../../../../common/components/SquareWithRangeValue/SquareWithRangeValue";
-import {DoubleRange} from "../../../../common/components/DoubleRange/DoubleRange";
+import React, {useEffect} from 'react';
 import s from './DoubleRangeBlock.module.css'
+import {Slider} from "@mui/material";
+import {useSearchParams} from "react-router-dom";
 
 type DoubleRangeBlockPropsType = {
     addParamsMinMax: (min: string, max: string) => void
+    minValue: number
+    maxValue: number
 }
 
 export const DoubleRangeBlock = (props: DoubleRangeBlockPropsType) => {
-    const [leftValue, setLeftValue] = useState(0)
-    const [rightValue, setRightValue] = useState(100)
-    const [mouseUpEvent, setMouseUpEvent] = useState<object>()
+    const [params, setParams] = useSearchParams()
+    const [value, setValue] = React.useState<number[]>([0, 100]);
 
-    const onChangeCallback = (leftValue: number, rightValue: number) => {
-        setLeftValue(leftValue)
-        setRightValue(rightValue)
+    function valuetext(value: number) {
+        return `${value}`;
     }
-    const onMouseUpCallback = (e: MouseEvent<HTMLInputElement>) => {
-        setMouseUpEvent(e)
+
+    const handleChange = (event: Event, newValue: number | number[]) => {
+        setValue(newValue as number[]);
+        props.addParamsMinMax(value[0].toString(), value[1].toString())
     }
 
     useEffect(() => {
-        props.addParamsMinMax('' + leftValue, '' + rightValue)
-    }, [mouseUpEvent])
+        const min = params.get('min')
+        const max = params.get('max')
+        setValue([Number(min) || props.minValue, Number(max) || props.maxValue])
+    }, [props.minValue, props.maxValue])
+
     return (
         <div className={s.container}>
-            <SquareWithRangeValue value={leftValue}/>
-            <DoubleRange onMouseUp={onMouseUpCallback} onChangeRange={onChangeCallback}/>
-            <SquareWithRangeValue value={rightValue}/>
+            <Slider
+                min={props.minValue}
+                max={props.maxValue}
+                getAriaLabel={() => 'Temperature range'}
+                value={value}
+                onChange={handleChange}
+                valueLabelDisplay="auto"
+                getAriaValueText={valuetext}
+            />
         </div>
     );
 };

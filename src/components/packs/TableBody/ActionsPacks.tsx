@@ -25,8 +25,6 @@ export const ActionsPacks: React.FC<ActionsCardTablePropsType> = ({
     const disabled = status === "loading"
     const styleDisable = status === "loading" ? {opacity: "0.5"} : {}
 
-
-
     return (
         userProfileId === userId ?
             <div className={s.block}>
