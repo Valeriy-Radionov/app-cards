@@ -99,6 +99,7 @@ type updateParamsPacksAC = ReturnType<typeof updatePacksParamsAC>
 type updatePacksPagePaginateACType = ReturnType<typeof updatePacksPagePaginateAC>
 type updatePacksPageCountPaginateType = ReturnType<typeof updatePacksPageCountPaginate>
 
+// actions
 export const setUsersPacksAC = (userPacks: ResponsePacksType) => ({
     type: GET_USERS_PACKS,
     payload: {userPacks}

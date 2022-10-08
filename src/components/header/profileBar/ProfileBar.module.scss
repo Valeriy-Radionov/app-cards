@@ -1,0 +1,24 @@
+@import "src/assets/style/mixins.scss";
+
+.container {
+  display: flex;
+  align-items: center;
+
+  .nickName {
+    margin-right: 10px;
+    border-bottom: 2px dashed black;
+
+    &:hover {
+      cursor: pointer;
+      color: #366efe;
+    }
+  }
+
+  .avatar {
+    @include backgroundImg(cover, no-repeat, center);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 1);
+  }
+}

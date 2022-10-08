@@ -1,0 +1,42 @@
+@import "src/assets/style/mixins.scss";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  top: 69px;
+  right: 89px;
+  background-color: white;
+  border: 1px solid #CFCFCF;
+  border-top: none;
+  box-shadow: 2px 4px 9px rgba(0, 0, 0, 0.6);
+
+  &:before {
+    @include width-height(20px, 20px);
+    background-color: white;
+    border: 1px solid #CFCFCF;
+    content: '';
+    left: 60px;
+    top: -3px;
+    position: absolute;
+    box-shadow: 2px 4px 9px rgba(0, 0, 0, 0.6);
+    transform: rotate(45deg);
+    z-index: -1;
+  }
+
+  .settings {
+    display: flex;
+    padding: 10px;
+    align-items: center;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    .items {
+      margin-right: 10px;
+      @include width-height(16px, 16px);
+      @include backgroundImg(cover, no-repeat, center);
+    }
+  }
+}

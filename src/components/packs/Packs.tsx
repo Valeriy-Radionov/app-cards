@@ -32,9 +32,6 @@ export const Packs = () => {
         max: "",
         sortPacks: "",
     })
-    // const [paramsSearchWithoutDebounce, setParamsSearchWithoutDebounce] = useState({user_id: ""})
-    // const [firstRender, setFirstRender] = useState(true)
-
 
     const navigate = useNavigate()
     const debouncedParamsSearch = useDebounce<ParamsGetPacksType>(paramsSearch, 700)
@@ -114,15 +111,6 @@ export const Packs = () => {
         dispatch(updatePacksParamsAC(getQueryParams(searchParams)))
         dispatch(getUsersPacksTC())
     }, [debouncedParamsSearch])
-
-    // useEffect(() => {
-    //     if (firstRender) {
-    //         setFirstRender(false)
-    //     } else {
-    //         dispatch(updatePacksParamsAC(getQueryParams(searchParams)))
-    //         dispatch(getUsersPacksTC())
-    //     }
-    // }, [paramsSearchWithoutDebounce])
 
     return (
         <div className={s.container}>
