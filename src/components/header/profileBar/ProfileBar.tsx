@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import style from "./ProfileBar.module.scss"
 import {backgroundImg} from "../../../assets/style/utilitsBg";
 import {useAppSelector} from "../../../bll/store";
@@ -10,12 +10,24 @@ export const ProfileBar: React.FC<ProfileBarPropsType> = () => {
     const avatarUser = useAppSelector(state => state.profile?.user?.avatar)
     const [expand, setExpand] = useState<boolean>(false)
     const userSettingsHandler = () => {
-        setExpand(!expand)
+        setExpand(prev => !prev)
     }
-    //отловить клик вне компоненты для закрытия окна
+    const spanBarRef = useRef(null)
+
+    useEffect(() => {
+        const closeDropdown = (e: MouseEvent) => {
+            if (e.target !== spanBarRef.current) {
+                return setExpand(false)
+            }
+        }
+        document.body.addEventListener("click", closeDropdown)
+        return () => document.body.removeEventListener("click", closeDropdown)
+    }, [])
+
     return (
         <div className={style.container}>
-            <span className={style.nickName} onClick={userSettingsHandler}>{nameUser}</span>
+            <span ref={spanBarRef} id={"nameUser"} className={style.nickName}
+                  onClick={userSettingsHandler}>{nameUser}</span>
             <div className={style.avatar}
                  style={backgroundImg(`${avatarUser}`)}></div>
             {expand ? <ProfileBarSettings onClickHandler={userSettingsHandler}/> : null}
